@@ -1,0 +1,1144 @@
+1.Biến
+var b="Hiep";
+
+2.comments
+// nội dung
+/** :ấn 2 dấu sao để gợi ý
+/*
+Nội dung
+*/
+
+3.Built-in functions
+alert
+console.log(warn,erorr)
+confirm('') :xác nhận
+prompt() :Nhập
+setTimeout(function(){ },1000ms) :THực thi sau 1 khoảng thời gian
+setInterval(function(){ },1000ms) : Thực thi liên tục cách 1 giây chạy 1 lần
+
+4.Toán tử
+&& : và , || :hoặc , ! :Not
+** : luỹ thừa
+/ : chia
+// :chia lấy dư
+x-=y : x=x-y
+== : bằng
+!= : Khác
+>= : lớn hơn hoặc bằng
+Chỉ js:
+=== : so sánh value và datatype (Ví dụ trong js thì 1=='1': true chỉ so sánh value)
+!== :Ngược
+Ví Dụ : 
+var x='a' && 'b' && 'c' : x sẽ bằng c do chạy từ trái sang phải gặp sai sẽ dừng lấy sai, không sai lấy cuối
+|| Tìm đúng : Gặp đúng gán rồi dừng
+
+5. Kiểu boolean
+var dung = true;
+false ={0, false , '' , "", undefined, NaN = Lỗi logic , null }
+
+6. Kiểu dữ liệu
+- Nguyên thuỷ - Primitive data:
++ Number
++ string
++ boolean
++ undefined
++ null
++ symbol
+- Phức tạp - complex
++ function
++ object :dict , array
+
+console.log(typeof Tên_Biến)
+
+var id = symbol('id') // unique : độc nhất
+var myFunction = function(){
+    alert("XIn chao)
+}
+var myObject ={
+    name :"Hello",
+    age :"18",
+    function(){
+
+    }
+}
+
+var myArray = ['hiep',1,5,'hello'];
+
+7. Chuỗi
+- Template string
+var y=`\\ "DÙng các dấu khác"`;
+const name = 'John';
+const age = 30;
+const message = `My name is ${name} and I'm ${age} years old.`;
+console.log(message); // My name is John and I'm 30 years old.
+
+- Các method :
+x.length;
+x.indexOf('cần tìm', vị trí bắt đầu tìm) : Trả về vị trí chuỗi đầu tiên tìm dc ,ko có trả về -1
+x.lastIndexOf('cần tìm') : Tìm từ cuối
+x.search(' ' ) Tìm theo biểu thức chính quy
+x.slice(4,6) : Cắt 4 đến 6-1
+x.replace('x','y') : Thay x đầu tiên tìm thấy bằng y 
+x.replace(/x/g,'y') :Thay tất cả x bằng y
+x.toUpperCase() : Hoa hết
+x.toLowerCase() : Thường hết
+x.trim() : chuẩn hoá xâu, bỏ hết dấu cách thừa
+x.split(x,',') : Tách chuỗi theo dấu , thành array (x,'') Tách theo kí tự
+x.charAt(index) != x[index] : Tìm chuỗi theo thứ tự truyền vào , trả về chuỗi rỗng nếu charAt(), undefined nếu x[]
+
+8. số Number
+- NaN (Not a Number) : Số không hợp lệ;
+VD : a =10 / 'b' : NaN;
+để kiểm tra NaN ta dùng isNaN(a);
+x.toString();
+x.toFixed(a) :Làm tròn a số sau thập phân
+
+9. mảng(array)
+- Chứa được hết,đánh dấu từ 0, hoặc -1 âm giống python
+var a = [1,function(a) {}];
+check arr:
+Array.isArray(x);
+x.length
+- method :
+x.toString();
+x.join('-'); :Giống toString() nhưng ngăn cách bằng truyền vào '-'
+// split() trong chuỗi biến str thành mảng còn join biến mảng thành chuỗi
+x.pop() : Trả về phần tử cuối và Xoá phần tử đó; Xoá mảng rỗng trả về undefined
+x.push(a) : Thêm a vào cuối mảng và trả về số phần tử hiện có trong mảng
+x.shift() :Trả về phần tử đầu mảng và Xoá phần tử đó; Xoá mảng rỗng trả về undefined
+x.unshift(a) : Thêm a vào đầu mảng và trả về số phần tử hiện có trong mảng
+x.splice(a,b) : Xoá b phần tử bắt đầu từ a(Xoá cả a)
+x.splice(a,0,c) : Chèn c vào vị trí a
+x.concat(a) : Nối a vào đuôi x
+x.slice(a,b) : Cắt mảng, a= x.slice(0) copy mảng
+
+10.hàm
+- Tham số không cần khởi tạo kiểu dữ liệu
+- 2 hàm trùng tên thì func sau ghi đè hàm trước
+Declaration function : Ưu điểm :Tường minh và có thể gọi trước khi được định nghĩa
+function w(a,b){
+    console.log(a + " " + b);
+}
+Expression function :
+var funTest = function Tên(a,b){
+    console.log(a + " " + b);
+} // Tên trong tạo biến func chỉ dùng mục đích tường minh tác dụng hàm, có thể ko có
+var obj ={
+    func : function() {
+
+    }
+}
+- Nếu chỉ truyền 1 tham số thì tham số còn lại là undefined
+- Đối tượng arguments : Giống đóng gói trong python có thể truyền nhiều tham số, 
+hơi giống array do có đánh số ko có phương thức của array , để thành array Array.from(arguments)
+function test(){
+    for(var para of arguments){
+        myString += `{para} - `
+    }
+    console.log(myString);
+}
+test(1,2,3,1,4,5)
+
+11.Return trong hàm
+var isComfirm =confirm('message is');
+console.log(isComfirm);
+//True nếu nhấn đồng ý, false nếu ko
+return 
+
+12.object 
+var info = {
+    name: "Hiep",
+    age: 19,
+    'a-b': 10
+}
+- Tạo key value mới :
+info.address = "QN";
+info["A-1"]="9000";
+- Lấy value:
+console.log(info.name); //Hiep
+console.log(info["b"]); //undefined do không có
+- Trường hợp dùng [] :
+var age ="address";
+console.log(info[age]); = console.log(info.address);
+var test={
+    [age]: "QN"; = address: "QN";
+    getName: function(){
+        return this.age; //this = test;
+    }
+}
+- Xoá cặp key value :
+delete test.address;
+
+13. Hàm tạo đối tượng:
+function User(fN,lN,avatar){
+    this.fN=fN;
+    this.lN=lN;
+    this.avatar=avatar;
+    this.getfN=function(){
+        return `${this.fN}+ ${this.lN}`;
+    }
+}
+
+var Hiep = new User('Hiep','Nguyen','aa')
+Hiep.title='Chia se';
+Hiep['title']='Chia se';
+
+14.Object prototype
+function User(fN,lN,avatar){
+    this.fN=fN;
+    this.lN=lN;
+    this.avatar=avatar;
+    this.getfN=function(){
+        return `${this.fN}+ ${this.lN}`;
+    }
+}
+- Thêm thuộc tính, phương thức hàm tạo từ ngoài vào __proto__
+User.prototype.add="QN"; // Không truyền giá trị được
+User.prototype.getlN=function(){return this.lN}
+Cách tạo prototype phương thức như trên giống static, chỉ tạo 1 lần không bị copy, tăng hiệu năng
+
+15.Đối tượng date
+var date = new Date();// object date-> có thể truy xuất phương thức, thuộc tính
+getmonth() trong date trả về từ 0-11 do đó cần +1
+var date = Date(); // string
+
+16. if - else, switch
+var date=2;
+- if(a){
+
+}else if(b){
+
+}else{
+
+}
+
+- switch(date){
+    case 2:
+        ...
+        break;
+    case 3:
+        ...
+        break;
+    default:
+        ...
+}
+
+17. Toán tử 3 ngôi
+var a=1;
+var result = a > 1 ? `${a}` :`${a+10} ;
+var a>0 ? a:b;
+
+18.Vòng lặp
+for :Điều kiện đúng
+for/in :lặp qua KEY
+for/of :lặp qua VALUE
+while : 
+do/while :
+VD:
+for in:
+const person = {
+  name: "John",
+  age: 30
+};
+for (let prop in person) {
+  console.log(`${prop}: ${person[prop]}`);
+}
+// Output: "name: John", "age: 30"
+
+for of:
+const numbers = [1, 2, 3, 4];
+for (let num of numbers) {
+  console.log(num);
+}
+// Output: 1, 2, 3, 4
+
+19. Vòng lặp for
+for(var i=0;i<1000;i++){
+    ...
+}
+
+for in
+for(var key in x){ // x: str,obj,arr - arr với str sẽ là thứ tự từ 0-length()
+    console.log(key,x[key]) 
+}
+
+for of
+for(var value of x){ // x:arr ,
+    console.log(value) 
+}
++  Trường hợp là obj cần Object.keys(x) trả về mảng các key để duyệt :
+for(var value of Object.keys(x)){ 
+    console.log(value) //In ra key
+    console.log(x[value]) //In ra value
+}
+Hoặc lấy luôn mảng các values
+for(var value of Object.values(x)){ 
+    console.log(value) //In ra value
+}
+
+20.while , do while ,break , continue
+- Giống c++,python
+- break huỷ lặp, continue bỏ qua 1 vòng lặp
+
+21.lặp lồng/ Nested loop
+var myArray=[
+    [1,2],
+    [3,4],
+    [5,6]
+]
+var a = myArray[0][1] //2
+for(){
+    for(){
+
+    }
+}
+
+22.phương thức của Mảng(Array) với tham số truyền vào là Hàm
+VD:
+var x =[
+    {
+        name:"A",
+        age :1
+    },
+    {
+        name:"B",
+        age :2
+    },
+    {
+        name:"C",
+        age :3
+    }
+]
+
+//xCon là từng phần tử array , index là chỉ mục từ 0-> len()
++ forEach() : Duyệt từng phần tử mảng
+x.forEach(function(xCon,index){ 
+    console.log(index,xCon)
+})
+
++ every() : Kiểm tra phần tử thoả mãn, trả về true, false, Chỉ cần 1 sai -> dừng và trả về false (Tìm sai &&)
+var check = x.every(function(xCon,index){ 
+    return xCon.age <5;
+})
+
++ some() : Kiểm tra phần tử thoả mãn, trả về true, false, Chỉ cần 1 đúng -> dừng và trả về true (Tìm đúng ||)
+var check = x.some(function(xCon,index){ 
+    return xCon.age <5;
+})
+
++ find() : Tìm 1 phần tử thoả mãn rồi dừng , trả về phần tử con đó , ko có trả về undefined
+var Tim = x.find(function(xCon,index){ 
+    return xCon.name === "B";
+})
+
++ filter() : Tìm tất cả phần tử thoả mãn , trả về arr chứa các phần tử con đó , ko có trả về undefined
+var ListTim = x.filter(function(xCon,index){ 
+    return xCon.name === "B";
+})
+
++ map() :Trả về phần tử mới, ánh xạ, Chỉnh sửa, thay đổi elements (Phần tử) của arr bằng return
+var newX = x.map(function(xCon,index, originArray) { //originArray thường ko cần, gọi luôn là x cũng dc
+    return{
+        name:`Nguyen + ${xCon.name}`,
+        age:xCon.age,
+        address:"Quang Ninh"
+    }
+})
+
++ reduce(function(acc, xCon, index, originArray ){},0) : Cộng dồn trả về biến lưu trữ(accumulator) bằng return ,
+khởi tạo biến ban đầu giá trị = 0(có thể là: arr,obj,str ...) , thường thì truyền vào acc và xCon là đủ , giống python
+Không có giá trị ktao ban đầu thì nó lấy phần tử đầu tiên mảng làm initial value
+var result = x.reduce(function(total , xCon,index, originArray) { 
+    return total + xCon.age;
+},0)
+VD ES6: var result = x.reduce((a,b) => a + b.age,0)
++ Làm phẳng mảng bằng reduce có đệ quy :
+var arr = [1,2,3,[1,2,[5,4],5,9,8],5,4,3]
+function flattenArray(arr) {
+  return arr.reduce(function(flat, arrCon) {
+    return flat.concat(Array.isArray(arrCon) ? flattenArray(arrCon) : arrCon);
+  }, []);
+}
+
++ includes(cần tìm,bắt đầu tìm từ) trong arr, str : Trả về true,false 
+Chú ý: có thể trình duyệt không hỗ trợ , -> tự tạo bằng hàm search (polifill)
+var til="abcdefghijklmnopqrstuvwxyz";
+var check = til.includes(m); //true;
+var check = til.includes(m,19); //false;
+
+23.Math object(có sẵn)
+- Không có hàm tạo, ko dùng dc new
++ Math.PI
++ Math.round(1.5)  //2
++ Math.abs(-7) //7
++ ceil , floor 
++ Math.random() :Trả về số ngẫu nhiên từ 0 đến 1
+-> Tạo ngẫu nhiên từ 0-> 10: Math.round(Math.random()*10)
++ Math.max(0,8,1,4)
+
+24.callback function 
+function a(param){
+    if(typeof(param) === "function"){
+        param("trong a")
+    }
+}
+function callBack(value){
+    console.log(value,"trong b");
+}
+a(callBack) //trong a trong b
+
+- Tạo hàm callback map2(function)
+Array.prototype.map2 = function(func){
+    var leng = this.length ;  // this là x, this[i] mới là xCon;
+    var result =[];
+    for (var i = 0 ; i < leng ; i++) {
+        var tmp = func(this[i],i);
+        result.push(tmp);
+    }
+    return result;
+}
+
+Array.prototype.forEach2 = function(func){
+    for(var index in this){
+        if(this.hasOwnProperty(index)){  //this là chỉ tới mảng
+            func(this[index],index);
+        }
+    }
+}
+25. Empty elements 
+- Do ta có thể set lại length cho mảng bằng:
+arr = [0,0,0,0,0]
+arr.length =100;
+-> Không nên dùng for(int i=0 ; i < arr.length ; i++) {} để duyệt mảng do length không bị ảo, chứa cả empty elements
+Ta dùng: forEach,forIn,forOf 
+Khi dùng forOf sẽ ko thay đổi trực tiếp giá trị trong mảng do xCon là copy
+
+26. 
+Bài toán: Bỏ trùng nhau
+var arr=[1,2,3,1,2,3,1,2,3]
+var a=[...(new Set(arr))] // ... là toán tử phân giải ES6
+
+27. HTML DOM (Document Object Model) //Ngoài ra còn có XML DOM , CORE DOM
+- 3 Thành phần :
++ element
++ attribute
++ text
+Document -> Root element:<html> ->head,body...
+- Dùng javascript có thể thay đổi toàn bộ 3 thành phần trên
+document.write("hello");
+
+28.Cách lấy element(thẻ) element node
+- Qua id,class,tag, css selector,HTML collection:
+
++ Chọc vào từ document :
++ var headingNode = document.getelementById('heading') 
+//element đang là số ít => chỉ lấy 1 element và id là duy nhất 
+//headingNode là 1 object, trả về null nếu ko tồn tại
+
++ var classList =  document.getElementsByClassName("head");
+//Trả về 1 HTML collection các class, dùng vòng lặp để thao tác từng class , trả về HTML collection rỗng nếu ko có
+
++ var tagList = document.getElementsByTagName("h1")
+//Trả về 1 HTML collection các tag, dùng vòng lặp để thao tác từng tag , trả về HTML collection rỗng nếu ko có
+
++ var headingNode = document.querySelector("html .heading")
+//Trả về thẳng thẻ h1 chứa class heading, nhiều thẻ trùng thì lấy đầu tiên
+Làm rõ:
++ var headingNode = document.querySelector(".head .a") //cách thì là cha con, không cách thì đồng cấp
++ var headingNode = document.querySelector(".head:first-child") //Lấy thẻ con đầu tiên class head
++ var headingNode = document.querySelector(".head:nth-child(2)") //Lấy thẻ con thứ 2 class head
+//Trả về thẳng thẻ h1 chứa class heading
+
++ var headingNode = document.querySelectorAll("html .heading")
+//Trả về 1 NodeList chứa các thẻ element heading;
+//headingNode[0] xử lí như mảng
+
++ TH thẻ hỗ trợ lấy nhanh như:
+ document.forms : Trả về HTML collection có định dạng thẻ form
+ document.anchors : Trả về HTML collection thẻ a có attribute name 
+
+Thường dùng qua id ,class , css selector
+HTML collection và NodeList không phải mảng, có tính chất tĩnh, VD: khi thay đổi element sau khi get hay query thì nó 
+không tự cập nhập dữ liệu lại còn mảng thì có, nó cũng cần phương thức đặc biệt để xử lí như item()
+
++ Chọc vào từ biến :
+var boxNode =document.querySelector(".box");
+var boxNode =document.querySelector("#box-1");
+var conboxNode = boxNode.querySelector("li");
+var conboxNode = boxNode.getElementsByTag("p");
+
+29.Attribute node & Text node
+var headingElement = document.querySelector(".heading");
+
+- Thêm, xoá, sửa Attribute node từ element:
++ Thêm attribute (setter) :
+headingElement.title = 'heading';
+headingElement.className = 'heading'; // Dùng className thay class do class là từ khoá trong js
+headingElement.id = 'heading';
++ Sửa, lấy attribute :
+headingElement.setAttribute("class", "heading");
+//Có thể thêm attribute ko hợp lệ như href của thẻ h1
+headingElement.getAttribute("class",); // Lấy ra heading, và cả ko hợp lệ thêm vào do set
+headingElement.id; //Chỉ lấy được ra hợp lệ
+
+- Lấy thêm, xoá, sửa Text node từ element:
+headingElement.innerText //Gọi ra chuỗi text trong thẻ headingElement
+headingElement.textContent  //Gọi ra chuỗi text trong thẻ headingElement
+headingElement.innerText ="Noi dung moi";
+headingElement.textContent ="Noi dung moi";
++ innerText lấy ra text con của thẻ được gọi tới (Thứ mà người dùng nhìn thấy, thành phẩm), và chỉ được gọi qua element node
++ textContent lấy ra nội dung thẻ được gọi tới
+(Lấy tất cả nội dung text(cả css,js do trong dom css,js cũng là text) trong thẻ con - nằm giữa <> </>)
+-> Cả 2 chỉ thêm dc text Node, ko thêm dc tag : headingElement.innerText ="<h1>HELLO</h1>";
+Do '<' '>' trong câu bị mã hoá để trình duyệt ko hiểu thành đóng mở thẻ tag
+
+30. Thêm element vào element qua innerHTML , outerHTML Propertype
+- innerHTML thêm được element Node con, lấy được HTML bên trong element Node gọi tới
+var boxElement = document.querySelector(".box");
+boxElement.innerHTML ='<h1 id="heading">HELLO</h1>'
+querySelector("h1").innerText;//Là HELLO
+boxElement.innerHTML // Trả về chuỗi <h1 id="heading">HELLO</h1>
+- outerHTML giống trên và lấy được HTML của element Node gọi tới và các con của nó
+boxElement.outerHTML ='<h1 id="heading">HELLO</h1>'
+//Sẽ ghi đè lên chính element Node gọi tới , biến boxElement khi đó thực tế đã bị xoá, 
+việc có thể gọi lại được là do bộ nhớ đệm còn lưu giá trị cũ mà thôi
+-> Thường chỉ dùng innerHTML để ghi nội dung con, còn ghi đè của outerHTML sẽ được thay thế bằng phương pháp khác
+
+31. Node properties
+var boxElement = document.querySelector(".box");
+//Khi gọi như trên thì boxElement là 1 object , nó có sẵn nhiều thuộc tính, phương thức(__proto__) để sử dụng
+console.log([boxElement]); // Gọi như vậy để devtools không in dưới dạng html
+Note(Ghi chú):
++ Thêm attribute conteneditable="true", vào thẻ bất kì sẽ biến thẻ đó và thẻ con nó thành thẻ input(Nhập được)
++ nextElementSibling() :Lấy element anh em (Không phải element con) 
++ notetype : 1 là element node,2 attribute , 3 text
+
+32.DOM CSS (CSS inline)
+var boxElement = document.querySelector(".box");
+- Dùng để chỉnh sửa css hơi giống css nhưng khác cú pháp:
+boxElement.style; 
+boxElement.style.width='100px'; 
+boxElement.style.height='200px'; 
+boxElement.style.backgroundColor = 'rgba(0,0,0,0)'; 
+
+- Cách gộp lại(Hợp nhất) :
+Object.assign(boxElement.style,{
+    width :'100px',
+    height :'200px',
+    backgroundColor: "red"
+})
+
+- Chỉ Lấy được css inline của nó do đang qua thằng style:
+boxElement.style.width
+
+33.classList 
+var boxElement = document.querySelector(".box");
+- Là thuộc tính element Node, 
+Trả về obj DOMtokenList(Giống 1 mảng các tên class) của chính element đó ko tính class con
+- Thuộc tính:
+boxElement.classList.length: Số lượng class
+boxElement.classList.value: Trả về chuỗi của class(VD: class="aaaaa" -> chuỗi = aaaaa)
+- Phương thức:
++ x.classList.add('red','blue'); :Thêm class, add nhận đối số là tên class;
++ x.classList.contains('red','blue'); Kiểm tra class có tồn tại hay không(true/false), Đóng mở menu
++ x.classList.remove('red','blue'); :Xoá class
++ x.classList.toggle('red'); :Nếu có red thì xoá, không có thì thêm vào
+
+34.Dom events
+- Thêm on trước sự kiện VD: onclick
+- Dùng attribute events(Không hay dùng) :
+VD: <h1 onclick="console.log(Math.random())" id="heading">HELLO</h1>
+VD: <h1 onclick="console.log(this.innerText)" id="heading">HELLO</h1>
++ This là element Node của chính nó
++ Sự kiện nổi bọt(Propagation): Tác động event vào thẻ con thì thẻ cha cũng dính
++ Cách xử lí:
+C1: .clearfix {  //clear: left/right/both để ngăn chặn sự chồng chéo giữa các phần tử
+  clear: both;
+}
+C2: .parent {   //Sử dụng thuộc tính overflow: hidden trên phần tử cha để ngăn chặn các phần tử con tràn ra khỏi phần tử cha
+  overflow: hidden;
+}
+C3: .child {   //Sử dụng thuộc tính display: inline-block; trên các phần tử con để chúng không bị dịch chuyển
+  display: inline-block;
+}
+C4: .parent {  //Sử dụng thuộc tính position: relative/absolute để điều chỉnh vị trí của các phần tử:
+  position: relative;
+}
+.child {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+C5: Sử dụng các kỹ thuật layout mới như Flexbox hoặc CSS Grid để tránh sử dụng float.
+Lý do:float là một cách thức truyền thống để thực hiện layout trong CSS và thường gặp phải những vấn đề như trên.
+
+- Gán sự kiện qua element node:
+var h1Element = document.querySelector("h1");
+h1Element.onclick =function(e){
+    console.log(Math.random())
+    console.log(e.target)
+}
+
+var h1Element = document.querySelectorAll("h1");
+for(var i=0;i<h1Element.length;i++){
+    h1Element[i].onclick =function(e){
+        console.log(e.target)
+        console.log(h1Element[i]) // Không dùng cách này mà dùng e.target (hoặc let) do i nó đã chạy quá index,
+    }
+}
++ e (event) là MouseEvent có nhiều thuộc tính, phương thức trong đó có target
++ e.target chính là this trong attribute event, trả về chính element node đó
+
+var input0Element = document.querySelectorAll("input[type="text]");
+var input1Element = document.querySelectorAll("input[type="checkbox]");
+
++ Cách lưu input vào biến
+var inputValue
+input0Element.oninput= function(e){
+    inputValue = e.target.value;
+}
+input1Element.onchange= function(e){
+    inputValue = e.target.checked;
+}
+//onkeyup,onkeydown,onkeypress(Ko nhận esc)
+document.onkeyup= function(e){ //Nhấc phím lên nhận input, lắng nghe event tại document
+    inputValue = e.which; //Mã số phím vừa nhấn
+    switch(e.which){
+        case 27:
+            \\Phím ESC
+            console.log("exit")
+            break;
+    }
+}
+
+35. preventDefault and stopPropagation
+- PreventDefault :
+var aElements = document.links;
+for(var i=0;i<aElements.length;i++){
+    aElements[i] = function(e){
+        if(e.target.href.startsWith('https://google.com')){
+            e.preventDefault();
+        }
+    }
+}
+
+//Lấy thẻ ul đứng sau thẻ input 
+input:focus ~ ul{
+    display:block;
+}
+
+- StopPropagation: tắt lan từ con sang cha
+document.querySelector("button").onclick= function(e){
+    e.stopPropagation();
+    console.log("aaaa");
+}
+
+36.Event listener
+- Dom event dùng cho trường hợp đơn giản, ko cần huỷ event
+- Xử lí nhiều việc khi 1 event xảy ra
+var btn =document.querySelector("btn");
+- Lắng nghe/ huỷ bỏ lắng nghe
++ VD: DOM event khi thực hiện nhiều việc
+btn.onclick =function(){
+    console.log('viec 1')
+    alert('viec 2')
+}
+//Ghi đè hàm để huỷ sự kiện
+setTimeout(function(){
+    btn.onclick =function(){
+
+    }
+},3000)
+
+btn.addEventListener('Tên sự kiện ko có on',Hàm thực hiện)
++ VD: event listener khi thực hiện nhiều việc 
+//Chạy 3 việc theo thứ tự, Không ghi đè
+btn.addEventListener('click',function(e){
+    console.log('viec 1');
+});
+btn.addEventListener('click',function(e){
+    console.log('viec 2');
+});
+btn.addEventListener('click',function(e){
+    console.log('viec 3');
+});
+//Làm rõ nghĩa, trình bày đẹp hơn
+function Viec1(){
+    console.log('viec 1');
+}
+btn.addEventListener('click',Viec1);
+btn.removeEventListener('click',Viec1);
+//Xoá bỏ EventListener khi cần cần 
+
+37.JSON - JavaScript Object Notation
+- Là một định dạng dữ liệu(Chuỗi) biểu diễn các dạng dữ liệu
+- Các dạng : Number,Boolean, Null, Array, Object
+- JSON.stringify(x) :Từ javascript -> JSON
+- JSON.parse(x) : Từ JSON -> javascript
+var json = '"abcc"' //string
+var json = 'true' //boolean
+var json = '["PHP","C++"]' // arr
+- array tuyệt ko có phẩy ở cuối , js có phẩy thì đc nhưng JSON thì không
+- Chuỗi luôn có " " , không bao gồm hàm, biểu thức chính quy, \" = "
+var a =  {
+    "name": "John",
+    "age": 30,
+    "isStudent": true,
+    "favoriteFoods": ["pizza", "hamburger", "sushi"],
+    "address": {
+        "street": "123 Main St",
+        "city": "New York",
+        "state": "NY"
+    }
+}
+var b= JASON.stringify(a);
+{"name":"John","age":30,"isStudent":true,"favoriteFoods":["pizza","hamburger","sushi"],"address":{"street":"123 Main St","city":"New York","state":"NY"}}
+
+38. Promise
+- Đồng bộ(sync) và bất đồng bộ(async):
+VD: setTimeout(function(){
+    console.log("1")
+},1000); 
+console.log("2");
+- Ví dụ trên in ra 2 trước rồi in ra 1 , đây là bất đồng bộ, đồng bộ là code chạy trên xuống dưới 1 rồi mới đến 2
+- Các tác nhân gây bất đồng bộ: setTimeout(),setInterval(),Fetch, XMLHttpRequest, đọc file, request animation frame
+- callback hell, pyramid of doom
+- Tạo promise từ hàm tạo, resolve(Giải quyết),reject(Từ chối) đều là hàm(Có thể để tên khác, chỉ là quy ước chung)
+
+var promise = new Promise(
+    //Executor function
+    function(resolve,reject){
+        //logic
+        //Thành công :resolve()
+        //Thất bại :reject()
+        //Phải tạo 1 trong 2 hoặc cả 2 trong hàm, nếu ko sẽ bị leak memory, trạng thái ko thành công ko thất bại
+})
+//promise trả về 3 phương thức, đều nhận function(call back) là đối số
++ promise.then(function(){}).catch(function(){}).finally(function(){}) //Ít nhất phải có thhen và catch
+promise
+    .then(function(){ //Tiếp tục chạy sau khi thành công
+        //resolve được gọi
+        console.log('Successfully')
+})
+    .catch(function(){ //Bắt lỗi
+        //reject được gọi
+        console.log('Failure')
+})
+    .finally(function(){ //Đã biết được kết quả tiến trình 
+        //resolve hoặc reject được gọi
+        console.log('Done')      
+})
+
+Một Promise bao gồm 3 trạng thái:
+1.Pending: Trạng thái ban đầu khi Promise được tạo ra(o thành công,0 thất bại, gây rò rỉ bộ nhớ).
+2.Fulfilled: Trạng thái mà Promise đã được giải quyết thành công và trả về kết quả.
+3.Rejected: Trạng thái mà Promise bị từ chối và trả về lỗi.
+
+- Tính chất chuỗi của promise(promise chain)
+var promise = new Promise(
+    //Executor function
+    function(resolve,reject){
+        var Data = 1;
+        resolve(Data)
+})
+
+promise.then(function(Data){
+    console.log(Data)
+    return Data+=1;
+}).then(function(Data){
+    console.log(Data)
+    return Data+=1;
+}).then(function(Data){
+    console.log(Data)
+    return Data+=1;
+}).then(function(Data){
+    console.log(Data)
+    return Data+=1;
+}) //1 2 3 4
+
+- Khi return là promise trong .then(.catch,..) thì sẽ đợi promise giải quyết mới tiếp tục(trong promise có bất đồng bộ)
+promise.then(function(Data){
+    return new Promise(function(resolve,reject){
+        setTimeout(function(){
+            resolve(Data)   // Thằng resolve này chỉ tiếp vào tk then đứng sau
+        },3000)
+    })
+}).then(function(Data){
+    console.log(Data)
+    return Data+=1;
+})
+
+VD: function sleep (ms){
+    return new Promise(function(resolve){
+        setTimeout(function(){
+            resolve();
+        },ms);
+    })
+}
+
+sleep(1000).then(function(){
+        console.log(1);
+        return sleep(1000);
+}).then(function(){
+        console.log(2);
+        return new promise(function(resolve,redirect){ 
+            reject('co loi'); // Nếu ko có catch thì dừng tại đây
+        });
+}).then(function(){
+        console.log(3);
+        return sleep(1000);
+}).catch(function(err){ 
+        console.log(err);
+})  
+
+- Có thể tạo ra 1 promise luôn đúng(luôn sai);
+var promise = Promise.resolve('Successfully') //.reject('co loi'); //
+promise.then(function(a){
+    console.log(a);
+})
+
+- Promise.all() : 2 luồn promise không phụ thuộc nhưng cần cả 2 để làm việc chung
+var promise1 = new Promise(function(resolve,redirect){
+    setTimeout(function() {
+        resolve([1]);
+    })    
+}, 3000)
+var promise2 = new Promise(function(resolve,redirect){
+    setTimeout(function() {
+        resolve([2,3]);
+    })    
+}, 5000)
+// Cả 2 phải hoàn thành resolve(...) thì mới chạy tiếp, truyền vào 1 mảng tên promise ,
+Chạy mất 5s đồng thời, nếu nối đuôi mất 7s 
+Promise.all([promise1,promise2])
+    .then(function(result){
+        console.log(result);
+        var a= result[0]
+        var b= result[1]
+        return a.concat(b);
+    })
+    .catch(function(err){
+        
+    })
+
+40. Fetch
+- API(URL) : application programming interface : Cổng giao tiếp giữa các phần mềm
+- Backend ->API ->Fetch ->JSON/XML ->JSON.parse ->JS->Render giao diện
+var postAPI ='https://jsonplaceholder.typicode.com/todos/1';
+fetch(postAPI) //fetch dùng promise
+    .then(function(response) { //response là 1 stream(luồng)
+        return response.json();  //Lại là promise
+        //Tự động parse từ JSON.prase()
+    })
+    .then(function(posts) {  //post là cái json đã parse()
+        var htmls=posts.map(function(post){
+            return ``
+        })
+    })
+
+50. json sever(api sever) 
+- Fake api, Mock api
+51. Postman api
+- REST API (Representational State Transfer Application Programming Interface) :
+- CRUD :
++ Create (Tạo mới) : Post
++ Read (Lấy dữ liệu) : Get 
++ Update (Cập nhật) : PUT/PATCH
++ Delete (Xóa) : Delete
+- http là giao thức , post, get .. là phương thức
+- PUT/PATCH khác nhau ở chỗ put sẽ thay thế tất cả, còn patch chỉ sửa chỗ cần sửa(thêm)
+
+52. ECMAScript 6(2015)
+Một số tính năng mới của ES6 bao gồm:
+Khai báo biến bằng let và const
+Arrow function (hàm mũ)
+Destructuring assignment (gán giá trị phân rã)
+Template literals (chuỗi ký tự có thể truyền tham số)
+Rest và spread operator (toán tử còn lại và toán tử phân tán)
+Class và module (lớp và mô-đun)
+Promise (đối tượng Promise)
+Và nhiều tính năng khác nữa.
+
+53. let, const
+- Về phạm vi truy cập (scope) :var khai báo ở đâu cũng global, còn let,const thì giống c++
+{
+    var a=1;
+    let b=2;
+    const c=3;
+}
+console.log(a); //Truy cập dc
+console.log(b); //Không Truy cập dc
+console.log(c); //Không Truy cập dc
+- Về nhấc biến tự động (hoisting) :Đưa khởi tạo biến lên đầu code(Biến thành global)
+var có hỗ trợ, còn let,const thì không, cần khởi tạo
+VD 
+abc=10;
+console.log(abc);
+var abc; // đưa lên đầu, hoặc nếu ko có thì tự động tạo
+- const là hằng, không thay đổi được
+const a ={
+    name :"abc",
+}
+a =10;//Không thay đổi được
+a.name=10;//Thay đổi được
+
+- Dùng var khi code thuần js; ko thư viện
+- Dùng let,const khi dùng thư viện Babel
+
+54. Template literals ,Multi-line string
+- Khi muốn viết Escape sequences(hoặc kí tự nó ko cho phép) thì thêm / vào là dc
+let a=1;
+let b=`a + b =${a}`;
+let a =`Dòng 1
+Dòng 2
+Dòng 3 `
+
+55. Arrow function
+- Không dùng được thành hàm tạo
+- Biến từ Expression function sang arrow function
+var c =function(value){
+    console.log(value)
+}
+//Bỏ từ khoá function , sau biến truyền vào là =>
+var c=(value)=>{
+    console.log(value)
+}
+//Viết lệnh ko có {} sau => có nghĩa là return luôn
+var c =(a,b)=>a+b;
+// Muốn return nhanh obj thì nhóm lại, ko nhóm bị hiểu nhầm thành block code
+var c =(a,b)=>({a:a,b:b});
+// Nếu có 1 tham số truyền vào có thể bỏ ngoặc truyền tham Số
+var c=value=>console.log(value)
+//
+var a={
+    name:"Hiep"
+    getName:()=>console.log(this.name) ;//Lỗi do this(context) ko tồn tại trong arrow function;
+}
+
+56.Classes
+function(name,age){
+    this.name = name;
+    this.age = age;
+    this.getName=function(name){
+        return this.name;
+    }
+}
+
+class Course(){
+    constructor(name,age){
+        this.name = name;
+        this.age = age ;
+    }
+    getName(){
+        return this.name;
+    }
+
+}
+
+57. Default parameter values
+function logger(name){
+    console.log(name);
+}
+
+logger("Hiep")
+- Các cách set giá trị mặc định biến truyền vào:
++ C1:Trước ES6
+function logger(name){
+    if( typeof name===undefined){
+        name="Gia tri mac dinh";
+    }
+    console.log(name);
+}
++ C2:ES6
+function logger(name"Gia tri mac dinh"){
+    console.log(name);
+}
+- Ví dụ:
+function logger(log,type='log'){
+    console.[type](name);
+}
+logger("hiep",warn)  
+
+58.Enhanced object literals
+- Tác dụng: Định nghĩa key:value ,method cho obj;key cho obj dạng Biến
+- Định nghĩa key:value ,method cho obj:
+let name='Hiep'
+let age=18;
+var ID={
+    name, //name :'Hiep'
+    age,   //age:18
+    getName(){
+        return name;
+    }
+}
+
+- key cho obj dạng Biến
+let fieldName ='name'
+let fieldAge ='price'
+var courses={
+    [fieldName]: "hiep",//name:"hiep";
+    [fieldAge]: 18 //age:18
+}
+
+59. Destructuring(Phân giải), Rest(...)
+- Destructuring(Phân giải):
+var arr=[0,1,2,3]
+//Dùng ngoặc vuông với arr, nhọn với objects
+var [a,,b]=arr;
+console.log(a,b)//Trả về 0,2 do 1 bị ngăn cách bởi dấu , mà ko có truyền vào
+- Rest(Phần còn lại ... ) ...còn là toán tử spread cần chú ý :
+var arr=[0,1,2,3]
+var [a,...rest]=arr;//rest là tên biến(o phải từ khoá) đặt sau 3 dấu .
+console.log(rest);   //[1,2,3]
+- Lưu ý khi dùng obj phải đặt trùng tên key 
+var obj={
+    name:'hiep',
+    agr:18,
+    address:'QN',
+    objnew: {
+        name:'anh',
+        age:18
+    }
+};
+var {name,...rest} = obj;
+// rest là obj mới đã bị xoá mất thằng name; thủ thuật không dùng delete
+var {name:tenCha,objnew:{name:tenCon}}=obj;
+console.log(tenCha,tenCon) // hiep anh
+//Dấu : - Nghĩa 1 là đặt tên mới cho biến,- Nghĩa 2 là lấy phần tử con
+var {city='HaLong'}=obj;
+console.log(city) 
+//Nếu ko cho city ='HaLong' thì sẽ là undefined do obj ko có, còn có đặt thì khi không có key trong obj trả về default
+//Nếu trong obj có city thì sẽ trả về giá trị đó dù đã đặt mặc định
+
+- Dùng ... cho hàm, nhận bao nhiêu giá trị cũng dc,
+hơi giống arguments tuy arguments trả về đối tượng arguments còn ... trả về mảng :
+function logger(...param){ //Coi như là array,(a,...param) thì a nhận 1, param là còn lại
+    console.log(param)
+}
+logger(1,2,3,4,5,6,7,8,9,10,11)
+- 2 TH dùng cho hàm và Destructuring(Phân giải) là rest(còn lại), còn tất cả TH khác là spread
+
+function logger({name,price,...rest}){ //Coi như là array,(a,...param) thì a nhận 1, param là còn lại
+    console.log(name,price,rest)
+}
+logger({
+    name:'Hiep',
+    price:ty3 ,
+    add:'QN'
+})
+
+60.spread(...)
+- Dùng cho mảng
+var arr1=[1,2,3]
+var arr2=[4,5,6]
+var arr3=[...arr2,...arr1]; // [4,5,6,1,2,3];
+- Dùng cho đối tượng:
+var obj1={
+    name:'hiep'
+}
+var obj2={
+    age :18
+}
+var obj3={
+    ...obj1,...obj2
+}
+- Thực tế:
+var defaultConfig={
+    api:'https://trang-khoa-hoc'
+    apiversion:'V1'
+    other:'other'
+    //
+    //
+}
+
+var exerciseConfig={
+    ...defaultConfig,
+    api:'https://trang-bai-tap'
+    //Khi có 2 api trùng nhau do phân giải từ defaultConfig thì thằng viết sau sẽ ghi đè thằng viết trước
+}
+- Giải từ truyền vào(Giống packet trong python)
+var arr=[1,2,3]
+function logger(...rest){
+    for(var i=0;i<rest.length;i++){
+        console.log(tmp);
+    }
+}
+logger(...arr) 
+
+61.Tagged template literals
+function highlight([first,...strings],...values){
+    return values.reduce(
+        (acc,curr)=>[...acc,`<span>${curr}</span>,strings.shift()]
+        ,[first]
+    ).join('');
+}
+var brand ='F8'
+var course ='JS'
+const html = highlight`Hoc lap trinh ${course} tai ${brand}`
+console.log(html);
+
+61.Modules : Import/Export  
+- Phân chia code thành các phần độc lập nhau, mỗi phần có thể được import hoặc export để sử dụng ở nơi khác. 
+Điều này giúp cho việc quản lý mã nguồn và tái sử dụng code dễ dàng hơn.
+- Phải thêm type="module" vào thẻ script trong html
+- 1 module (file) chỉ dc export default 1 lần, còn giá trị thường có thể dùng Destructuring
+Trong file logger.js:
+    export const TYPE_LOG='log';
+    export const TYPE_WARN='warn';
+    export const TYPE_ERROR='error';
+    ...//Hàm logger
+    export default logger;
+Trong file main.js:
+    import logger,{TYPE_ERROR,TYPE_WARN,TYPE_LOG} from "./logger.js";
+    //chỉ có export default mới import được ko dùng Destructuring
+    Hoặc dùng: khi đó constants là obj dạng module
+    import * as constants from "constants";
+    //Khi dùng ntn thì biến gọi ra phải là constants.TYPE_ERROR;
+- Tạo hẳn 1 file riêng chuyên chứa biến(Hằng) constants.js
+Trong file constants.js:
+    export const TYPE_LOG='log';
+    export const TYPE_WARN='warn';
+    export const TYPE_ERROR='error';
+Trong file logger.js:
+    import {TYPE_ERROR,TYPE_WARN,TYPE_LOG} from "./constants.js";
+    ...//Hàm logger
+- Tạo file trung gian chuyên dùng để export module
+Trong file trung gian : trong từ default có {} 
+    export {default} from "./logger.js";
+    Hoặc giống với:
+    import logger from "./logger.js";
+    export default logger;
+    Hoặc :
+    export {default as logger2} from "./logger.js"; 
+    //Khi đó file import sẽ dùng tên logger2 thay logger
+
+62.Optional chaining (?.) //ECMAScript 2020
+- Cho phép kiểm tra sự tồn tại của các thuộc tính hay phương thức của một đối tượng một cách an toàn hơn.
+- Khi sử dụng optional chaining, nếu thuộc tính hoặc phương thức không tồn tại 
+thì kết quả trả về sẽ là undefined, thay vì lỗi như trước đây.
+var obj={
+  name:'Hiep',
+  age:188,
+  nameCon:{
+      name:'Hiep1',
+      age:2,
+      // nameCon:{
+      //     name:'Hiep2',
+      //     //age:3
+      // }
+  }
+}
+Cách check mới 2020
+console.log(obj.nameCon?.nameCon.age)
+console.log(obj[nameCon]?.[nameCon])
+Cách check cũ: 
+if(obj && obj.nameCon && obj.nameCon.nameCon ){
+    console.log(obj.nameCon.nameCon)
+}
+- Trả về lỗi, dừng chương trình, lỗi gặp phải do ko kiểm soát được dữ liệu (do API về)
+- Dùng ?. vào thằng nghi ngờ ko tồn tại và tất cả thằng đằng sau nó nếu ko vẫn lỗi, ko tồn tại trả về undefined 
+- Dùng cho function:
+    
+- Dùng cho array :
+    console.log(arr?.[99])
+

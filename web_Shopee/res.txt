@@ -1,0 +1,61 @@
+1. Thẻ meta viewport
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+2.Media query
+- Trong file css
+    @media keywords mediatype and (mediafeature and|of|not mediafeature ){
+        css code;
+    }
+VD:
+    @media only screen and (max-width:46.1875 rem){
+
+    }
++ keywords : not, only, and, or
++ mediatype : print, screen, speech, all(default)
++ mediafeature : min-width(>=), max-width(<=),...
+
+- Trong file html
+    <!-- PC chế độ in  -->
+    <link rel="stylesheet" media="print and(min-width: 1024px)" href="./assets/">
+    <!-- Mobile   -->
+    <link rel="stylesheet" media="(max-width: 740px)" href="./assets/">
++ Không nên chia thành nhiều file do nó tạo thêm conection
+
+- Polifill media query
++ Tìm trên google "respond.js polyfill cdn" , chú ý dùng thẻ script để link:    <script src=""></script> do là file js
++ Dùng cho thằng IE từ bản 9 đổ xuống do không hỗ trợ 
++ Dùng bằng câu lệnh comment điều kiện Chỉ áp dụng với IE 9 đổ xuống(không lấy IE 10)  lt là less than :
+<!--[if lte IE 9]>
+    <script src=""></script>
+<![endif]-->
+
+<!--[if IE 10]> ... <![endif]--> sẽ hiển thị nội dung bên trong khi phiên bản của trình duyệt Internet Explorer là 10.
++ Ngoài lt (less than) còn gt(great than) >, eq(equal to) ==, ne(not equal to) !=,
+     lte(less than or equal to) <=, gte(great than or equal to) >=
+
+3.Breakpoint
+- Điểm,vị trí mà bố cục website thay đổi, thích ứng tạo nên respondsive
+- Mobile : width < 740px
+- Tablet : width >= 740px and width < 1024px
+- Pc     : width >= 1024px
+- Có thể ko cần chia pc do đã code ok r; chia thêm <1024px làm chung cho tablet và Mobile
+-> Kết luận: Nên dùng em để không bị lỗi, nếu 1em =16p( mặc định) thì:
+739px = 46.1875 em; Chia cho 16 là dc, tuy nhiên nếu để fone-size :10px thì chia 10
+
+4.Note 
+- VD: ảnh dùng style:background-img:url()  in-line, khi đó muốn ảnh là hình vuông :width:90px ;padding-top:90px ;
++ Cần chỉnh thêm :background-repeat:no-repeat ; background-position:center ; background-size:cover; 
+- Khi viết tablet,Mobile có điểm chung có thể viết media <1024px (Dùng em), để đỡ viết lại
+- Có thể dùng label checkbox (html)  checked (css) để làm overlay cho menu :ấn vào hiện ra
+ 
+ 5.Grid System
+ - Gồm 4 thành phần: Grid; Row; Column; Gutter(Khoảng cách giữa các dòng)  
+ + Column : Dùng đơn vị %, PC(12|16 Cột), Tablet(8 Cột), MB(4 Cột). Càng ít thì gộp các cột con thành 1 cột to
+ + Gutter : PC|Tablet 24px , MB 16px
+ + Margin : Khoảng cách thừa 2 bên bố cục chính website
+ - Grid : Chứa row và column
+ - Row : Chứa column
+ - Column : Chứa content
+
+ 6.Thực hành
+ - Tạo đối tượng
+ + 

@@ -1,0 +1,89 @@
+
+/* PC */
+@media (min-width:1024px) {
+    
+}
+
+/* Tablet */
+@media ((min-width:740px) and (max-width:1023px)) {
+    
+}
+
+/* Mobile */
+@media (max-width:740px) {
+    .s-full-width,
+    .s-col-full{
+        width: 100%;
+    }
+    .s-mt-8 {
+        margin-top: 8px;
+    }
+    .s-mt-16{
+        margin-top: 16px;
+    }
+    #header{
+        overflow: hidden;
+    }
+    
+    #header .search-btn{
+        display: none;
+    }
+
+    #header .mobile-menu-btn{
+        display: block;
+    }
+
+    #nav{
+        /* Để cho thẻ con ôm hết width */
+        display: block;
+    }
+
+    #nav> li{
+        display: block ;
+    }
+
+    #nav> li:first-child{
+        /* Nếu là block nó chiếm hết ngang */
+        display: inline-block;
+    }
+
+    #nav .subnav{
+        /* reset về giá trị mặc định */
+        position: initial;
+        background-color: #333;
+    }
+
+    #nav .subnav a{
+        color: #fff;
+        padding: 5px 41px  ;
+    }
+
+    #content .member-item{
+        float:none;
+        width: 100%;
+        text-align: center;
+        margin-top: 45px;
+    }
+
+    #content .member-img{
+        width: 60%;
+    }
+
+    #content .place-item{
+        float:none;
+        width: 100%;
+        
+    }
+
+    .place-buy-btn{
+        width: 100%;
+    }
+
+    .form-submit-btn{
+        width: 100%;
+    }
+
+    #footer .socials-list{
+        font-size: 35px;
+    }
+}

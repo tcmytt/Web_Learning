@@ -1,0 +1,542 @@
+JS NÂNG CAO
+
+1.IIFE (Immediately Invoked Function Expression)
+- Immediately Invoked Function Expression (Self-Invoking Function)
+- Viết hàm trong () và () lần nữa để thực thi ngay lập tức
+VD:
+;(function(message){
+    console.log("Immediately Invoked Function Expression",message);
+})("chao ban");
+
+- Có tính private, bên ngoài ko truy cập được
+- Hay được dùng trong thư viện nhằm tránh trùng tên biến
+VD:
+;(function(window, document) {
+  // Khai báo các biến và hàm ở đây
+  // ...
+  
+  // Thêm các phương thức vào đối tượng window
+  window.myLibrary = {
+    // ...
+  };
+})(window, document);
+
+- Dùng dấu ; trước IIFE
+- Hàm ko gọi được ở cùng hay trên phạm vi, chỉ gọi được bên trong nó
+VD:
+;(function myFunc(i){
+    console.log(i);
+    i--;
+    if(i)
+        myFunc(i);
+})(10);
+
+- Các cách khác để gọi IIFE :
+!function(){
+    console.log();
+}();
+
+(function(){
+    console.log();
+}())
+
+- Ví dụ :
+let app = (function() {
+    let cars =[]
+    return {
+        add(car){
+            cars.push(car);
+        },
+        delete(index){
+            cars.splice(index,1)
+        }
+    }
+})
+app.add('BMW');
+app.delete(1);
+- khi đó cars được bảo toàn dữ liệu không thay đổi được, VD: cars = null dữ liệu sẽ hỏng
+
+
+2. Scope (Phạm vi)
+- Các loại phạm vi:
++ Global Scope : Toàn cầu
++ Code Block : Khối mã : Let, const
++ Local Scope : Hàm var , func
+- Chú ý về var :
+Biến var không giới hạn trong phạm vi khối mã trong đó nó được khai báo. 
+Nếu biến var được khai báo bên trong một hàm, nó chỉ có thể được truy cập trong phạm vi của hàm đó.
+- CHú ý về const : 
+Khi dùng const định nghĩa 1 mảng, obj ta ko thể gán lại nhưng có thể thay đổi, thêm, sửa, xoá các phần tử con trong mảng
+- Khi chưa gọi hàm thì hàm ko được thực thi mà chỉ khai báo (Giống với biến)
+- Let, const tìm biến đi từ trong ra ngoài , var từ ngoài vào trong
+VD 1: 
+const a=10;
+{
+    {
+      const a=25;
+      console.log(a);        
+    }
+}
+// Kết quả ra 25;
+VD 2: 
+const a=10;
+{
+    {
+      console.log(a);        
+      const a=25;
+    }
+}
+//Lỗi do khai báo a dưới console.log(); nó chỉ lấy a ở trong {} do hoist lên đầu mà ko có giá trị
+VD 3: 
+var a=10;
+{
+    {
+      console.log(a);     //10   
+      var a=25;
+    }
+}
+// In ra a =10;
+VD 4: 
+var a=10;
+{
+    {
+      let a=25;
+      console.log(a);        
+    }
+}
+// Lỗi
+VD 5:
+console.log(a) //undefined
+{
+    {         
+      var a=25;
+    }
+}
+console.log(a) // 25
+
+- Khi nào biến bị xoá khỏi bộ nhớ :
++ Biến toàn cầu : Xoá khi tắt chương trình
++ Biến trong code block : Const let Xoá khi chạy xong code block, var vẫn giữ
++ Biến trong hàm được tham chiếu bởi 1 hàm (TH: closure)
+
+
+3. Closure
+- Là 1 hàm có thể ghi nhớ nơi nó được tạo và truy cập được biến ngoài phạm vi của nó
+VD1: 
+function createCounter(){
+    let count =0;
+    function increase(){
+        return count++;
+    }
+    return increase
+}
+
+const counter1 = createCounter();
+console.log(counter1()) //1
+console.log(counter1()) //2
+console.log(counter1()) //3
+
+const counter2 = createCounter();
+console.log(counter2()) //1
+console.log(counter2()) //2
+console.log(counter2()) //3
+
+- Ứng dụng : Viết code gọn hơn, private chỉ return mới được dùng
+VD2:
+function createLogger(info){
+    function message(log){
+        return console.log(`[${info}] : ${log}`);
+    }
+    return message
+}
+
+const log1 = createLogger('Warn');
+log1('Giao dịch thất bại')
+log1('Cảnh báo giao dịch')
+
+const log1 = createLogger('info');
+log2('Giao dịch thành công')
+log2('successfully')
+
+VD3:Tạo key local storage
+function createStorage(key){
+    const store = JSON.parse(localStorage.getItem(key)) ?? {};
+
+    const save = () => {
+        localStorage.setItem(key, JSON.stringify(store))
+    }
+
+    const storage = {
+        get(key){
+            return store[key]
+        },
+        set(key,value){
+            store[key]= value;
+            save();
+        },
+        remove(key){
+            delete store[key];
+            save();
+        }
+    }
+
+    return storage;
+}
+
+//profile.js //Lưu các setting profile ở trong 1 key local storage
+const profileStorage = createStorage('profile_setting1')
+profileStorage.set('fullName', 'Hiep Nguyen')
+profileStorage.set('age', 18)
+
+const profileStorage = createStorage('profile_setting2')
+profileStorage.set('fullName', 'Le Nguyen')
+profileStorage.set('age', 21)
+
+
+4.Hoisting
+- Đưa khai báo lên đầu phạm vi áp dụng cho 'var' và 'function declaration'
+- let, const được hoist nhưng ko dùng được
+VD: var
+console.log(a); //Lỗi : undefined
+console.log(b); //Lỗi : b is not declare
+var a=16;
+- undefined là chưa gán giá trị, is not declare là chưa khai báo
+- var đã tự động hoisting : đưa var a; lên đầu như code dưới đây
+var a;
+console.log(a); //Lỗi : undefined
+console.log(b); //Lỗi : b is not declare
+a=16;
+console.log(a); // 16
+
+VD: Function
+var c = sum(6,9); // 15
+function sum(a,b) {
+    return a+ b;
+}
+- Tự đưa cả function(và code bên trong function) lên đầu
+
+
+5. Strict mode(ES6)
+VD:
+fullName ='Nguyen Van A'
+function test(){
+    a=16
+}
+console.log(a); // 16
+console.log(fullName); //Nguyen Van A
+- khai báo ko đặt tên biến mặc định là var ( global ) kể cả ở trong hàm 
+- không khai báo trong hàm khiến var có scope global (var trong hàm mặc định ko thể dùng ở ngoài)
+- Khi dùng strict mode sẽ không khai báo như trên được 
+- ghi : "use strict"; ở đầu file js, thẻ script, hay đầu phạm vi hàm
+
+const student ={}
+Object.defineProperty(student,'fullName', {
+    value: "Nguyen Van A",
+    writeable: true,
+})
+- Lưu ý khi dùng Object.defineProperty() cần thêm : do mặc định là false
+writable: true, // cho phép thuộc tính có thể ghi đè giá trị mới
+configurable: true // cho phép thuộc tính có thể bị xóa hoặc sửa lại cấu hình bằng phương thức Object.defineProperty
+
+- "strict mode":
+- Khi thêm Property kiểu này thì mặc định writeable là false, ko thể sửa, nhưng sửa ko báo lỗi, báo lỗi nếu dùng "strict mode"
+- Khi khai khai báo hàm trong code block thì hàm nằm trong code block
+- Không đặt tên biến, hàm bằng từ khoá được
+- Công dụng : Tránh quên khai báo biến, tránh trùng tên biến, nhắc lỗi logic => nên dùng
+
+
+6. Primitive Types & Reference Types
+Value Types (Primitive data) :Kiểu tham trị
+    Boolean: true, false
+    Null: null
+    Undefined: undefined
+    Number: 42
+    BigInt: 123456789012345678901234567890n
+    String: "Hello, world!"
+Reference Types (Non-Primitive data) : Kiểu tham chiếu
+    Object: { name: "John", age: 30 }
+    Array: [1, 2, 3]
+    Function: function add(a, b) { return a + b; }
+    Date: new Date()
+    RegExp: /\w+/
+Datatype func
+    Function: function add(a, b) { return a + b; }
+    AsyncFunction: async function getData() { ... }
+    GeneratorFunction: function* generateSequence() { ... }
+    AsyncGeneratorFunction: async function* getData() { ... }
+
+- Kiểu tham trị : Giá trị được lưu ở ô nhớ
+var a=10;
+var b=a;
+a=20;
+console.log(b);//10
+
+- Kiểu tham chiếu : Giá trị không lưu ở ô nhớ
+var a= {
+    fullName: "A",
+}
+var b=a;
+a.fullName ="B"
+console.log(b.fullName);//  B
+
+var a= {
+    fullName: "A",
+}
+a = {
+    fullName: "B",  
+    age:18,
+}
+- Tạo ra 1 vùng nhớ mới rồi gán lại vào a, do đó không hoạt động với const, const chỉ sửa giá trị, ko sửa vùng nhớ
+- Vùng nhớ cũ a= {
+    fullName: "A",
+} không mất đi , vẫn tồn tại đến khi tắt chương trình
+
+var a{
+    fullName: "A",
+}
+var b=a;
+var c=b;
+- Tất cả đều ko tạo vùng nhớ mới mà đều trỏ vào vùng nhớ của a
+
+- Trường hợp obj chứ obj con (arr chứa arr con) :
+const student = {
+    name : "A",
+    profile : {
+        firstName : "Nguyen",
+        lastName : "Van",
+    }
+}
+- JS đọc hết code rồi Tạo ra obj profile trước rồi tạo student
+VD2:
+function createCar(obj){  // Truyền bằng tham chiếu nên obj với car là 1
+    // Cách copy sang obj mới
+    obj = JSON.parse(JSON.stringify(obj)); //C1: Dùng JSON, Do nếu nó có obj con cũng tạo hết vùng nhớ mới
+    obj = {...obj};                        //C2: dùng spread giải toán tử, lưu ý chỉ dùng với obj ko có obj con
+    obj.name = "Toyota";
+    return obj;
+}
+const car = {
+    name : "BMW",
+}
+const newCar = createCar(car);
+VD3:
+const a =1;
+const b=1;
+console.log(a===b); //true
+
+const a ={
+    a:1,
+};
+const b ={
+    a:1,
+};
+console.log(a===b); //false
+console.log(a==b); //false
+
+
+7. Từ khoá this 
+- this đề cập tới đối tượng nó thuộc về ,this tham chiếu đối tượng truy cập phương thức
+- Đứng ngoài phương thức, this tham chiếu tới đối tượng global (trên trình duyệt là window)
+- Arrow function không có this do ko có context, nếu dùng this trong arrow function thì là this thằng của thằng cha
+- Lưu ý :
++ this trong hàm tạo đại diện đối tượng được tạo
++ this trong hàm trong hàm là window, tip: dùng _this = this trong hàm cha;
++ this trong hàm là 1 undefined khi ở strict mode
++ Các phương thức bind(), call(), apply() có thể tham chiếu this tới đối tượng khác
+VD1:
+const iPhone7 ={
+    name: 'iPhone7',
+    weights: 700,
+    methodTest: function{
+
+    }
+    hoặc:
+    methodTest(){
+        console.log(this); // this ở đây là obj iPhone7
+    }
+
+    objCon : {
+        testCon (){
+                    console.log(this); // this ở đây là objCon
+        }
+    }
+}
+VD2: Hàm tạo
+function Car(name, color, weight){
+    this.name = name;
+    this.color = color;
+    this.weight = weight;
+    this.run = function (){
+        console.log(this); // this
+    }
+}
+ hoặc dùng prototype tạo phương thức static
+ Car.prototype.run = function (){
+    console.log(this); // this
+ }
+const mercedesS450 = new Car('mercedesS450', 'black', 450);
+console.log(mercedesS450.run());
+
+- Cách viết lại không dùng this: obj không dùng this mà .tới phương thức luôn còn function cần this để . tới phương thức
+function Car(name, color, weight){
+    const car = {
+        name: name,
+        color: color,
+        weight: weight,
+        run: function (){
+            console.log(car); // sử dụng biến car thay vì this
+        }
+    }
+    return car;
+}
+const mercedesS450 = Car('mercedesS450', 'black', 450);
+console.log(mercedesS450.run());
+
+VD3: 
+- Trong strict mode thì this là undefined do ko có đối tượng gọi đến
+function a(){
+    console.log(this);// Đây là obj window
+}
+a();
+
+VD4: Mỗi hàm đều có context(Môi trường) chạy riêng của nó do đó this là khác nhau ; 
+Car.prototype.run = function (){
+    console.log(this); // this
+
+    function functionCon(){
+        console.log(this); // this là window
+    }
+    functionCon()
+
+    function2 = () => {
+        console.log(this); // this là Car
+    }
+}
+
+
+8. fn.bind() Ràng buộc
+- Khi không dùng .để gọi thì nó chọc ra windows
+VD:
+this.fN ="A"
+this.lN ="B"
+const teacher = {
+    fN :"C"
+    lN:"D"
+    get(){
+        return `${this.fN} ${this.lN}`
+    }
+}
+console.log(teacher.get()); // C D .là teacher
+
+const getN = teacher.get;
+console.log(getN());        // A B do . là window
+
+- DÙng bind để ràng buộc, bind đã được định nghĩa sẵn trong obj function base :
++ bind() sẽ trả về hàm mới , nhận các đối số như ban đầu
+const getN = teacher.get.bind(teacher) ;
+console.log(getN());        // C D
+
+const student = {
+    fN:"Hiep",
+    lN: "Nguyen",
+}
+const getN = teacher.get.bind(student) ;
+console.log(getN());        // Hiep Nguyen
+
+VD get(doiso1, doiso2){
+        console.log(`${this.fN} ${this.lN}`) ;
+        console.log(doiso1 + doiso2) ;
+    }
+C1: const getN = teacher.get.bind(student, 10 , 15) ;
+- bind() nhận đối số đầu tiên là obj ràng buộc, còn lại là tham số truyền vào
+hoặc
+C2: const getN = teacher.get.bind(student) ;
+ getN(10 , 15);
+
+- Tuy nhiên nếu gọi cách 1 trước rồi tiếp tục cách 2 thì tham số truyền vào từ cách 2 sẽ không được nhận nữa,
+ do đó nếu muốn thay đổi nhiều thì C2,để giá trị mặc định thì C1
+
+- Ứng dụng :
++ const btn = document.querySelector('button');
+button.onclick = teacher.get.bind(teacher); // Cần bind() vì this hiện tại đang là btn
+
++ const $ = document.querySelector.bind(document)
+  const $$ = document.querySelectorAll.bind(document)
+var a= $('h1')
+
++ khi dùng Dom event thì cần bind();
+
+
+9. Fn.call() 
+- gọi hàm với call();
+Math.random.call();
+const teacher = {
+    fN :"C"
+    lN:"D"
+    get(){
+        console.log( `${this.fN} ${this.lN}`)
+    }
+}
+
+teacher.get.call(); // Lỗi do this trường hợp này là window
+teacher.get.call(teacher); // ok, bind rồi call, bind không thì không thực thi luôn hàm
+// Nếu thay teacher bằng obj student thì nó gọi là kỹ thuật mượn hàm
+- Kế thừa
+function animal (name,age,weight){
+    this.name = name;
+    this.age = age;
+    this.weight = weight;
+}
+
+function chicken (name,age,weight,height){
+    animal.call(this,name,age,weight);
+    this.height = height;
+}
+
+const Ga = new chicken('So1',3,200,15);
+console.log(Ga);
+
+- Mượn hàm :
+function logger (){
+    Array.prototype.forEach.call(arguments,item =>{
+        console.log(item)
+    })
+
+    const arr= Array.prototype.slice.call(arguments);// convert to array ko dùng cách này, nhiều cách khác ngon hơn
+    const arr = Array.from(arguments);
+    const arr = [...arguments];
+}
+
+logger(1,2,3,4,5,6,7,8,9)
+
+
+10. Fn.apply()  
+- apply giống với call() nhưng là truyền mảng tham số
+- giống call, mượn hàm, kế thừa, truyền arguments thay mảng cũng được do tương tự nhau
+const teacher = {
+    fN : "A",
+    lN: "B"
+}
+function greet(doiso1, doiso2){
+    console.log(`${this.fN} ${doiso1}  ${doiso2} ${this.lN}`)
+}
+
+let result = greet.call(teacher,'xin chao', 'tam biet');
+let result = greet.apply(teacher,['xin chao', 'tam biet']);
+
+
+11. bind(), call(), apply()
+- bind(arg, đối số1,đối số 2, ...):
++ Trả ra hàm mới với this tham chiếu tới thisArg
++ Không thực hiện gọi hàm
++ Nếu bind kèm đối số thì đối số sẽ ưu tiên hơn với đối số truyền vào sau 
+
+- call(arg, đối số1,đối số 2, ...):
++ Thực hiện bind this với thisArg và thực hiện gọi hàm luôn
++ Nhận đối số dạng gốc
+
+- call(arg,[ đối số1,đối số 2, ...]):
++ Thực hiện bind this với thisArg và thực hiện gọi hàm luôn
++ Nhận đối số gốc dạng mảng
+
+-> Dùng khi mượn hàm, kế thừa, 

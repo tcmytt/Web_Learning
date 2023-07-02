@@ -1,0 +1,114 @@
+
+Flexbox là một công nghệ layout trong CSS, được sử dụng để thiết kế giao diện đáp ứng và linh hoạt. 
+Các thuộc tính trong Flexbox được sử dụng để xác định cách thức sắp xếp các phần tử trong container.
+Các thuộc tính được phân thành hai loại:
+
+- Các thuộc tính áp dụng cho container (flex container) trong Flexbox bao gồm:
+display:
+Giá trị: flex | inline-flex
+Mô tả: Xác định loại container flex, sử dụng giá trị "flex" hoặc "inline-flex".
+
+flex-direction:
+Giá trị: row | row-reverse | column | column-reverse
+Mô tả: Xác định hướng của các phần tử trong container, có giá trị là "row" (ngang), "row-reverse" (ngang đảo ngược), 
+"column" (dọc), hoặc "column-reverse" (dọc đảo ngược).
+
+flex-wrap:
+Giá trị: nowrap | wrap | wrap-reverse
+Mô tả: Xác định cách thức xếp các phần tử trong container khi không đủ không gian, 
+có giá trị là "nowrap" (không xuống dòng), "wrap" (xuống dòng khi không đủ không gian) 
+hoặc "wrap-reverse" (xuống dòng ngược lại).
+
+justify-content:
+Giá trị: flex-start | flex-end | center | space-between | space-around | space-evenly
+Mô tả: Canh chỉnh các phần tử trong container theo chiều ngang, có giá trị là "flex-start" (canh trái),
+"flex-end" (canh phải), "center" (canh giữa), "space-between" (chấm phân các phần tử bằng khoảng cách đều nhau) , 
+"space-around" (chấm phân các phần tử bằng khoảng cách đều nhau với khoảng cách xung quanh) 
+hoặc "space-evenly" (chấm phân các phần tử bằng khoảng cách đều nhau với khoảng cách cả hai bên).
+
+align-items:
+Giá trị: flex-start | flex-end | center | baseline | stretch
+Mô tả: Canh chỉnh các phần tử trong container theo chiều dọc, có giá trị là "flex-start" (canh trên), 
+"flex-end" (canh dưới), "center" (canh giữa), "baseline" (canh theo đường cơ sở của các phần tử) 
+hoặc "stretch" (dãn các phần tử cho đến khi chạm đến phần tử có chiều cao lớn nhất).
+
+align-content:
+Giá trị: flex-start | flex-end | center | space-between | space-around | stretch
+Mô tả: Canh chỉnh các hàng trong container theo chiều dọc, có giá trị tương tự như justify-content. 
+Tuy nhiên, thuộc tính này chỉ có tác dụng khi có nhiều hàng trong container, 
+nếu chỉ có một hàng thì thuộc tính này không có tác dụng.
+
+
+- Các thuộc tính áp dụng cho các phần tử trong container (flex item), bao gồm:
+order:
+Giá trị: <number>
+Mô tả: Xác định thứ tự hiển thị của phần tử trong container, có giá trị từ nhỏ đến lớn.
+
+flex-grow:
+Giá trị: <number>
+Mô tả: Xác định mức độ đàn hồi của một phần tử trong container. 
+Khi không đủ không gian, các phần tử sẽ được căng ra theo tỷ lệ phần trăm của flex-grow.
+
+flex-shrink:
+Giá trị: <number>
+Mô tả: Xác định mức độ co lại của một phần tử trong container. 
+Khi không đủ không gian, các phần tử sẽ co lại theo tỷ lệ phần trăm của flex-shrink.
+
+flex-basis:
+Giá trị: <length> | auto
+Mô tả: Xác định kích thước ban đầu của một phần tử trong container. 
+Giá trị có thể là một số đo lường (px, em, %) hoặc "auto" (giá trị mặc định).
+
+align-self:
+Giá trị: auto | flex-start | flex-end | center | baseline | stretch
+Mô tả: Xác định canh chỉnh của một phần tử trong container theo chiều dọc. 
+Giá trị tương tự như align-items, tuy nhiên thuộc tính align-self chỉ áp dụng cho một phần tử cụ thể trong container, 
+không áp dụng cho toàn bộ các phần tử. Giá trị "auto" sẽ sử dụng giá trị của thuộc tính align-items của container.
+
+justify-self:
+Giá trị: flex-start | flex-end | center | baseline | stretch
+Mô tả: flex-start: canh chỉnh phần tử về phía bên trái của container.
+flex-end: canh chỉnh phần tử về phía bên phải của container.
+center: canh chỉnh phần tử giữa container.
+baseline: canh chỉnh phần tử theo đường baseline của container.
+stretch: kéo dãn phần tử để nó vừa với container.
+
+
+- Short-Hand :
+flex-flow:
+Giá trị: <flex-direction>  <flex-wrap>
+Mô tả: Thuộc tính rút gọn cho display và flex-direction
+
+place-content: 
+Giá trị: <align-content> <justify-content>;
+Mô tả: Thuộc tính rút gọn cho justify-content và align-items
+
+place-self:
+Giá trị: <align-self> <justify-self>;
+Mô tả: Thuộc tính rút gọn cho align-self và justify-self
+
+flex:
+Giá trị: <number> <number> <length> | auto
+Mô tả: Thuộc tính rút gọn cho flex-grow, flex-shrink và flex-basis . 
+Giá trị đầu tiên là flex-grow, giá trị thứ hai là flex-shrink và giá trị cuối cùng là flex-basis. 
+Nếu chỉ có một giá trị được chỉ định, nó sẽ được coi là giá trị flex-grow.
+
+
+Tổng kết:
+- container: display,flex-direction,flex-wrap,justify-content(chỉnh phần tử ngang)
+,align-items(chỉnh phần tử dọc),align-content(chỉnh hàng);
+- item: order,flex-grow,flex-shrink,flex-basis,justify-self(ngang),align-self(dọc);
+- short hand:
+    + container: flex-flow(flex-direction,flex-wrap),place-content(align-content,justify-content)[Dọc - Ngang theo hàng];
+    + item: place-self(align-self,justify-self)[Dọc - Ngang] ,flex(flex-grow, flex-shrink ,flex-basis);
+    + Lưu ý :short-hand không có: + display,align-items ở container;
+                                  + order ở item;
+- Lưu ý:
+Hai thuộc tính "align-items" và "align-content" đều sử dụng để canh chỉnh các phần tử trong container theo chiều dọc.
+Tuy nhiên, có sự khác biệt giữa hai thuộc tính này là:
+
+"align-items" được sử dụng để canh chỉnh các phần tử trong container theo chiều dọc trên một dòng cụ thể. 
+Nó chỉ áp dụng cho một dòng duy nhất, thường là dòng đầu tiên.
+
+"align-content" được sử dụng để canh chỉnh các phần tử trong container theo chiều dọc trên nhiều dòng. 
+Nó áp dụng cho tất cả các dòng trong container và được sử dụng để điều chỉnh khoảng cách giữa các dòng.

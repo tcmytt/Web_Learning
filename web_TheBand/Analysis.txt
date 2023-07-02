@@ -1,0 +1,77 @@
+1.Các thành phần hay có trong website
+- Dùng id để đặt cho các Note
+Header     : Đầu trang
+Navigation : Điều hướng
+BreadCrumb : Chỉ xem bạn đang ở đâu
+Banner     : 
+SideBar    :
+Slider     :
+Container(Có nhiều content thì dùng Container bao lại )    :
+Footer     :
+
+2.WebTheBand
+About
+Tour
+Contact
+Image
+Footer
+
+3.Phím tắt
+ctrl + shift + L :Bôi đen hết phần giống nhau
+ctrl + D :Bôi đen từng phần giống nhau
+alt + contro : Tạo thêm cursor
+ctrl + -> :Chuyển về cuối trang
+
+#000 : đen tuyền
+#333 : đen nhạt
+#fff : trắng
+#ccc : xám(Dùng để hover)
+
+4. Note
+- Thằng ul li có tính chất display: list-item là từng khối dời nên 
+nó sẽ nằm dọc, dùng display: inline-block cho thẻ cha ul
+- Href = # : Điều hướng về chính nó
+- Thẻ a có text-decoration :underline(gạch chân) là mặc định
+cần bỏ nó đi
+- Thẻ a mặc định là display:inline; do đó nó không set được ngang dọc, nên đổi thành inline-block
+- Nên css 3 cấp thôi VD: #nav li a{} là đủ rồi, sâu hơn bị rối
+- Thẻ li không kế thừa chiều ngang hết nên cần chỉnh lại 
+- Thẻ ul có tính chất . ở các thẻ li con , muốn bỏ dùng list-style-type:none;
+- Dùng các con số chia hết cho 4 để padding các thứ
+- Tạo class ngang cấp mới cho icon rồi css vào class đó chứ ko css luôn vào class gốc icon
+- Thẻ div chiếm hết ngang 100%
+- làm bám dính:position:fixed;, top:0;left:0;right:0;
+- header khi bám dính position:fixed thì sẽ bị nổi lên 1 tầng, do đó thằng đằng sau sẽ cao hơn nên thằng sau cần
+margin top 1 khoảng (46px)
+- Ông này đè lên ông kia thì dùng position:relative; -absolute
+- Dùng z-index: ;khi có nhiều position khiến nó nổi nhiều tầng ko kiểm soát được
+- thẻ i là italic(nghĩa là nghiêng), line-height:1.4(Tiếng Anh),1.6(Tiếng Việt)
+- Khi dùng thẻ float:(left) cho thẻ con thì thẻ cha sẽ ko bao dc thẻ con do nổi lên ;khắc phục dùng overflow:hidden trong thẻ cha,
+hoặc thêm class clear vào cuối (trong) thẻ cha  css: .clear{clear:both}
+- Chỉ dùng được (margin) âm với float,float sẽ  biến các thẻ thành block, do đó thêm được width,height
+- Lớp modal phủ lên toàn web (overlay) dùng fixed
+- Dùng position: fixed khi muốn layout bay hẳn lên trên(vd:thông báo,Navigation,modal)
+Còn relative,absolute dùng khi muốn layout có quan hệ cha con
+
+- Responsive: Lưu ý đặt file Responsive.css dưới style.css
+- Dùng overflow :hidden ở thẻ cha để thẻ con kko thò ra ngoài
++ Media queries? 
+@media()
+pc: >=1024px
+tablet:>=740px &&<1024px
+mobile<740px
+/* PC */
+@media (min-width:1024px) {
+    
+}
+
+/* Tablet */
+@media ((min-width:740px) and (max-width:1023px)) {
+    
+}
+
+/* Mobile */
+@media (max-width:739px) {
+    
+}
++ tối thiểu 42-48px ngón tay mới dễ tương tác

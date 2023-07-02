@@ -1,0 +1,29 @@
+ctrl p : đổi file 
+ctrl shift p : command
+ctrl shift o : hiển thị tất cả các biến,hàm
+ctrl d : Bôi đen 1 từ, Ấn thêm sẽ bôi đen từ giống
+ctrl u : Hoàn tác phần tử chọn cuối cùng
+ctrl L : bôi đen 1 dòng
+ctrl shift k: Xoá 1 dòng
+ctrl enter : Đưa trỏ chuột Xuống dòng
+ctrl shift enter : Đưa trỏ chuột Lên dòng
+ctrl xuống(lên) : Giống lăn con trỏ chuột
+ctrl phải(trái) : Nhích qua 1 từ
+alt xuống(lên) : Di chuyển cả dòng lên trên hay xuống
+ctrl shift alt xuống(lên) : Thêm con trỏ chuột xuống lên đúng vị trí
+    Hoặc giữ alt dùng trỏ chuột bấm
+shift alt xuống (lên) : copy dòng code lên xuống 
+Bôi đen từ + ctrl shift l : Bôi đen tất cả giống không phân biệt hoa thường
+không bôi đen từ + ctrl shift l : Bôi đen tất cả giống phân biệt hoa thường
+ctrl [] : Đẩy sang trái phải
+home - end : Đầu cuối dòng
+shift home(end) : Bôi đen từ con trỏ chuột đến đầu, cuối
+ctrl home(end) : Đi đến đầu, cuối file
+ctrl f : Tìm kiếm 
+ctrl h : Thay thế 
+ctrl z: Lùi
+ctrl y :Tiến của Lùi
+ctrl [cách] : Gợi ý code
+ctrl w: đóng tab
+ctrl +(-) : font chữ to nhỏ
+npm start :Chạy local sever fake api jason

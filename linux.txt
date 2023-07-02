@@ -1,0 +1,153 @@
+- Khi mới cài linux:
+sudo apt update :(Lên mạng tìm cấu hình mới nhất-ko cài luôn)
+sudo apt upgrade :(Cài cấu hình mới nhất)
+sudo apt install [A] -y :Cài package A , option -y là auto yes tự động đồng ý
+sudo apt remove [A] -y :Gỡ package A , option -y là auto yes tự động đồng ý
+sudo apt autoremove :Gỡ phần cài đặt thừa của [A] sau khi remove
+
+Dấu / là đi từ root. VD: /mnt/d/HocThem$
+Dấu ~ là đi từ home(nằm trong root). VD: ~$
+clear :Xoá màn hình
+-r và -R :thường thì -r có nghĩa là đệ quy, tuy nhiên 1 số trường hợp -r là đảo ngược, -R mới là đệ quy(ls, chmod)
+ Nên dùng -R khi nghĩ tới đệ quy cho tất cả trường hợp
+[A].sh là file shellscript
+up-arrow : Kéo lệnh trên
+[Lệnh] > bacon :Lưu kết quả lệnh vào file bacon, Ghi đè vào
+[Lệnh] >> bacon :Lưu kết quả lệnh vào file bacon, Ghi thêm vào
+
+Chuỗi có dấu cách cần đưa vào trong ""
+Dùng ; để viết nhiều lệnh trên 1 dòng , hoàn thành sẽ tiếp tục
+Dùng && để viết nhiều lệnh trên 1 dòng , thành công sẽ tiếp tục
+ctrl + c :Thoát lệnh đang chạy
+ctrl z :DỪng tạm thời 
+ctrl + shift + w :ĐÓng pane trong terminal
+ctrl + l : clear
+ctrl + a : đưa về đầu dòng lệnh
+ctrl + a : đưa về cuôi dòng lệnh
+ctrl + w : xoá từng từ trong dòng lệnh
+ctrl + U : để xóa hết nội dung lệnh đứng trước con trỏ 
+ctrl + r : Tìm lệnh
+
+
+man [Lệnh] : Trợ giúp
+[lệnh] --help :Trợ giúp
+info [lệnh] :Thông tin về lệnh (Dùng q để quay lại)
+
+mnt :mount (Gắn kết)
+apt :Advanced Package Tool : dùng để quản lý package tải về, xoá, nâng cấp, cập nhập các phần mềm
+sudo :Superuser do
+
+ls -[options]:hiển thị danh sách tập tin 
+ls [Tên thư mục]
+l :Chi tiết 
+a :tập tin ẩn
+R : hiển thị tất cả các thư mục và tập tin bên trong các thư mục con (đệ quy).
+-t: hiển thị danh sách các tập tin và thư mục được sắp xếp theo thời gian sửa đổi mới nhất trước.
+
+cd : Tự động chuyển về home
+cd .. :Lên thư mục cha
+cd ../.. : Lên thư mục cha của cha
+cd - : quay lại nơi trước đó
+cd / : quay về thư mục root
+cd /home :Đứng từ bất cứ đâu đều quay về root rồi chọc ra home (Do dấu /)
+
+
+pwd :print working directory :In file đang làm việc
+cat [A] [B] :concatenate :In ra A à B 
+cat [A] [B] > [C] : Nối B vào A và in ra C
+cat [A] [B] >> [C] : Nối B vào A và in thêm vào C 
+
+tail [A] : In ra màn hình 10 dòng tính từ đáy file trở lên
+tail -n 5 [A] :In ra màn hình 5 dòng tính từ đáy file trở lên
+tail -f [A] :Theo file A nếu có thay đổi sẽ cập nhập luôn (Thường sẽ split hoặc duplicate 1 pane(tab) khác để làm việc còn tab này đề theo dõi thay đổi)
+
+echo :In ra màn hình cmd, xem nội dung biến môi trường
+echo "Xin chao" > [X] : viết Xin chao vào file X 
+echo "Xin chao" > [X] : Dùng tiếp sẽ ghi đè vào file cũ
+echo "Xin chao" >> [X] : Dùng tiếp sẽ ghi thêm vào file cũ
+
+mkdir :TẠo folder
+mkdir parrent/children1/children2 :Tạo thư mục children2 là con thư mục...
+mkdir parrent/children1/children2 -p :Nếu chưa có thư mục con thì tạo mới hết từ parrent đến children2
+rmdir :xOá folder trống, có con thì rm -r [A]
+
+touch :Tạo file mới ko có nội dung, nếu touch file đã tồn tại thì nó chỉ cập nhập t/g sửa đổi
+rm -r [A]:Xoá File, và dir -r sau rm để xoá hết cả trong A (-r là recursive=đệ quy)
+cp [A] [B] :copy nội dung file A sang file Bs
+cp -r [A] [B] :Sao chép tập tin(hoặc thư mục) từ A vào B(B chưa có thì tự động tạo) -r sau cp để sao chép hết a sang b
+mv [A] [B] :Chuyển từ A vào B, Hoặc cùng dir thì xoá A rồi cop vào file B | Đổi tên xoá file cũ
+VD: mv [A] ../ : Chuyển từ con lên cha
+
+vim hoặc vi : Lệnh này mở trình editor vim mặc định trên linux 
+:q để thoát (quit)
+vi demo.html :Mở file html nếu chưa có thì Tạo file html , chưa lưu lại thì chưa được tạo
+i hoặc a : để vào chế độ insert (Ghi)
+nhấn esc : để thoát chế độ insert quay lại normal mode
+:q!  : để thoát mà không lưu từ normal mode
+:w hoặc :wq hoặc :x  : lưu | Thoát và lưu từ normal mode
+
+grep [A] [B]: tìm kiếm chuỗi ký tự A trong nội dung của một hoặc nhiều tập tin B .
+cat [A] | grep [X] : Tìm X trong A
+echo [A] | grep [X] : Tìm X trong A
+-i (không phân biệt chữ hoa/chữ thường), -v (hiển thị các dòng không chứa chuỗi tìm kiếm)
+
+groups :Xem account bản thân đang ở những group nào
+groups hiepnguyen :Xem account hiepnguyen đang ở những group nào
+id :
+id [user] :
+cat /etc/group :Xem file group 
+
+sudo usermod -aG [Tên group] [Tên user] : thêm user vào group
+sudo gpasswd -d [Tên user] [Tên group] : xoá user khỏi group
+
+
+chmod : Thay đổi quyền đọc,ghi,thực thi của user,group,other -R là đệ quy tất cả con
+C1: 0: Không cấp quyền, 1: Thực thi, 2: Viết, 4: Đọc
+ Tổng các số : 3:Viết, thực thi; 5:đọc,thực thi; 6:Đọc,viết; 7:tất cả quyền
+ VD: chmod 777 [A] : thay đổi quyền tất cả cho file A
+C2: chmod u(o,g,a)+(-)w(x,r) [A]    : a là all
+ VD: chmod o+w [A] :file A other có thêm quyền write
+     chmod -R u=rwx,g-rw,u+rx [A]
+d là thư mục, - Là file , l là short cut(symbolic link)
+
+./[A] :Thực thi file A (Lưu ý nếu chưa có quyền excute thì cấp bằng chmod +x [A] rồi chạy)
+
+chown : Thay đổi chủ sở hữu , change owner có thể cần sudo
+chown root [A] : đổi chủ file A sang root
+chown root:root [A] : đổi chủ file A sang root, và cả group
+
+wget [đường dẫn] : Tải trực tiếp tài nguyên từ đường dẫn về máy trên internet
+
+sudo apt install nodejs -y :Cài nodejs
+node random.js :Chạy file js
+
+ps aux :rocess status - list all processes in a user-friendly format liệt kê tiến trình đang chạy 
+top :liệt kê tiến trình đang chạy chi tiết hơn
+htop :liệt kê tiến trình đang chạy chi tiết hơn
+ thoát ấn q hoặc ctrl c
+df -h :Xem ổ cứng 
+free -h :xem ram
+
+kill [IDP] :IDP id process mặc định dừng lại tiến trình theo signal 15 (Cho ít thời gian lưu lại dữ liệu)
+kill -9 [IDP] :dừng lại tiến trình ngay lập tức theo signal 9 (có thể mất dữ liêụ)
+
+ping [Tên miền|IP] :kiểm tra độ trễ ping lên máy chủs
+VD: ping google.com 
+uname -a :unix name đưa thông tin về bản dựng, -a là all
+passwd : đổi mật khẩu user hiện tại
+
+diff -i A B :So sánh hai tập tin văn bản và hiển thị sự khác biệt giữa chúng
+
+Name=abc :tên_biến=giá_trị , khi cần dùng lại biến thì $Tên_Biến , có 1 số biến có sẵn như $PATH
+
+
+
+Để thông thạo Linux, bạn cần học những kiến thức sau:
+Các lệnh cơ bản của Linux: Linux là hệ điều hành dòng lệnh, do đó việc nắm vững các lệnh cơ bản của Linux là rất quan trọng. Bao gồm các lệnh liên quan đến tệp tin, thư mục, quyền hạn, quản lý tiến trình, mạng và hệ thống.
+Cấu trúc hệ thống tệp tin: Linux có một cấu trúc hệ thống tệp tin đặc biệt, có nhiều thư mục quan trọng như /bin, /usr, /etc, /var, /dev,... Bạn cần hiểu được ý nghĩa và vai trò của mỗi thư mục để có thể sử dụng Linux một cách hiệu quả.
+Quản lý gói phần mềm: Hầu hết các bản phân phối Linux đều sử dụng các gói phần mềm, ví dụ như Debian sử dụng gói DEB, Fedora sử dụng gói RPM. Bạn cần biết cách quản lý các gói phần mềm này, bao gồm cài đặt, cập nhật, xóa và kiểm tra tình trạng.
+Quản lý người dùng và nhóm: Trên Linux, bạn có thể tạo và quản lý các tài khoản người dùng, nhóm và quyền truy cập. Bạn cần biết cách tạo tài khoản, đặt mật khẩu, thêm vào nhóm, phân quyền và xóa tài khoản.
+Cấu hình mạng: Linux là một hệ điều hành được sử dụng rộng rãi trong việc quản lý mạng. Bạn cần biết cách cấu hình các thông số mạng như địa chỉ IP, subnet mask, gateway, DNS và các tùy chọn mạng khác.
+Quản lý dịch vụ: Linux là một hệ thống dịch vụ, có thể chạy nhiều dịch vụ trên một máy chủ. Bạn cần biết cách quản lý các dịch vụ này, bao gồm khởi động, tắt, cấu hình và xem trạng thái.
+Lập trình shell: Bash là shell mặc định trên hầu hết các bản phân phối Linux. Bạn cần biết cách viết các lệnh shell để tự động hóa các tác vụ và quản lý hệ thống.
+Ngoài ra, để thông thạo Linux bạn cũng nên tìm hiểu các công nghệ và ứng dụng phổ biến trên

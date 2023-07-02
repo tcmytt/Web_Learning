@@ -1,0 +1,53 @@
+bỏ chấm đầu li là : list-style: none;
+bỏ gạch chân thẻ a : text-decoration: none;
+chỉnh chữ sang trái, phải : text-align: right;
+Chỉnh ảnh box-shadow: Ngang dọc 3px #ccc;
+href="/" để load về trang chủ
+ul có padding left mặc định, dùng thì bỏ đi
+Di chuyển phần tử sang trái  /* Di chuyển sang trái */
+    margin-left: auto;
+Thẻ h mặc định có margin
+Trong display flex thì muốn chuyển item qua trái : margin-left: auto; phải,giữa
+để dùng top âm thì cần position nhưng margin âm ko cần position
+Khi dùng flex thì để ý dùng margin cho nhanh
+span ko có css do đó thẻ cha css thì thẻ con span sẽ dính
+font-weight: mặc định là 500
+Chiều dọc mà chòi ra ngoài thì xử lí: overflow-y: auto;
+chú ý dùng vh(view port height) cho giỏ hàng, các position absolute
+pagination UI nút phân trang
+Thẻ a ko có tính chất block ko đặt được ngang dọc, cần thêm display block nếu muốn chỉnh
+CSS Preprocessor : SASS, SCSS
+
+làm chữ biến mất thay vào dấu 3 chấm của hàng 2
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+Cách làm 2 cái vạt:
+span{
+    /* Phần trên border ẩn đi, cho nó =0 */    
+    border-width: 0 50px 50px; 
+    border-style:solid;
+    border-color: transparent red transparent red;
+}
+
+Ảnh dùng kỹ thuật background img thay cho thẻ img
+.home-product-item__img{
+    background-repeat: no-repeat;
+    /* Padding top 100% tạo ra 1 hình vuông */
+    padding-top: 100%;
+    background-size: contain;
+}
+Contain:Nhỏ hơn có thể có khoảng trắng
+Hoặc
+.home-product-item__img{
+    background-repeat: no-repeat;
+    /* Padding top 100% tạo ra 1 hình vuông */
+    padding-top: 100%;
+    background-size: cover;
+    background-position: center;
+}
+Cover:Luôn phóng to,thu nhỏ để vừa kích thước chứa
+
+https://down-vn.img.susercontent.com/file/vn-11134201-7qukw-lev8zfz7lrbe9f
+Học thêm về lớp giả,phần tử giả

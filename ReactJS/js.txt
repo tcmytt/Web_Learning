@@ -1,0 +1,23 @@
+1.SPA/MPA :
+ReactJS là 1 thư viện giúp tạo SPA
+
+SPA : Single-Page Application , CSR : Client side rendering 
+    + Cách tiếp cận hiện đại hơn 
+    + Nhanh hơn trong quá trình sử dụng
+    + Không yêu cầu tải lại trang trong quá trình sử dụng
+    + Phần lớn tài nguyên được tải trong lần đầu
+    + Trang chỉ tải thêm dữ liệu mới khi cần(call api)
+    + Có Front-end riêng biệt
+    + SPA ko thân thiện với SEO như MPA
+    + Khả năng tái sử dụng code
+    + Phụ thuộc hoàn toàn vào JS
+
+MPA : Multi-Page Application , SSR : Server side rendering 
+    + Cách tiếp cận cổ điển 
+    + Yêu cầu tải lại trang trong quá trình sử dụng (Link)
+    + Chậm hơn, tải lại trang khi truy cập, chuyển hướng
+    + Fornt-end Back-end phụ thuộc nhau
+
+SPA : Dùng khi quan tâm trải nghiệm người dùng, nâng cấp, mở rộng trong tương lai,
+    Tốn ít chi phí hạ tầng do JS tự xây dựng trên clien, tốn nhiều chi phí xây dựng app do chia team viết api,
+MPA : Đơn giản hơn, dễ tạo, vì chuyển trang lại request lên sv nên tốn nhiều chi phí hạ tầng
