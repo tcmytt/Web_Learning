@@ -21,3 +21,23 @@ MPA : Multi-Page Application , SSR : Server side rendering
 SPA : Dùng khi quan tâm trải nghiệm người dùng, nâng cấp, mở rộng trong tương lai,
     Tốn ít chi phí hạ tầng do JS tự xây dựng trên clien, tốn nhiều chi phí xây dựng app do chia team viết api,
 MPA : Đơn giản hơn, dễ tạo, vì chuyển trang lại request lên sv nên tốn nhiều chi phí hạ tầng
+
+2.Cách ReactJS render giao diện người dùng :
+<script>
+    const h1 = document.createElement('h1')
+
+    // h1 là 1 obj
+    h1.innerText = 'Hello'
+    h1.id = 'aaa'
+    h1.className='ssss test' // Là thuộc tính
+    // Không dùng h1.class do class trùng với tên bên hướng đối tượng
+    h1.style.color = 'red'
+    h1.style = 'color : green; font-size : 20px'
+    Object.assign(h1.style,{
+        color: 'blue',
+        backgroundColor:'#333' // Không dùng background-Color mà dùng kiểu lạc đà
+    })
+
+    // Gán h1 làm con của thẻ body
+    document.body.appendChild(h1)
+</script>
