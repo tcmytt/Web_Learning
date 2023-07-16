@@ -27,7 +27,7 @@ x-=y : x=x-y
 >= : lớn hơn hoặc bằng
 Chỉ js:
 === : so sánh value và datatype (Ví dụ trong js thì 1=='1': true chỉ so sánh value)
-!== :Ngược
+!== : Ngược với trên
 Ví Dụ : 
 var x='a' && 'b' && 'c' : x sẽ bằng c do chạy từ trái sang phải gặp sai sẽ dừng lấy sai, không sai lấy cuối
 || Tìm đúng : Gặp đúng gán rồi dừng

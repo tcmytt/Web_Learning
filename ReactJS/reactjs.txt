@@ -41,3 +41,9 @@ MPA : Đơn giản hơn, dễ tạo, vì chuyển trang lại request lên sv n�
     // Gán h1 làm con của thẻ body
     document.body.appendChild(h1)
 </script>
+
+3. Cách thêm React vào website. Github, NPMJS, UNPKG
+- NPMJS : Node package Manager JavaScript
+- UNPKG : Unpakage NPM | unpkg.com/:package@:version/:file
+VD : unpkg.com/react@17.0.2/index.js
+- cdn : content delivery network
