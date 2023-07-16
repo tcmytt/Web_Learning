@@ -4,9 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script> 
 </head>
 <body>
     <h1>ADD REACT TO WEBSITE</h1>
+    <div id="root">
+
+    </div>
 </body>
+<script>
+    // DOM
+    const h1DOM = document.createElement('h1')
+
+    h1DOM.id = "ul-id"
+    h1DOM.style = "color: red; font-size : 30px"
+    h1DOM.title = 'HELLO'
+    h1DOM.className = 'heading'
+    h1DOM.innerText = 'hello guys'
+    document.body.appendChild(h1DOM)
+
+    const ulDOM = document.createElement('ul')
+    const liDOM1 = document.createElement('li')
+    liDOM1.innerText = 'Javascript'
+    const liDOM2 = document.createElement('li')
+    liDOM2.innerText = 'ReactJS'
+    ulDOM.appendChild(liDOM1)
+    ulDOM.appendChild(liDOM2)
+    document.body.appendChild(ulDOM)
+
+
+    // React
+    // React.createElement(typeTag, props, children1, children-n)
+    const h1React = React.createElement('h1', {
+        title : 'hello',
+        className : "heading",
+    }, 'Heelo guy! ',React.createElement('li', {id : "li-1"}, 'javascript'),)
+    // Tự tạo 1 children trong props | children : 'Heelo guy! '
+    const ulReact = React.createElement(
+        'ul',
+        {
+            id : "ul-id",
+            className : "aaa", 
+            style:"color : red; font-size : 30p"
+        },
+        React.createElement('li', {id : "li-1"}, 'javascript'),
+        React.createElement('li', null, 'reactJs') 
+        //Null hoặc {}
+    )
+
+
+    console.dir(h1DOM)
+    console.log(ulReact)
+
+    // Get root element
+    const root = document.getElementById("root")
+    // Đẩy h1React vào root, (element tạo bởi react, vị trí cần thêm trong dom)
+    ReactDOM.render(h1React, root)
+    // Phiên bản 18
+    const tmp = ReactDOM.createRoot(root)
+    tmp.render(h1React);
+
+</script>
+<script src="./test.js"></script>
 </html>

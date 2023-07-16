@@ -24,7 +24,7 @@ MPA : Đơn giản hơn, dễ tạo, vì chuyển trang lại request lên sv n�
 
 2.Cách ReactJS render giao diện người dùng :
 <script>
-    const h1 = document.createElement('h1')
+    const h1 = document.createElement('h2')
 
     // h1 là 1 obj
     h1.innerText = 'Hello'
@@ -47,3 +47,56 @@ MPA : Đơn giản hơn, dễ tạo, vì chuyển trang lại request lên sv n�
 - UNPKG : Unpakage NPM | unpkg.com/:package@:version/:file
 VD : unpkg.com/react@17.0.2/index.js
 - cdn : content delivery network
+<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+
+4.React.createElement()
+    // DOM
+    const h1DOM = document.createElement('h1')
+
+    h1DOM.id = "ul-id"
+    ulDom.style = "color: red; font-size : 30px"
+    h1DOM.title = 'HELLO'
+    h1DOM.className = 'heading'
+    h1DOM.innerText = 'hello guys'
+    document.body.appendChild(h1DOM)
+
+    const ulDOM = document.createElement('ul')
+    const liDOM1 = document.createElement('li')
+    liDOM1.innerText = 'Javascript'
+    const liDOM2 = document.createElement('li')
+    liDOM2.innerText = 'ReactJS'
+    ulDOM.appendChild(liDOM1)
+    ulDOM.appendChild(liDOM2)
+    document.body.appendChild(ulDOM)
+
+
+    // React
+    // React.createElement(typeTag, props, children1, children-n)
+    const h1React = React.createElement('h1', {
+        title : 'hello',
+        className : "heading",
+    }, 'Heelo guy! ')
+    // Tự tạo 1 children trong props | children : 'Heelo guy! '
+    const ulReact = React.createElement(
+        'ul',
+        {
+            id : "ul-id",
+            style:"color : red; font-size : 30p"
+        },
+        React.createElement('li', {id : "li-1"}, 'javascript'),
+        React.createElement('li', null, 'reactJs')
+    )
+
+5.ReactDOM : Render ra web
+- Chỉ dùng đc khi đã có 
+<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+- Thư viện React - Dom : Được tách ra từ React từ lâu về trước
+<script crossorigin src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.production.min.js"></script> 
+- React-Native : Code trên androi, ios
+
+@17
+ReactDOM.render(ReactElement, root)
+
+@18
+const tmp = ReactDOM.createRoot(root)
+tmp.render(h1React);
