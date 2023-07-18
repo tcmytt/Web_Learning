@@ -13,39 +13,21 @@
     <div id="root"></div>
     <div id="root1"></div>
     <script type="text/javascript">
-        const courses = [
-            {
-                name: "HTML, CSS"
-            },
-            {
-                name: "Responsive"
-            },
-            {
-                name:"ReactJS"
-            }
-        ]
-        const ul = React.createElement(
-            "ul",
-            {
-                style : {color : "red", fontSize : "30px"}
-            },
-            React.createElement("li", null, "Javascript"),
-            React.createElement("li", null, "ReactJS")
-        )
-
-        ReactDOM.render(ul, document.getElementById("root"))
     </script>
 
     <script type="text/babel">
-        const tmp = " React "
+        function ItemPost () {
+            
+        }
 
-        const ul1 = <ul>
-           {courses.map((item) => {
-                return <li>{item.name}</li>
-            })}
-        </ul>
+        const app = (
+            <div className="wrapper">
+                <Header></Header>
+                <div className = "content"> Content</div>
+            </div>
+        )
 
-        ReactDOM.render(ul1, document.getElementById("root1"))
+        ReactDOM.render(app, document.getElementById("root1"))
     </script>
 </body>
 <script src="./test.js"></script>

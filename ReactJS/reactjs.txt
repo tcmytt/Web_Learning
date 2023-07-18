@@ -50,6 +50,7 @@ VD : unpkg.com/react@17.0.2/index.js
 <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 
 4.React.createElement()
+- class đổi thành className
     // DOM
     const h1DOM = document.createElement('h1')
 
@@ -128,9 +129,56 @@ Lưu ý cần viết vào :
         ]
             
     const ul1 = <ul>
-    {courses.map((item) => {
-        return <li>{item.name}</li>
-        })}
+           {courses.map((item,index) => {
+                return <li key={index}>{item.name}</li>
+            })}
         </ul>
     </script>
 
+7. JSX render Arrays
+    const ul1 = <ul>
+           {courses.map((item,index) => {
+                return <li key={index}>{item.name}</li>
+            })}
+        </ul>
+
+- Không thể đưa 2 heading   :
+            <h1>Heading 1</h1>    
+            <h1>Heading 2</h1>   
+    mà không có bao quanh, có thể bao bằng div hoặc React.Fragment
+
+    const jsx = <React.Fragment> 
+            <h1>Heading 1</h1>    
+            <h1>Heading 2</h1>    
+        </React.Fragment>
+
+8.React element types strings("div","h2"...)/func,class Trong bable
+- React.createElement(type,props,children...)
+
+- Hooks
+- Func/Class component type trong babel
+- Hàm dùng làm func/class component thì viết hoa chữ cái đầu 
+- ý nghĩa : 
+VD: 
+    function Header () {
+        return (
+            <div className="header">Header</div>
+        )
+    }
+
+// Class
+    class Content extends React.component {
+        render(){
+            return (
+                <div className="content"> Content </div>
+            )
+        }
+    }
+
+    const app = (
+        <div className="wrapper">
+            <Header></Header>
+            <Content />
+            <div className = "content"> Content</div>
+        </div>
+    )
