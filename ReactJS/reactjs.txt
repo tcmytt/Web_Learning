@@ -81,11 +81,13 @@ VD : unpkg.com/react@17.0.2/index.js
         'ul',
         {
             id : "ul-id",
-            style:"color : red; font-size : 30p"
+            style:{color : "red"; font-size : "30px"}
         },
         React.createElement('li', {id : "li-1"}, 'javascript'),
         React.createElement('li', null, 'reactJs')
     )
+
+- LƯU Ý : style nhận obj
 
 5.ReactDOM : Render ra web
 - Chỉ dùng đc khi đã có 
@@ -93,6 +95,7 @@ VD : unpkg.com/react@17.0.2/index.js
 - Thư viện React - Dom : Được tách ra từ React từ lâu về trước
 <script crossorigin src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.production.min.js"></script> 
 - React-Native : Code trên androi, ios
+- Render bị đè lên nhau
 
 @17
 ReactDOM.render(ReactElement, root)
@@ -100,3 +103,34 @@ ReactDOM.render(ReactElement, root)
 @18
 const tmp = ReactDOM.createRoot(root)
 tmp.render(h1React);
+
+6. JSX 
+JSX : JavaScript XML
+XML : HTML là mở rộng của XML
+Babel : Thư viện javascript dùng để chuyển từ JSX sang JS, ES6 -> ES5
+<script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+Lưu ý cần viết vào : 
++ type="text/babel", 
++ {} là code javascript 
++ {{...}} là obj
+
+    <script type="text/babel">
+    const courses = [
+            {
+                name: "HTML, CSS"
+            },
+            {
+                name: "Responsive"
+            },
+            {
+                name:"ReactJS"
+            }
+        ]
+            
+    const ul1 = <ul>
+    {courses.map((item) => {
+        return <li>{item.name}</li>
+        })}
+        </ul>
+    </script>
+
