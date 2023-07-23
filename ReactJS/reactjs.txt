@@ -157,7 +157,7 @@ Lưu ý cần viết vào :
 
 - Hooks
 - Func/Class component type trong babel
-- Hàm dùng làm func/class component thì viết hoa chữ cái đầu 
+- Luôn viết hoa chữ cái đầu Hàm trong babel , viết kiểu camel case
 - ý nghĩa : 
 VD: 
     function Header () {
@@ -182,3 +182,63 @@ VD:
             <div className = "content"> Content</div>
         </div>
     )
+
+9.Props react element
+- React elements: 
++ Dùng props giống attribute thẻ html
++ 2 props class , for => ClassName, htmlFor (Trong thẻ label)
++ Tuân theo quy ước có sẵn
+- React components
++ Sử dụng props giống đối số cho component, là kiểu obj không cần {} hay dấu , thay : bằng = ;do babel tự xử lí dc
++ Tự do đặt tên props: Đặt theo camelCase, Có thể bao gồm gạch ngang
+
++ Props "key" là props đặc biệt
++ Props cơ bản là đối số của component
+=> Props có thể có thể là bất cứ kiểu dư liệu gì
++ Sử dụng destructuring
+<script type="text/babel">
+
+        //PostItem.js 
+        // Dùng destructuring để đặt default
+        function PostItem({
+            callback = () => {},
+            tiltle,
+            des,
+            img
+        }) {
+
+            if (typeof callback === "function") {
+                callback(Math.random());
+            }
+//            callback() 
+            return (
+                <div className="post-item">
+                    <h2>
+                        {tiltle} Tương tác {des}
+                    </h2>
+                    <img src={img} alt="" srcset="" />
+                    <label htmlFor="email">Email</label>
+                    <input id="email" type="text" />
+                </div>
+            );
+        }
+
+        //App.js 
+        function App() {
+            return (
+                <div id="wrapper">
+                    HELLO !
+                    <PostItem tiltle="Ahr uv tur" img="data:image/jpeg;base64,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"
+                        des="tuyệt vời" data={[{ a: 1 }, { b: 2 }]} callback={(tmp) => { console.log(tmp); }} />
+                </div>
+            );
+        }
+
+        //index.js import app vào 
+        ReactDOM.render(
+            <App />, document.getElementById("root"));
+        // <App /> Dùng khi lấy luôn chưa qua bước tạo
+    </script>
+
+10. DOM event
+- onclick là code thuần nhưng trong babel là onClick
