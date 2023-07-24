@@ -241,4 +241,24 @@ VD:
     </script>
 
 10. DOM event
-- onclick là code thuần nhưng trong babel là onClick
+- onclick là code thuần nhưng trong babel là onClick, viết theo kiểu camel
+        function VD2(){
+            function App(){
+                return (
+                    <div id = "wrapper">
+                        <button 
+                            onClick={() => console.log(Math.random())}
+                            onDoubleClick={(e) => console.log(e.target)}
+                            >   Click me!
+                        </button>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App/> , document.getElementById("root"))
+        }
+
+11. Quy ước về component
+- UI component
+- Container component
+- Boolean không render do đó dùng boolean để check điều kiện render

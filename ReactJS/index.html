@@ -128,27 +128,33 @@
             }
         ]
 
-        // Nếu nhận thẳng API luôn thì thay props = ({ course })
-        const CourseItem = props => (
+        // Nếu nhận thẳng API luôn thì thay props = ({ course }) , destructuring
+        const CourseItem = ({ course, onClick  }) => (
             <div>
-                <h2>{props.title}</h2>  
-                <img src={props.image} alt="" />  
-                <p>{props.description}</p>
-                <p>{props.studentsCount}</p>
+                <h2 onClick = {() => onClick(course)}
+                    >
+                    {course.title}
+                </h2>  
+                <img src={course.image_url} alt="" />  
+                <p>{course.description}</p>
+                <p>{course.studentsCount}</p>
             </div>
         )
 
+        // Container 
         function App() {
+
+            const handleClick = (course) => {
+                console.log(course.title)
+            }
+
             return (
                 <div id="wrapper">
                     {courses.map(course => (
                         <CourseItem
                             key ={course.id}
-                            title={course.title} 
-                            image ={ course.image_url}
-                            studentsCount={course.students_count}
-                            description={course.description}
                             course = {course}
+                            onClick ={handleClick}
                         />
                     ))}
                 </div>
@@ -175,7 +181,60 @@
             ReactDOM.render(<App/> , document.getElementById("root"))
         }
 
-        VD2()
+        function VD3(){
+
+            const Form = {
+                Input(){
+                    return <input type="text" />
+                },
+                CheckBox(){
+                    return <input type="checkbox" />
+                }
+            }
+
+
+            function Button({title,href,onClick}){
+                let Component = "button"
+                const props = {}
+                if(href){
+                    Component = "a";
+                    props.href = href
+                }
+                if(onClick){
+                    props.onClick = onClick
+                }
+                return (
+                    <Component {...props}> {title} </Component>
+                )
+            }
+
+
+            function App(){
+                const type = "Input"
+                const Cpn = Form[type]
+
+                let firstAccess = true
+
+                return (
+                    <div id = "wrapper">
+                        {firstAccess && <h1> Welcome to F8 </h1>}
+                        <Cpn />
+                        <Form.CheckBox />
+                        <Button
+                            title = " clickMe "
+                            onClick = {() => console.log(Math.random())}
+                            //href = "https://www.youtube.com"
+                        />
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App   title = "hello" /> , document.getElementById("root"))
+
+        }
+
+
+        VD3()
     </script>
 
 </body>
