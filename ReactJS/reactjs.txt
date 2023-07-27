@@ -262,3 +262,72 @@ VD:
 - UI component
 - Container component
 - Boolean không render do đó dùng boolean để check điều kiện render
+
+function App(){
+                const type = "Input"
+                const Cpn = Form[type]
+
+                let firstAccess = true
+
+                return (
+                    <div id = "wrapper">
+                        {firstAccess && <h1> Welcome to F8 </h1>}
+                        <Cpn />
+                        <Form.CheckBox />
+                        <Button
+                            title = " clickMe "
+                            onClick = {() => console.log(Math.random())}
+                            //href = "https://www.youtube.com"
+                        />
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App   title = "hello" /> , document.getElementById("root"))
+
+        }
+
+12.Children props? Render props?
+- props trong jsx : 
+<YourComponent 
+    isPrimary
+    primary ={true}
+    propName1 = "String literals"
+    propName2 = {expression}
+    />
+
+- isPrimary không truyền gì cả thì vẫn là biến dạng boolean giá trị true
+- primary ={true} là truyền vào 1 biến primary có giá trị true
+- expression : if else, switch case sẽ ko truyền dc
+
+- Spread/ Rest props :
+function Input({ label, ...inputProps }) {
+                return (
+                    <div>
+                        <label> {label} </label>    
+                        <input {...inputProps} />
+                    </div>
+                )
+            }
+
+function App(){
+                return(
+                    <div id= "wrapper">
+                        <Input  
+                            label ="fullName"
+                            placeholder = "Enter Name ..."
+                            onFocus= {() => console.log(Math.random())}
+                        ></Input>    
+                    </div>
+                )
+            }
+
+- Children props : children là thằng text element (HELLOOOO)
+function App(){
+                return(
+                    <div id= "wrapper">
+                        <Input> HELLOOO</Input>    
+                    </div>
+                )
+            }
+- Ngoài text có thể dùng { } truyền biểu thức

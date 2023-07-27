@@ -234,7 +234,33 @@
         }
 
 
-        VD3()
+        function VD4(){
+
+            function Input({ label, children, ...inputProps }) {
+                return (
+                    <div>
+                        <label>{children} {label} </label>    
+                        <input {...inputProps} />
+                    </div>
+                )
+            }
+
+            function App(){
+                return(
+                    <div id= "wrapper">
+                        <Input  
+                            label ="fullName"
+                            placeholder = "Enter Name ..."
+                            onFocus= {() => console.log(Math.random())}
+                        > HELLOOO</Input>    
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App  /> , document.getElementById("root"))
+        }
+
+        VD4()
     </script>
 
 </body>
