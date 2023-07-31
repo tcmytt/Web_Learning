@@ -331,3 +331,119 @@ function App(){
                 )
             }
 - Ngoài text có thể dùng { } truyền biểu thức
+
+13. NodeJs 
+- là JavaScript Runtime : môi trường độc lập để chạy javascript
+- nodejs npm webpack
+
+Vào thư mục khởi tạo dự án
+Bc1 : npm init
+- Set up dự án
+Bc2 : npm install webpack webpack-cli --save-dev
+- cài đặt 2 thư viện là webpack và webpack-cli
+- flag --save-dev để đánh dấu 2 thư viện này chỉ dùng trong khi phát triển, khi dự án đẩy lên production sẽ không có các thư viện này
+- Sau khi chạy lệnh, webpack và webpack-cli được thêm vào devDependencies (Thư viện dùng cho phát triển) (Do dùng flag--save-dev)
+Bc3 : npm install react@17.0.2 react-dom@17.0.2 --save
+- --save để thêm các thư viện được cài vào phần dependencies trong package.json
+- dependencies là các thư viện được sử dụng trong dự án, bao gồm cả development & production. 
+- Từ phiên bản NPM 5 trở đi thì --save được thêm vào mặc định, nếu bạn đang sử dụng NPM >= 5 thì có thể không cần --save.
+Bc4: npm install @babel/core babel-loader @babel/preset-env @babel/preset-react --save-dev
+- babel-core: Chuyển đổi ES6 về ES5
+- babel-loader: Cho phép chuyển các files Javascript sử dụng Babel & Webpack
+- babel-preset-env: Giúp sử dụng Javascript mới nhất trên nhiều môi trường khác nhau (nhiều trình duyệt khác nhau). Gói này đơn giản là support truyển đổi ES6, ES7, ES8, ES... về ES5.
+- babel-preset-react: Hỗ trợ chuyển đổi JSX về Javascript
+Bc5 : Tạo file public/index.html
+- gõ ! và nhấn Tab
+- tạo #root element:
+Bc6 : Tạo src/index.js
+import React from 'react' // nạp thư viện react
+import ReactDOM from 'react-dom' // nạp thư viện react-dom
+
+// Tạo component App
+function App() {
+    return (
+        <div>
+            <h1>Xin chào anh em F8!</h1>
+        </div>
+    )
+}
+
+// Render component App vào #root element
+ReactDOM.render(<App />, document.getElementById('root'))
+
+Bc7 : npm install css-loader style-loader --save-dev
+- Cấu hình web pack
+
+Bc8: Tạo file webpack.config.js trong thư mục gốc (Ngang hàng package.json)
+const path = require("path");
+
+module.exports = {
+  entry: "./src/index.js", // Dẫn tới file index.js ta đã tạo
+  output: {
+    path: path.join(__dirname, "/build"), // Thư mục chứa file được build ra
+    filename: "bundle.js" // Tên file được build ra
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/, // Sẽ sử dụng babel-loader cho những file .js
+        exclude: /node_modules/, // Loại trừ thư mục node_modules
+        use: ["babel-loader"]
+      },
+      {
+        test: /\.css$/, // Sử dụng style-loader, css-loader cho file .css
+        use: ["style-loader", "css-loader"]
+      }
+    ]
+  },
+  // Chứa các plugins sẽ cài đặt trong tương lai
+  plugins: [
+  ]
+};
+
+
+Bc9 : Tạo file .babelrc trong thư mục gốc (Ngang hàng package.json)
+- Dùng cấu hình cho thư viện Babel.
+{
+    "presets": [
+        "@babel/preset-env",
+        "@babel/preset-react"
+    ]
+}
+
+Bc10 : Thêm nội dung cho package JASON
+"scripts": {
+    ...
+    "start": "webpack --mode development --watch",
+    "build": "webpack --mode production"
+}
+
+- Dùng để chạy : npm start , npm run build 
+- lưu ý ngoài npm start tất cả cần thêm run
+
+Chạy dự án
+Bc1 : npm start
+- Tạo file bundle.js trong thư mục build.
+- Nội dung trong build chính là code của file src/index.js đã được Babel chuyển đổi, bạn có thể mở ra để quan sát.
+- Bạn sẽ thấy có rất nhiều code trong này vì nó bao gồm cả code của những thư viện chúng ta đã import như: react và react-dom.
+
+Bc2 : npm install html-webpack-plugin --save-dev
+- Cài thư viện để tự link file js
+- Cấu hình Webpack để thêm html-webpack-plugin vào dự án
+Tại webpack.config.js :
+Thêm vào đầu file :
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+Thêm vào điểm thích hợp :
+ plugins: [
+    new HtmlWebpackPlugin({
+      template: "./public/index.html"
+    })
+  ]
+
+Cài webpack-dev-server :
+Bc1 : npm install webpack-dev-server --save-dev
+- Dùng thay thế live-sever 
+
+Bc2 : "start": "webpack-dev-server --mode development --open --hot",
+Sửa lại cấu hình 
