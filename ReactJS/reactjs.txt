@@ -336,7 +336,7 @@ function App(){
 - là JavaScript Runtime : môi trường độc lập để chạy javascript
 - nodejs npm webpack
 
-Vào thư mục khởi tạo dự án
+Tạo dự án thủ công . Vào thư mục khởi tạo dự án
 Bc1 : npm init
 - Set up dự án
 Bc2 : npm install webpack webpack-cli --save-dev
@@ -447,3 +447,9 @@ Bc1 : npm install webpack-dev-server --save-dev
 
 Bc2 : "start": "webpack-dev-server --mode development --open --hot",
 Sửa lại cấu hình 
+
+Cài thư viện mới nhất :
+npm i react@latest react-dom@latest
+npm i react@17.0.2 react-dom@17.0.2
+
+14. Tạo dự án với create-react-app
