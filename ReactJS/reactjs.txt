@@ -453,3 +453,72 @@ npm i react@latest react-dom@latest
 npm i react@17.0.2 react-dom@17.0.2
 
 14. Tạo dự án với create-react-app
+Cài global npm : npm install -g npm
+- Do bản trước chỉ cài trong node
+
+npm tại :
+C:\Users\<Tên người dùng>\AppData\Roaming\npm
+C:\Program Files\nodejs\node_modules\npm
+
+sau đó cài : npx create-react-app tiktok
+
+15. NPM, NPX và YARN
+Lưu ý : Luôn bật development sever (npm start || yarn start)
+
+NPM : Với linux cần sudo
+- Project scope  : Cài vào dự án cụ thể
+    + npm i react react-dom   -> Lưu vào dependencies , i là install
+    + npm i react react-dom --save-dev -> Lưu vào devDependencies
+    + npm uninstall react react-dom
+    + npm i create-react-app   
+    + npm i : Cài lại file
+    // Cài thư viện create-react-app   
+
+- Global scope   : Cài vào máy tính ( thư mục user ổ C)
+    + npm i -g create-react-app
+    + npm uninstall -g create-react-app 
+
+NPX :Node => NPM, NPX
+    // Thực thi file bin trong thư viện
+    npx create-react-app tiktok
+    // Vào file bin trong node_modules tìm file create-react-app thực thi,
+    // tìm từ project sang global không thấy lên npm tải về để thực thi, thực thi xong xoá bỏ luôn
+
+YARN và NPM : node package Manager(Trình quản lí gói) và Yet Another resource Negotiator(Trình quản lí gói khác)
+Yarn giống npm nhưng nhanh hơn và tốn bộ nhớ hơn 1 ít
+Cài Yarn : npm i -g yarn 
+Bỏ -g cũng dc g là global
+
+Cài đặt gói:
+Yarn: yarn add <tên-gói>
+npm: npm install <tên-gói>
+
+Cài đặt gói toàn cục (để sử dụng gói một cách toàn cục trên hệ thống):
+Yarn: yarn global add <tên-gói>
+npm: npm install -g <tên-gói>
+
+Cài đặt gói cục bộ (để sử dụng gói chỉ trong dự án cụ thể):
+Yarn: yarn add <tên-gói> --dev hoặc yarn add <tên-gói> --save-dev
+npm: npm install <tên-gói> --save-dev
+
+Xóa gói:
+Yarn: yarn remove <tên-gói>
+npm: npm uninstall <tên-gói>
+
+Cập nhật gói:
+Yarn: yarn upgrade hoặc yarn upgrade <tên-gói>
+npm: npm update hoặc npm update <tên-gói>
+
+Cài đặt tất cả các gói từ file package.json:
+Yarn: yarn
+npm: npm install
+
+Kiểm tra phiên bản của gói:
+Yarn: yarn list --pattern <tên-gói>
+npm: npm show <tên-gói> version
+
+Cài đặt phiên bản cụ thể của gói:
+Yarn: yarn add <tên-gói>@<phiên-bản>
+npm: npm install <tên-gói>@<phiên-bản>
+
+16. CRA Folder Structure
