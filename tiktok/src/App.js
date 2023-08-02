@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from 'react'
 
 function App() {
+  const [state, setState] = useState(1);
+
+
+  let handleIncrease =() => {
+    // Không áp dụng liên tục dù gọi 3 lần
+    setState(state + 1)
+    setState(state + 1)
+    setState(state + 1)
+
+    // Áp dụng liên tục gọi cả 3 lần
+    setState(prevState => prevState +1 )
+    setState(prevState => prevState +1 )
+    setState(prevState => prevState +1 )
+
+  }
+
+  let handleUpdate = () =>{
+    setState(pre =>{
+      // logic
+
+      return {
+        //...
+      }
+    })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style = {{padding : 20 }} className="App">
+      <h1  >{state} </h1>
+      <button onClick={handleIncrease}>Increase</button>
     </div>
   );
 }

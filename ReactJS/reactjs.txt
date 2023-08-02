@@ -522,3 +522,35 @@ Yarn: yarn add <tên-gói>@<phiên-bản>
 npm: npm install <tên-gói>@<phiên-bản>
 
 16. CRA Folder Structure
+
+17. Hooks (Gắn, móc)
+- Là hàm trong reactJs , có từ 16.8.0
+import {
+    useState,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    usememo,
+    useReducer,
+    useContext,
+    useImprerativeHandle,
+    useDebugValue,
+} from 'react'
+
+- Hooks chỉ dùng trong function component
+- Component đơn giản, dễ hiểu
+
+18. useState()
+- Dùng khi muốn dữ liệu thay đổi giao diện thay đổi theo tự động
+import {useState} from 'react'
+- Thêm vào function component :
+function Component (){
+    const [state, setState] = useState(initState)
+    ...
+}
+
+- Return ra mảng 2 phần tử state và setState 
+- state là initState , còn setState là hàm dùng để set lại giá trị
+- setState nhận hàm, biểu thức
+- Lưu ý initState nhận mọi loại giá trị(hàm thì là giá trị return) và chỉ load 1 lần nên logic phức tạp nên để vào hàm trong initState
+- Do mỗi lần chạy setState là lại load lại 1 lần nên nếu để ngoài thì gây nhiều tính toán không cần thiết
