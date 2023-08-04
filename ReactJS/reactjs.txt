@@ -621,6 +621,50 @@ function App() {
 - Reactjs : ràng buộc 1 chiều
 - Vuejs : ràng buộc 2 chiều ( V- model)
 
+VD1:
+function App() {
+
+  const courses = [
+    { id: 1, name: "HTML,CSS", price: 100 },
+    { id: 2, name: "JavaScript", price: 120 },
+    { id: 3, name: "ReactJS", price: 150 }
+  ];   
+  
+    const [checked, setChecked] = useState([]);
+    console.log({ ids: checked });
+    const handleCheck = (id) => {
+      const isChecked = checked.includes(id);
+      setChecked((prev) => {
+        if (isChecked) {
+          return checked.filter((item) => item !== id);
+        } else {
+          return [...prev, id];
+        }
+      });
+    };
+    const handleSubmit = () => {
+      //Call API
+    };
+    return (
+      <div className="App">
+        {courses.map((course) => (
+          <div key={course.id}>
+            <input
+              type="checkbox"
+              checked={checked.includes(course.id)}
+              onChange={() => handleCheck(course.id)}
+            />
+            {course.name}
+          </div>
+        ))}
+        <button onClick={handleSubmit}>Submit</button>
+      </div>
+    );
+  
+  
+}
+
+export default App;
 
 Todo List :
 import { useState } from "react";
@@ -675,3 +719,61 @@ function App() {
 }
 
 export default App;
+
+20. Mounted & Unmounted
+- Gắn vào và gỡ ra các component
+Content.js :
+function Content() {
+    return (
+      <div>
+        <h1>hello Anh Em</h1>
+      </div>
+    );
+  }
+  
+  export default Content;
+  
+App.js :
+import Content from "./Content";
+import { useState } from "react";
+function App() {
+  const [show, setShow] = useState(false);
+
+  return (
+    <div style={{ padding: 20 }}>
+      <button onClick={() => setShow(!show)}>Show</button>
+      {show && <Content />}
+    </div>
+  );
+}
+
+export default App;
+
+21.useEffect hook
+- Tạo sideEffect 
+import { useEffect , useState } from "react";
+import { useEffect } from "react";
+
+- useEffect (callback) 
++ Gọi callback mỗi khi component re-render
++ Gọi callback sau khi component thêm vào DOM
+function Content() {
+  const [title, setTitle] = useState('')
+
+    // Viết document.title= title bên ngoài cũng thay đổi dc nhưng ko nên vì  : useEff chạy cuối cùng, mặt ý nghĩa khi dùng
+    useEffect(() => {
+      document.title= title
+    })
+
+    return (
+      <input value={title} onChange={e => setTitle(e.target.value)} ></input>
+    );
+
+  }
+
+- useEffect (callback, []) 
++ Chỉ gọi callback 1 lần sau khi component mount
+
+- useEffect (callback, [deps])
++ Gọi khi deps thay đổi
+- Callback được gọi sau khi component mounted
