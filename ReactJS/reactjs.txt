@@ -554,3 +554,124 @@ function Component (){
 - setState nhận hàm, biểu thức
 - Lưu ý initState nhận mọi loại giá trị(hàm thì là giá trị return) và chỉ load 1 lần nên logic phức tạp nên để vào hàm trong initState
 - Do mỗi lần chạy setState là lại load lại 1 lần nên nếu để ngoài thì gây nhiều tính toán không cần thiết
+VD1:
+import {useState} from 'react'
+
+function App() {
+  const [state, setState] = useState(1);
+
+
+  let handleIncrease =() => {
+    // Không áp dụng liên tục dù gọi 3 lần
+    setState(state + 1)
+    setState(state + 1)
+    setState(state + 1)
+
+    // Áp dụng liên tục gọi cả 3 lần
+    setState(prevState => prevState +1 )
+    setState(prevState => prevState +1 )
+    setState(prevState => prevState +1 )
+
+  }
+
+  let handleUpdate = () =>{
+    setState(pre =>{
+      // logic
+
+      return {
+        //...
+      }
+    })
+  }
+
+  return (
+    <div style = {{padding : 20 }} className="App">
+      <h1  >{state} </h1>
+      <button onClick={handleIncrease}>Increase</button>
+    </div>
+  );
+}
+
+VD2:
+function App() {
+  const gifts = [
+    'CPU i9',
+    'Ram 32gb',
+    'rgb keyboard'
+  ]
+
+  const [gift, setGift] = useState();
+
+
+  const handleRandom =() => {
+    const tmp = Math.floor(Math.random() * gifts.length)
+    setGift(gifts[tmp])
+  }
+
+  return (
+    <div style = {{padding : 20 }} className="App">
+      <h1  >{gift || 'Chưa có phần thưởng'} </h1>
+      <button onClick={handleRandom}>Phần thưởng</button>
+    </div>
+  );
+}
+
+19. Two-way binding,One-way binding  
+- Ràng buộc 1 chiều, ràng buộc 2 chiều
+- Reactjs : ràng buộc 1 chiều
+- Vuejs : ràng buộc 2 chiều ( V- model)
+
+
+Todo List :
+import { useState } from "react";
+
+function App() {
+  const [job, setJob] = useState("");
+  const [jobs, setJobs] = useState(() => {
+    const storageJobs = JSON.parse(localStorage.getItem("jobs")) ?? [];
+    return storageJobs;
+  });
+
+  console.log(job);
+
+  const handleAdd = () => {
+    setJobs((prev) => {
+      const newJobs = [...prev, job];
+
+      // lưu localStorage khi add
+      const jsonJobs = JSON.stringify(newJobs);
+      localStorage.setItem("jobs", jsonJobs);
+      return newJobs;
+    });
+    setJob("");
+  };
+
+  const handleDelete = (index) => {
+    const newJobs2 = jobs.filter((item, id) => id !== index);
+
+    // lưu localStorage khi delete
+    const jsonJobs2 = JSON.stringify(newJobs2);
+    localStorage.setItem("jobs", jsonJobs2);
+    setJobs(newJobs2);
+  };
+
+  return (
+    <div style={{ padding: 32 }}>
+      <input value={job} onChange={(e) => setJob(e.target.value)} />
+      <button onClick={handleAdd}>Add</button>
+
+      <ul>
+        {jobs.map((job, index) => (
+          <li key={index}>
+            {job}
+            <button onClick={() => handleDelete(index)} style={{ margin: 10 }}>
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
