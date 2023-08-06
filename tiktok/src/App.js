@@ -1,5 +1,5 @@
 import Content from "./Content";
-import { useEffect , useState } from "react";
+import { useLayoutEffect, useEffect, useState } from "react";
 
 function App() {
   const [show, setShow] = useState(false);
