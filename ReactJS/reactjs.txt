@@ -1121,6 +1121,8 @@ Bc 2 : Action
 Bc 3 : Reducer 
 Bc 4 : Dispatch
 
+VD 1:
+
 import "./styles.css";
 import { useReducer } from "react";
 
@@ -1150,3 +1152,103 @@ export default function App() {
     </div>
   );
 }
+
+VD 2:
+import { useState, useReducer, useRef } from "react";
+
+const initState = {
+  job: "",
+  jobs: []
+};
+
+const SET_JOB = "set_job";
+const ADD_JOB = "add_job";
+const DELETE_JOB = "delete_job";
+
+const setJob = (payload) => {
+  return {
+    type: SET_JOB,
+    payload
+  };
+};
+
+const addJob = (payload) => {
+  return {
+    type: ADD_JOB,
+    payload
+  };
+};
+
+const deleteJob = (payload) => {
+  return {
+    type: DELETE_JOB,
+    payload
+  };
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case SET_JOB:
+      return {
+        ...state,
+        job: action.payload
+      };
+    case ADD_JOB:
+      return {
+        ...state,
+        jobs: [...state.jobs, action.payload]
+      };
+    case DELETE_JOB:
+      state.jobs.splice(action.payload, 1);
+      return {
+        ...state
+      };
+
+    default:
+      throw new Error("Invalid action.");
+  }
+};
+
+function App() {
+  const [state, dispatch] = useReducer(reducer, initState);
+  const { job, jobs } = state;
+
+  const inputRef = useRef();
+
+  const handleSubmit = () => {
+    dispatch(addJob(job));
+    dispatch(setJob(""));
+    inputRef.current.focus();
+  };
+
+  return (
+    <div style={{ padding: "20px" }}>
+      <h3>Todo</h3>
+      <input
+        ref={inputRef}
+        value={job}
+        placeholder="Enter todo..."
+        onChange={(e) => {
+          dispatch(setJob(e.target.value));
+        }}
+      ></input>
+      <button onClick={handleSubmit}>Add</button>
+      <ul>
+        {jobs.map((job, index) => (
+          <li key={index}>
+            {job}
+            <button
+              onClick={() => {
+                dispatch(deleteJob(index));
+              }}
+            >
+              X
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
