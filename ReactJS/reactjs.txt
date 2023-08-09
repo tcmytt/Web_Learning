@@ -1022,3 +1022,131 @@ export default function App() {
     </div>
   );
 }
+
+25. React.memo()
+- Là Higher Order Component (HOC)
+- Hooks (Dùng trong Func Component), HOC, render props đều là phương thức
+- Dùng để ghi nhớ lại component, tránh render không cần thiết tốn hiệu năng
+- Check props truyền vào component nếu thay đổi thì được render ko thì thôi
+- Dùng so sánh bằng toán tử ===
+
+import React from 'react'
+export default React.memo(Content)
+
+import { memo } from "react"
+export default memo(Content)
+
+26. useCallback()
+import { useCallback } from "react"
+- Tránh tạo ra hàm mới không cần thiết
+<>
+  Cú pháp short-hand Fragment
+</>
+
+Chờ : onIncrease,
+Thực hiện : handleIncrease
+
+const handleIncrease = useCallback(() => {
+  setCount(pre => pre + 1 )
+}, [])
+
+- Dependencies không đổi thì trả lại tham chiếu trước đó
+- Chỉ dùng useCallback khi dùng memo
+
+27. useMemo 
+- là hooks nên dùng trong function component
+- Dùng để tránh thực hiện logic nào đó không cần thiết
+
+import { useMemo } from "react"
+import { useState, useRef, useMemo } from "react";
+
+function App() {
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [products, setProducts] = useState([]);
+
+  const nameInput = useRef();
+
+  const handleSubmit = () => {
+    setProducts((prev) => {
+      return [...prev, { name, price: +price }];
+    });
+    setName("");
+    setPrice("");
+    nameInput.current.focus();
+  };
+
+  const total = useMemo(() => {
+    const result = products.reduce(
+      (result, product) => result + product.price,
+      0
+    );
+    return result;
+  }, [products]);
+
+  return (
+    <div>
+      <input
+        ref={nameInput}
+        placeholder="Enter Name ..."
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <br />
+      <input
+        placeholder="Enter Price ..."
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+      />
+      <br />
+      <button onClick={handleSubmit}>Add</button>
+      <br />
+      Total: {total}
+      <ul>
+        {products.map((product, index) => (
+          <li key={index}>
+            {product.name} - {product.price}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+28. useReducer()
+import { useReducer } from "react"
+- useState và useReducer có thể dùng thay thế cho nhau trong mọi trường hợp
+Bc 1 : Init state
+Bc 2 : Action
+Bc 3 : Reducer 
+Bc 4 : Dispatch
+
+import "./styles.css";
+import { useReducer } from "react";
+
+const initCount = 0;
+const UP_ACTION = "up";
+const DOWN_ACTION = "down";
+
+const reducer = (state, action) => {
+  console.log("reducer");
+  switch (action) {
+    case UP_ACTION:
+      return state + 1;
+    case DOWN_ACTION:
+      return state - 1;
+    default:
+      throw new Error("Invalid action");
+  }
+};
+
+export default function App() {
+  const [count, dispatch] = useReducer(reducer, initCount);
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={() => dispatch(UP_ACTION)}>Up</button>
+      <button onClick={() => dispatch(DOWN_ACTION)}>Down</button>
+    </div>
+  );
+}
