@@ -1,23 +1,12 @@
-import { useLayoutEffect, useEffect, useState } from "react";
+import React from "react";
+import Paragraph from "./Paragraph";
 
-function Content() {
-  const [countdown, setCountdown] = useState(180)
-
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      setCountdown(pre => pre - 1)
-    }, 1000)
-
-    return () => clearInterval(timerId)
-  }, [])
-
+const Context = () => {
   return (
     <div>
-      <h1>{countdown}</h1>
+      <Paragraph />
     </div>
-  )
-}
+  );
+};
 
-
-
-export default Content;
+export default Context;

@@ -1252,3 +1252,15 @@ function App() {
 }
 
 export default App;
+
+29. useContext()
+- Đơn giản hoá truyền dữ liệu từ component cha xuống component con
+Bc 1 : create useContext
+Bc 2 : Provider
+Bc 3 : Consumer
+
+// Tk gửi
+import { createContext } from 'react' 
+
+// Tk nhận
+import { useContext } from 'react' 

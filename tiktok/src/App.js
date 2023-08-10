@@ -1,13 +1,15 @@
-import Content from "./Content";
-import { useLayoutEffect, useEffect, useState } from "react";
+import "./App.css"
+import Context from "./Content";
+import { useContext } from "react";
+import { ThemeContext } from "./ThemeContext";
 
 function App() {
-  const [show, setShow] = useState(false);
-  useEffect(() => console.log("useEffect"))
+  const context = useContext(ThemeContext);
+
   return (
     <div style={{ padding: 20 }}>
-      <button onClick={() => setShow(!show)}>Show</button>
-      {show && <Content />}
+      <button onClick={context.toggleTheme}>Toggle theme</button>
+      <Context />
     </div>
   );
 }
