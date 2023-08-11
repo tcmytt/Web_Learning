@@ -1,16 +1,18 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import ThemeContext from "./ThemeContext";
-
+import React from "react";
+import ReactDOM  from "react-dom";
+import reportWebVitals from "./reportWebVitals"
 import App from "./App";
+
+import {StoreProvider} from "./store";
+
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
 root.render(
-  <StrictMode>
-    <ThemeContext>
+    <StoreProvider>
       <App />
-    </ThemeContext>
-  </StrictMode>
+    </StoreProvider>
 );

@@ -1264,3 +1264,14 @@ import { createContext } from 'react'
 
 // Tk nhận
 import { useContext } from 'react' 
+
+30. Context + useReducer
+- Để tạo global state
+- Khó như chó
+
+So sánh Redux vs React-context :
+ => Nên Redux ngon hơn so với React-context
+
+31. useImperativeHandle()
+- Hooks
+- HOC : forwardRef (Component)
