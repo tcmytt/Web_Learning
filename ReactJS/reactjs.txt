@@ -1267,7 +1267,7 @@ import { useContext } from 'react'
 
 30. Context + useReducer
 - Để tạo global state
-- Khó như chó
+- Khó như chó ( Bài ví dụ trong tiktok )
 
 So sánh Redux vs React-context :
  => Nên Redux ngon hơn so với React-context
@@ -1275,3 +1275,62 @@ So sánh Redux vs React-context :
 31. useImperativeHandle()
 - Hooks
 - HOC : forwardRef (Component)
+
+32. Sử dụng css trong react
+- Trong dev evironment
+import "./App.css" là sử dụng css internal ( viết css ở đầu trang )
+
+- Trong production 
+Nó lại là external gom hết file css thành 1 file do đó tránh đặt tên trùng gây css lẫn lộn
+
+npm run build
+serve -s build 
+
+33. CSS module
+- CSS module và styled component là 2 cách để tách css ra thành file riêng biệt
+- Khi dùng CSS module thì dùng camelCase
+- CSS module có ưu điểm :
+  + Tách css ra ko bị trùng nhau
+  + Khi ko import thì ko build css vào bản thương mại
+Nhược :
+  + Không thể dùng tag name do ko thể đổi tên nên vẫn áp dụng hết VD : p, *, h1, ...  vẫn áp dụng hết ko chia riêng
+
+Bc 1 : Đổi tên file css thành .module ví dụ :
++ Paragraph.css -> Paragraph.module.css 
+Bc 2: import 
+import style from './Paragraph.module.css'
++ Trong đó style là Object có 2 key là tên các class Ví Dụ :
+<p className = {style.paragraph} > XIN CHAO </p>
+
+34. Clsx 
+<p className = X > 
+  XIN CHAO 
+</p>
+
+- Cách css 2 class thuần : Tạo thành chuỗi (string) cách nhau là dc
+C1 : X = { [style.paragraph, style.active].join(' ') }
+C2 : X = { `${style.paragraph} ${style.active}` }
+
+- Hoặc dùng classNames (Cũ) hoặc clsx (Mới)
+npm i clsx : Để cài clsx
+C3 : X = { clsx(style.paragraph, style.active) }
+
+- Hiển thị có điều kiện 
++ [style.active] là làm việc với obj học từ đầu 
++ [style.active] : true là hiển thị [style.active] : false là ko hiển thị
+
+- 'd-flex' là class chung ko dùng module ở GlobalStyles
+C4 :const classes =  clsx(style.paragraph, {
+  'd-flex' : false ,
+  [style.active] : active
+})
+
+X =  { classes }
+
+35. Install SASS để dùng SCSS
+npm i scss : Cần cài loader thay đổi webpack nên ctrl c đi chạy lại npm start là dc
+Bc 1 : Đổi tên file từ X.module.css => X.module.scss
+Bc 2 : Tự học scss : https://sass-lang.com/documentation/
+
+36. React router dom
+npm i react-router-dom

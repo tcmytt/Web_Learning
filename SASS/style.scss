@@ -1,0 +1,29 @@
+@import './variables.scss' ;
+
+.p1 {
+    color: $mainTextColor;
+    font-size: 30px;
+    background-color: $Egg;
+}
+
+nav {
+    ul {
+        margin: 15px;
+        padding: 0px;
+        list-style: none;
+
+        li{
+            display: inline-block;
+        }
+
+        a{
+            text-decoration: none;
+            color: $mainTextColor;
+            font-size: $defaultFontSize;
+
+            &:hover{
+                color: white;
+            }
+        }
+    }
+}

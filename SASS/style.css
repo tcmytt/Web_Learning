@@ -1,0 +1,24 @@
+.p1 {
+  color: blue;
+  font-size: 30px;
+  background-color: rgb(9, 10, 58);
+}
+
+nav ul {
+  margin: 15px;
+  padding: 0px;
+  list-style: none;
+}
+nav ul li {
+  display: inline-block;
+}
+nav ul a {
+  text-decoration: none;
+  color: blue;
+  font-size: 15px;
+}
+nav ul a:hover {
+  color: white;
+}
+
+/*# sourceMappingURL=style.css.map */

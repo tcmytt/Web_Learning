@@ -1,0 +1,1 @@
+import style from './Paragraph.module.css'

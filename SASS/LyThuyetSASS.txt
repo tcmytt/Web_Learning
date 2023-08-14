@@ -1,0 +1,69 @@
+
+
+ul>li*5>a[href="#"]
+
+1. SASS
+- PreProcessor của css, Base Ruby, 2 cách viết : SCSS , SASS
+- Cung cấp các quy tắc : Nested Rule, Variable, mixin
+- Tập trung vào SCSS do có ; và { }
+- Phần mở rộng : *.scss
+- Chuyển đổi sang css dùng tool : CMD, Koala, Scount
+
+2. Cài môi trường, biên dịch
+npm i sass  : Cài cục bộ
+npm i -g sass : Cài toàn cục
+
+Bắt buộc biên dịch ít nhất 1 lần sass style.scss style.css rồi mới sass --watch style.scss:style.css
+sass input.scss output.css  : Biên dịch 1 lần
+sass --watch input.scss:output.css : Biên dịch khi file input.scss có thay đổi
+
+VD :  sass style.scss:style.css; sass --watch style.scss:style.css  
+
+-Cho phép thực thi script tạm thời: Bạn có thể cho phép thực thi script tạm thời bằng cách mở PowerShell với quyền quản trị và chạy lệnh sau:
+    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+Lưu ý rằng việc này sẽ mở cửa sổ cho phép bạn thực thi script được ký bởi người dùng khác. 
+Tuy nhiên, đây là cách để giải quyết vấn đề một cách tạm thời.
+
+- Cho phép thực thi script toàn hệ thống: Để cho phép thực thi script trên toàn hệ thống, bạn có thể chạy PowerShell với quyền quản trị và chạy lệnh sau:
+    Set-ExecutionPolicy RemoteSigned -Scope LocalMachine
+Tuy nhiên, việc này có thể làm giảm tính bảo mật của hệ thống, vì vậy bạn nên xem xét kỹ trước khi thực hiện.
+
+3. Đặt tên biến
+- Đều sử dụng được ở mọi nơi
+- Chia file biến ra file riêng rồi import vào
+@import './variables.scss' ;
+
+- Trong css :
+:root {
+    --variableName : Value
+}
+Dùng biến : var(--variableName)
+
+- Trong scss :
+$textColor : orange;
+Dùng biến : $textColor
+ 
+4. Lồng nhau phân cấp :
+nav {
+    ul {
+        margin: 15px;
+        padding: 0px;
+        list-style: none;
+
+        li{
+            display: inline-block;
+        }
+    }
+}
+
+5. Hover 
+- Viết bên trong hover cho chính nó
+a{
+    text-decoration: none;
+    color: $mainTextColor;
+    font-size: $defaultFontSize;
+
+    &:hover{
+        color: white;
+    }
+}
