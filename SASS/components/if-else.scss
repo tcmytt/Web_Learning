@@ -1,0 +1,21 @@
+$Wi : 500px ;
+
+@if($Wi > 500px){
+    h1{
+        border: 5px;
+    } 
+}
+@if($Wi == 500px){
+    h1{
+        border: none;
+    } 
+    @if($Wi != 500px){
+        background-color: #ccc;       
+    }
+}
+@else{
+    h1{
+        border: 8px;
+    } 
+}
+

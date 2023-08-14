@@ -1,4 +1,7 @@
-@import './variables.scss' ;
+@import './components/variables.scss' ;
+@import './components/mixin.scss' ;
+@import './components/extend.scss';
+@import './components/if-else.scss';
 
 .p1 {
     color: $mainTextColor;
@@ -27,3 +30,8 @@ nav {
         }
     }
 }
+
+.success{
+    @include button
+}
+

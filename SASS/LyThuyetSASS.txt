@@ -10,6 +10,7 @@ ul>li*5>a[href="#"]
 - Chuyển đổi sang css dùng tool : CMD, Koala, Scount
 
 2. Cài môi trường, biên dịch
+npm i node-sass  : Nhanh hơn do viết bằng c++ còn sass viết bằng JS
 npm i sass  : Cài cục bộ
 npm i -g sass : Cài toàn cục
 
@@ -17,7 +18,8 @@ Bắt buộc biên dịch ít nhất 1 lần sass style.scss style.css rồi m�
 sass input.scss output.css  : Biên dịch 1 lần
 sass --watch input.scss:output.css : Biên dịch khi file input.scss có thay đổi
 
-VD :  sass style.scss:style.css; sass --watch style.scss:style.css  
+VD :  sass style.scss style.css
+     sass --watch style.scss:style.css  
 
 -Cho phép thực thi script tạm thời: Bạn có thể cho phép thực thi script tạm thời bằng cách mở PowerShell với quyền quản trị và chạy lệnh sau:
     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
@@ -41,9 +43,12 @@ Dùng biến : var(--variableName)
 
 - Trong scss :
 $textColor : orange;
+$borders : "1px solid #999" "2px solid #333" "3px solid #777";
+
 Dùng biến : $textColor
+    + Nội suy biến : #{$Tên-Biến}
  
-4. Lồng nhau phân cấp :
+4. Lồng nhau phân cấp Nested:
 nav {
     ul {
         margin: 15px;
@@ -67,3 +72,115 @@ a{
         color: white;
     }
 }
+
+6. Mixin 
+- Dùng để dùng lại mang nhiều tiện lợi
+- Cú pháp khai báo :
+    @mixin mixinName {
+        css attribute ...
+    }
+
+VD1: 
+@mixin button {
+    padding: 8px;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    background-color: skyblue;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+VD2: 
+@mixin button($bdcolor , $bgcolor : blue ) {
+    padding: 8px;
+    border: none;
+    color: #fff;
+    border-radius: $bdcolor;
+    background-color: $bgcolor;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+- Sử dụng @include vào :
+    .success{
+        @include button
+    }
+
+    .success{
+        @include button(#fff, #ccc)
+    }
+
+7. Extend (Kế thừa)
+- Copy lại và gán vào thằng con kế thừa
+
+.classA{
+    attributeA...
+}
+
+.classB{
+    @extend classA ;
+
+    attributeB...
+}
+
+8. if- else 
+@if($Wi > 500px){
+    h1{
+        border: 5px;
+    } 
+}
+@else{
+    h1{
+        border: 8px;
+    } 
+}
+
+9. Loop (for , forEach)
+- Chạy lặp từ 1 tới 5
+- Tuy nhiên nó ko dc tối ưu, mà chạy 5 attribute riêng biệt giống nhau
+
+- @for :
+@for $i from 1 through 5 {
+    .slider-item-#{$i} {
+        background-color : orange ;
+    }
+}
+
+- @ForEach :
+$borders : "1px solid #999" "2px solid #333" "3px solid #777";
+
+@each $border in $borders {
+    h3{
+        border : #{$border}
+    }
+}
+
+10. @function ()
+- Khai báo :
+@function Tênfunc ($param ...){
+    logic...
+   @return  
+}
+
+VD: 
+@function set_width ($widthLine){
+    @if ($widthLine > 10px){
+        @return ($widthLine + 3 px)
+    }
+
+    @return ($widthLine + 9 px) ;
+}
+
+Cách dùng :
+.container {
+    width : set_width(300px);
+    height : set_width(5px);
+    font-size: set_width(0px) ;
+}
+
+11. SASS trong thực tế

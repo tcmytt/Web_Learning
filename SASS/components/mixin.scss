@@ -1,0 +1,15 @@
+@mixin button($bgcolor : green) {
+    padding: 8px;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    background-color: skyblue;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.fail{
+    @include button(blue)
+}
