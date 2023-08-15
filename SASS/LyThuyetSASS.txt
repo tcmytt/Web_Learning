@@ -30,6 +30,11 @@ Tuy nhiên, đây là cách để giải quyết vấn đề một cách tạm t
     Set-ExecutionPolicy RemoteSigned -Scope LocalMachine
 Tuy nhiên, việc này có thể làm giảm tính bảo mật của hệ thống, vì vậy bạn nên xem xét kỹ trước khi thực hiện.
 
+3. Comment 
+- Dùng dc 2 loại tuy nhiên :
++ // Ko dc compile vào file css
++ /* */ được compile
+
 3. Đặt tên biến
 - Đều sử dụng được ở mọi nơi
 - Chia file biến ra file riêng rồi import vào
@@ -49,6 +54,7 @@ Dùng biến : $textColor
     + Nội suy biến : #{$Tên-Biến}
  
 4. Lồng nhau phân cấp Nested:
+- Lồng nhau 
 nav {
     ul {
         margin: 15px;
@@ -61,7 +67,31 @@ nav {
     }
 }
 
+- Cùng tiền tố có thể chia ra viết gọn hơn
+.funky {
+    font : {
+        family :fantasy;
+        size : 30rem;
+        weight : bold;
+    }
+
+    border : {
+        top : 3px solid;
+        bottom : 3px solid;
+    }
+}
+
+
 5. Hover 
+- Referencing : &  Tham chiếu đến phần tử cha
+
+TH này :  & chính là a
+a {
+    font-size : 30px;
+    .classA & : {
+        font-size : 40px;
+    }
+}
 - Viết bên trong hover cho chính nó
 a{
     text-decoration: none;
@@ -129,6 +159,14 @@ VD2:
 }
 
 8. if- else 
+
+$rounded-corners: false;
+.button {
+  border: 1px solid black;
+  border-radius: if($rounded-corners, 5px, null);
+}
+
+
 @if($Wi > 500px){
     h1{
         border: 5px;
