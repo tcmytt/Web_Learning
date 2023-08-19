@@ -1338,3 +1338,20 @@ npm i react-router-dom
 Khi cài npm i thêm -D thì sẽ chỉ cài trong phát triển
 Thư mục root là ngang cấp src
 
+           PHẦN II : TẠO Project TIKTOK
+
+37. Tạo dự án :
+Tạo GlobalStyles component
+Cài thư viện SASS: npm i -D sass
+Reset CSS : npm install --save normalize.css
+Default CSS: font-family, font-size, line-height
+
+
+38. Cấu hình Router/Layout cho dự án
+Bc1 : Phân tích tổng quan latout tiktok
+Bc2 : Cài react-router-dom : npm i react-router-dom
+Bc3 : Đưa cấu hình routes ra ngoài
+Bc4 : Xây dựng cơ chế tải Layout
+
+Wrap :
+Bc1 : Bôi đen code -> ctrl shift P -> Wrap
