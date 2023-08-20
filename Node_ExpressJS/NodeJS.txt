@@ -1,0 +1,88 @@
+
+
+1. HTTP protocol
+- HyperText Transfer Protocol - Giao thức truyền tải siêu văn bản
+172.67.162.2:443
+- 172.67.162.2 là địa chỉ IP, 443 là port
+- HTTP Request methods, HTTP Response, HTTP Status Code
+
+HTTP Request methods
+HTTP Request Method chỉ phương thức để được thực hiện trên nguồn được nhận diện bởi Request-URI đã cung cấp
+
+GET
+GET được sử dụng để lấy lại thông tin từ máy chủ đã cung cấp bởi sử dụng một URI đã cung cấp. 
+Các yêu cầu sử dụng GET chỉ nhận dữ liệu và không có ảnh hưởng gì tới dữ liệu.
+
+HEAD
+Tương tự như GET, nhưng nó truyền tải dòng trạng thái và khu vực header.
+
+POST
+Một yêu cầu POST sử dụng các mẫu HTML để gửi dữ liệu tới máy chủ, như thông tin khách hàng, file tải lên,…
+
+PUT
+Thay đổi tất cả các đại diện hiện tại của nguồn mục tiêu với nội dung được tải lên.
+
+DELETE
+Gỡ bỏ tất cả các đại diện hiện tại của nguồn mục tiêu bởi URI.
+
+CONNECT
+Thiết lập một tunnel tới máy chủ được xác định bởi URI đã cung cấp.
+
+OPTIONS
+Miêu tả các chức năng giao tiếp cho nguồn mục tiêu.
+
+TRACE
+Trình bày một vòng lặp kiểm tra thông báo song song với path tới nguồn mục tiêu.
+
+HTTP Response
+header
+Trống
+Code
+
+
+HTTP Status Code
+Mã trạng thái HTTP được máy chủ phản hồi lại mỗi khi nhận được HTTP Resquest.
+Yếu tố Status-Code là một số nguyên 3 ký tự, trong đó ký tự đầu tiên của mã hóa trạng thái định nghĩa hạng (loại) phản hồi và hai ký tự cuối không có bất cứ vai trò phân loại nào. Có 5 giá trị của ký tự đầu tiên như sau:
+
+1xx: Thông tin
+Nó nghĩa là yêu cầu đã được nhận và tiến trình đang tiếp tục.
+
+2xx: Thành công
+Nó nghĩa là hoạt động đã được nhận, được hiểu, và được chấp nhận một cách thành công.
+
+3xx: Sự điều hướng lại
+Nó nghĩa là hoạt động phải được thực hiện để hoàn thành yêu cầu.
+
+4xx: Lỗi Client
+Nó nghĩa là yêu cầu chứa cú pháp không chính xác hoặc không được thực hiện
+
+5xx: Lỗi Server
+Nó nghĩa là máy chủ thất bại với việc thực hiện một yêu cầu nhìn như có vẻ khả thi.
+
+2. Sever Side rendering (SSR) & Client Side rendering (CSR) 
+- Sever Side rendering (SSR) : 
+    + Render ở sever dùng cho website muốn tăng thứ hạng tìm kiếm (SEO)
+    + Nhanh hơn CSR lần đầu
+    + Code ít hơn với dự án nhỏ, ko cần api
+- Client Side rendering (CSR) : 
+    + Render ở client bằng javascript , ReactJs
+    + Chậm hơn lần đầu nhưng nhanh hơn lần sau
+    + Code ít hơn với dự án lớn, cần api
+- Hoặc kết hợp cả 2
+
+3. Install ExpressJS FramWork
+- npm init : Khởi tạo dự án
+- npm i express  
+ Chạy : node index.js 
+-> Chỉ 1 lần được nạp muốn chạy lại phải node index.js 
+
+4. Install Nodemon & inspector
+- npm i nodemon -D : Tự động restart khi ứng dụng có sự thay đổi ở các file .js, mjs,json
+- Tạo script : "start":"nodemon --inspect index.js",
+Chạy npm start, hoặc npdemon --inspect index.js
+
+--inspect : Trình gỡ lỗi của node
+
+5. Cài morgan
+- Giúp log ra những Request lên sever
+ npm i morgan -D
