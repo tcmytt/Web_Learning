@@ -84,5 +84,29 @@ Chạy npm start, hoặc npdemon --inspect index.js
 --inspect : Trình gỡ lỗi của node
 
 5. Cài morgan
+- Là middleware của express
 - Giúp log ra những Request lên sever
+- Cài vào devDepen...
  npm i morgan -D
+
+6. Template engine (handlebars)
+- Template engine là công cụ giúp viết mã html dễ hơn
+- Có nhiều loại Template engine nữa hay như : pug 
+- Cìa handlebars : npm i express-handlebars
+
+Directory Structure:
+.
+├── app.js
+└── views
+    ├── home.handlebars
+    └── layouts
+        └── main.handlebars
+
+2 directories, 3 files
+
+7.Static file & SCSS
+// Xử lí static file Set đường dẫn ảnh
+app.use(express.static(path.join(__dirname,'public')))
+
+SCSS :
+npm i node-sass -D
