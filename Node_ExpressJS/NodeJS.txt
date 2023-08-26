@@ -123,3 +123,52 @@ npm i node-sass -D
 thì quá trình parse html mới tạm dừng để execute những code script này, sau đó lại tiếp tiếp quá trình parse html
 + defer : quá trình parse html sẽ không bị dừng lại mà parse cho đến khi hoàn thành, quá trình download các script file được tiến hành song song, và cuối cùng thì sẽ execute những script code này khi html đã parse xong.
 
+9. Basic routing
+VD:
+app.get('/', (req, res) => {
+  res.render('home');
+})
+
+app.METHOD(PATH, HANDLER)
+- Method là phương thức : get, set ... viết thường
+- Path là đường dẫn
+- HANDLER là callback function hàm xử lí 
+    VD: (req, res) => {
+  res.render('home');
+}
++ req : Request , res : Response
+
+10. Get Method & Querry Parameters
+- Mặc định phương thức là GET
+http://localhost:3000/search?q=lap%20trinh&hiep=deptrai
+
+app.get('/search', (req, res) => {
+  res.render('search');
+})
+
+Req là obj có thuộc tính query là obj chứa các Parameters 
+req : {
+    query: {q: 'lap trinh', hiep: 'deptrai'},
+    ...
+}
+Lấy req.query
+
+11. Form default behavior
+- Thuộc tính name trong thẻ input là req.query.name
+- Mặc định form method="GET" và action chính nó
+
+- GET: Dùng để yêu cầu dữ liệu từ máy chủ, dữ liệu thường xuất hiện trên URL.
+- POST: Dùng để gửi dữ liệu lên máy chủ, dữ liệu thường được gửi trong phần thân của yêu cầu.
+- GET và POST là hai phương thức của giao thức HTTP, đều là gửi dữ liệu về server xử lí sau khi người dùng nhập thông tin vào form và thực hiện submit.
+- Khi lấy dữ liệu nên dùng GET để truy xuất và xử lí nhanh hơn.
+Khi tạo dữ liệu nên dùng POST để bảo mật dữ liệu hơn. 
+Một ví dụ cụ thể như trong trường hợp bạn cần tạo một form để người dùng upload avatar hay video thì chúng ta thường sẽ sử dụng phương thức POST. Tuy nhiên khi tải về avatar hoặc video thì bạn lại nên sử dụng phương thức GET. Ngoài ra khi cần xử lý các thông tin nhạy cảm ví dụ như email, password thì bạn cần sử dụng POST thay vì GET.
+
+12. POST method
+- Get dữ liệu đính dữ liệu trên url, post 
+- Get là req.query,
+- Post req.body Cần 
+app.use(express.urlencoded({
+    extended : true
+}))
+app.use(express.json())
