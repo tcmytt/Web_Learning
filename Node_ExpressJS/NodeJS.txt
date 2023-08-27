@@ -172,3 +172,12 @@ app.use(express.urlencoded({
     extended : true
 }))
 app.use(express.json())
+
+13. Mô hình MVC 
+- MVC : Model view controller
+
+14. [MVC] Routes & Controllers
+- Cách export import module
+module.exports = new NewsController
+
+const NewsController = require('./NewsController');

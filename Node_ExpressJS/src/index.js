@@ -1,11 +1,14 @@
-import express from 'express';
-import morgan from 'morgan';
-import path from 'path'
+const express = require('express');
+const morgan = require('morgan');
+const path = require('path');
 
-import { engine } from 'express-handlebars';
+const { engine } = require('express-handlebars');
 
 const app = express()
 const port = 3000
+
+// import route from './routes';
+const route = require('./routes')
 
 app.use(express.urlencoded({
   extended : true
@@ -13,35 +16,22 @@ app.use(express.urlencoded({
 app.use(express.json())
 
 // HTTP logger
-app.use(morgan('combined'))
+//app.use(morgan('combined'))
+app.use(morgan('dev'))
 
 // Set lại đường dẫn file views
-import { fileURLToPath } from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 app.set('views',path.join(__dirname,'resources\\views'))
 
 // Xử lí static file Set đường dẫn ảnh
 app.use(express.static(path.join(__dirname,'public')))
 
-
 // Set lại đuôi file cho đỡ dài và chạy lại engine
 app.engine('.hbs', engine({extname: '.hbs'}));
-
 app.set('view engine', 'hbs');
 
-app.get('/', (req, res) => {
-  res.render('home');
-})
+// route init
+route(app);
 
-app.get('/news', (req, res) => {
-  res.render('news');
-})
-
-app.get('/search', (req, res) => {
-//  console.log(req.query)
-  res.render('search');
-})
 
 app.post('/search', (req, res) => {
   //  console.log(req.query)
