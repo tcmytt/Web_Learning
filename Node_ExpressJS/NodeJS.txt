@@ -181,3 +181,17 @@ app.use(express.json())
 module.exports = new NewsController
 
 const NewsController = require('./NewsController');
+
+15. MongoDB
+localhost = 127.0.0.1
+
+16. Cài (Bỏ qua)
+npm i prettier lint-staged husky -D
+npm uninstall prettier lint-staged husky 
+- h không cần do đã có extension
+
+17. MongoDB
+- MongoDB là cơ sở dữ liệu kiểu doccument khác cơ sở dữ liệu quan hệ tạo bảng
+- npm i mongoose
+- mongoose thư viện trung gian giúp quản lí MongoDB hiệu quả hơn
+ 11 47
