@@ -193,5 +193,7 @@ npm uninstall prettier lint-staged husky
 17. MongoDB
 - MongoDB là cơ sở dữ liệu kiểu doccument khác cơ sở dữ liệu quan hệ tạo bảng
 - npm i mongoose
-- mongoose thư viện trung gian giúp quản lí MongoDB hiệu quả hơn
- 11 47
+- mongoose thư viện trung gian giúp quản lí MongoDB hiệu quả hơn qua nodejs
+
+18. [MVC] Model
+- scheme : Lược đồ
