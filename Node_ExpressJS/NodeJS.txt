@@ -197,6 +197,11 @@ npm uninstall prettier lint-staged husky
 
 18. [MVC] Model
 - scheme : Lược đồ
+- MVC là xử lí trên sever
+- M : Model ( Databasse)
+- V : View ( handlebars )
+- C : Controllers ( Điều khiển)
+- Từ conttrol -> model -> view -> conttrol
 
 19.Lấy dữ liệu từ data base :
 // Trong file models
@@ -248,6 +253,7 @@ Hoặc res.render('home', {courses}),
 //nhận
 <h1>{{tiltle}}</h1>
 
-20. Tạo file util trong src
+20.[CRUD] Tạo file util trong src
 - Trong file util dùng để tạo công cụ sửa code
 - Tạo file mongoose.js dùng để sửa vẫn đề gặp phải khi dùng hbs không cho dùng this ( Trong file home.hbs)
+- CRUD 4 hành động tương tác với database : Create, Read, Update, Delete
