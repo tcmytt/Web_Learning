@@ -1,1 +1,20 @@
-<h1>HOME PAGES</h1>
+{{! Lỗi không hiện do handlebar nó ko cho dùng this. sẽ gây mất bảo mật do đó có thể hạ phiên bản hoặc đổi mảng lại thành mảng bình thường rồi truyền vào }}
+
+<div class='mt-4'>
+    <div class='row'>
+
+        {{#each courses}}
+            <div class='col-sm-6 col-lg-4'>
+                <div class='card'>
+                    <img src='{{this.image}}' class='card-img-top' alt='{{this.name}}' />
+                    <div class='card-body'>
+                        <h5 class='card-title'>{{this.name}}</h5>
+                        <p class='card-text'>{{this.description}}</p>
+                        <a href='#' class='btn btn-primary'>Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+
+    </div>
+</div>

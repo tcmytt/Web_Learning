@@ -197,3 +197,57 @@ npm uninstall prettier lint-staged husky
 
 18. [MVC] Model
 - scheme : Lược đồ
+
+19.Lấy dữ liệu từ data base :
+// Trong file models
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const Course = new Schema({
+    name: { type: String, maxLength: 255 },
+    description: { type: String, maxLength: 600 },
+    image: { type: String, maxLength: 255 },
+    createAt: { type: Date, default: Date.now },
+    updateAt: { type: Date, default: Date.now },
+});
+
+module.exports = mongoose.model('Course', Course);
+
+
+// Trong file Site conttrol
+const Course = require('../models/Course');
+
+class SiteController {
+    // [GET] /
+    async index(req, res, next) {
+        await Course.find({})
+            .then((courses) =>
+                res.render('home', {
+                    tiltle: 'test tittle',
+                }),
+            )
+            .catch((error) => next(error));
+    }
+
+    // [GET] /search
+    search(req, res) {
+        res.render('search');
+    }
+}
+
+module.exports = new SiteController();
+
+// Cách truyền dữ liệu xuống hbs :
+res.render('home', {
+    tiltle: 'test tittle',
+    courses : courses
+}),
+
+Hoặc res.render('home', {courses}),
+
+//nhận
+<h1>{{tiltle}}</h1>
+
+20. Tạo file util trong src
+- Trong file util dùng để tạo công cụ sửa code
+- Tạo file mongoose.js dùng để sửa vẫn đề gặp phải khi dùng hbs không cho dùng this ( Trong file home.hbs)
