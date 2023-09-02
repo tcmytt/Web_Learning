@@ -257,3 +257,14 @@ Hoặc res.render('home', {courses}),
 - Trong file util dùng để tạo công cụ sửa code
 - Tạo file mongoose.js dùng để sửa vẫn đề gặp phải khi dùng hbs không cho dùng this ( Trong file home.hbs)
 - CRUD 4 hành động tương tác với database : Create, Read, Update, Delete
+
+21. Course detail page
+
+(req, res){
+    Truyền qua địa chỉ :
+        req.query.name 
+    Truyền qua POST :
+        req.body.name
+    Truyền qua :slug :
+        req.params.slug
+}
