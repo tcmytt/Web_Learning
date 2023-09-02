@@ -268,5 +268,5 @@ Hoặc res.render('home', {courses}),
     Truyền qua :slug :
         req.params.slug
 }
-
-12 26
+- Tự tạo slug
+npm i mongoose-slug-generator

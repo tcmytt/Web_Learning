@@ -9,7 +9,7 @@ const db = require('./config/db');
 db.connect();
 
 const app = express();
-const port = 3000;
+const port = 3100;
 
 // import route from './routes';
 const route = require('./routes');
@@ -37,11 +37,6 @@ app.set('view engine', 'hbs');
 
 // route init
 route(app);
-
-app.post('/search', (req, res) => {
-    //  console.log(req.query)
-    res.render('search');
-});
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);
