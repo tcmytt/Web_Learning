@@ -268,3 +268,5 @@ Hoặc res.render('home', {courses}),
     Truyền qua :slug :
         req.params.slug
 }
+
+12 26
