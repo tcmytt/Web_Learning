@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const methodOverride = require('method-override');
 
 const { engine } = require('express-handlebars');
 
@@ -20,6 +21,7 @@ app.use(
     }),
 );
 app.use(express.json());
+app.use(methodOverride('_method'));
 
 // HTTP logger
 //app.use(morgan('combined'))
@@ -32,7 +34,15 @@ app.set('views', path.join(__dirname, 'resources', 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set lại đuôi file cho đỡ dài và chạy lại engine
-app.engine('.hbs', engine({ extname: '.hbs' }));
+app.engine(
+    '.hbs',
+    engine({
+        extname: '.hbs',
+        helpers: {
+            sum: (a, b) => a + b,
+        },
+    }),
+);
 app.set('view engine', 'hbs');
 
 // route init

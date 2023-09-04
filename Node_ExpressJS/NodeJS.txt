@@ -270,3 +270,6 @@ Hoặc res.render('home', {courses}),
 }
 - Tự tạo slug
 npm i mongoose-slug-generator
+
+npm i method-override 
+- Tác dụng thay phương thức truyền dữ liệu mặc định của html (GET, POST) thành PUT 
