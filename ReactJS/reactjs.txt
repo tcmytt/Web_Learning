@@ -1374,3 +1374,6 @@ const cx = classNames.bind(styles)
 function Header() {
     return <header className={cx('wrapper')}></header>
 }
+
+40. Cài tippyjs làm lưu lịch sử tìm kiếm(popper)
+npm i tippy.js

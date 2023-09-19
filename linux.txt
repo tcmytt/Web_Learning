@@ -1,3 +1,5 @@
+
+I. Lệnh Cơ Bản
 - Khi mới cài linux:
 sudo apt update :(Lên mạng tìm cấu hình mới nhất-ko cài luôn)
 sudo apt upgrade :(Cài cấu hình mới nhất)
@@ -118,7 +120,9 @@ chown root:root [A] : đổi chủ file A sang root, và cả group
 
 wget [đường dẫn] : Tải trực tiếp tài nguyên từ đường dẫn về máy trên internet
 
-sudo apt install nodejs -y :Cài nodejs
+sudo apt install nodejs -y : Cài nodejs
+sudo apt remove nodejs -y : Gỡ nodejs
+sudo apt autoremove : Gỡ nốt pakage phụ
 node random.js :Chạy file js
 
 ps aux :rocess status - list all processes in a user-friendly format liệt kê tiến trình đang chạy 
@@ -139,6 +143,106 @@ passwd : đổi mật khẩu user hiện tại
 diff -i A B :So sánh hai tập tin văn bản và hiển thị sự khác biệt giữa chúng
 
 Name=abc :tên_biến=giá_trị , khi cần dùng lại biến thì $Tên_Biến , có 1 số biến có sẵn như $PATH
+
+II. Lệnh cài các thư viện
+Chú ý khi cop câu lệnh cẩn thận nó dùng js để mình cop sai
+1. Cài nodejs
+- Lên mạng tìm : nodejs 16 ubuntu
+
+2.Chạy dự án ReactJs
+- npx create-react-app tiktok
+- cd tiktok
+- npm start
+
+3. Chạy dự án ExpressJS
+- Lên mạng tìm cách cài ExpressJS trên ubuntu
+- npm init
+- npm express
+- Tạo 1 file index.js copy code :
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+
+4. Cài php8 và composer
+- Tìm install php 8, composer on ubuntu
+PHP8
+- PHP8 là bản mới nhất 2022, 
+Bc1 Cài php8 trên ubuntu
+Bc2 Cài php8 extensions trên ubuntu
+composer là quản lý gói php(Giống pipe cho python hay npm cho js)
+- Tìm trên mạng (Cài thêm zip extensions)
+
+php artisan serve
+
+5. Chạy dự án Laravel trên Ubuntu
+- Tìm trên mạng
+- Cài qua composer:
+- composer create-project laravel/laravel tiktok-api
+
+
+III. Deploy trên server
+1. SSH vào server thật
+- Dùng giao thức ssh kết nối vào sever
+- ssh root@[Địa chỉ IP]
+- yes, điền pass người ta cấp
+- Muốn thoát nhấn exit
+
+- Mới vào
+Bc1 : apt update , apt upgrade
+Bc2 : htop  (Check ram, mem)
+Bc3 : reboot (Cài mới nhiều cần reboot)
+
+2. Mua tên miền và trỏ về IP
+- Mua xong vào bánh răng(cài đặt) nhấn cài đặt dns nhấn đổi bản ghi loại A
+- Ô tên @ giá trị điền IP server
+
+3. Thêm người dùng trên Linux
+adduser sondang
+su - sondang   (su : switch user)
+
+Vào bằng ssh sondang@[IP]
+ssh sondang@[Tên domain]
+
+deluser sondang ( Xoá user)
+rm -r /home/sondang/
+
+- Nên dùng user để phòng tránh dùng root 
+- Tuy nhiên user mới tạo chưa có quyền sudo
+- Phân quyền cho sondang bằng tài khoản root : chmod u+w /etc/sudoers
+- Dùng vi mở file : vi /etc/sudoers
+- Cop vào dưới root 1 dòng y hệt thay mỗi root bằng sondang
+- Bỏ quyền : chmod u-w /etc/sudoers
+
+4. Deploy dự án HTML
+- Dùng web server : Nginx, Apacha
+- Tìm kiếm : Install Nginx on ubuntu 20.04 
+
+- Trạng thái : sudo service status
+- Để dừng : sudo service nginx stop
+- Để chạy : sudo service nginx start
+- restart khi cài mới cấu hình , systemctl enable nginx (Tự bật engnix khi bật máy chủ)
+
+- Tạo thêm file cấu hình Đưa vào sites-enabled/tiktok
+- http cổng mặc định là 80; https cổng là 443
+:x của vi để vừa lưu vừa thoát
+sudo nginx -t để check syntax 
+sudo service nginx reload (restart)
+
+5. Upload source code với Filezilla, git
+- Deploy web tĩnh
+Tải Filezilla
+Cổng mặc định là 22
+- git clone về 
+
+
 
 
 
