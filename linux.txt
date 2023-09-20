@@ -242,8 +242,37 @@ Tải Filezilla
 Cổng mặc định là 22
 - git clone về 
 
+6. Cấu hình Subdomain
+- Vào dns setting trong trang chủ domain
+- Tên : theband , loại : CNAME, Giá trị : f8ubuntu.online
+- Tên : * , loại : CNAME, Giá trị : f8ubuntu.online
+- * là tất cả các loại subdomain đều chỉ qua 
+Bc1 : Tạo file mkdir -p theband/html 
+BC2 : Đẩy code vào theband/html 
+- sudo chown -R $USER:$USER theband/html/
+- sudo chmod 755 -R theband
+- upcode bằng Filezilla 
+Bc3 : Thêm cấu hình nginx
+- sudo cp /etc/ngnix/site-enabled/tiktok /etc/ngnix/site-enabled/theband
+Copy file config tiktok đổi tên thay vào theband
+- vi /etc/ngnix/site-enabled/theband 
+Chỉnh sửa tiktok thành theband, server_name theband.f8ubuntu.online
+- sudo nginx -t : Để verifiy lại config
+- sudo service nginx reload : Để nạp lại cấu hình
 
+7. Hướng dẫn sử dụng Cloudflare 
+- Vào cài đặt NS thay 2 dòng đầu thành Cloudflare NameServer , Xoá dòng 3
+- Về dau thêm dns thì vào cloudflare không cần vào tenten
 
+8. Sử dụng TLS Free của Cloudflare
+- Tên gọi cũ là SSL , là giao thức an toàn
+- Vào edge Cer... tích vào Always use HTTPS
+- ssh sondang@[Địa chỉ Ip] không dùng được domain name như trước do cloudeflare đã dấu đi rồi
+
+9. Hướng dẫn deploy dự án ReactJS
+- npm run build
+- Cấu hình subdomain
+- Đẩy code mỗi phần build lên trên var/www/[Tên]/html
 
 
 Để thông thạo Linux, bạn cần học những kiến thức sau:
