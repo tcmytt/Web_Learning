@@ -1,0 +1,467 @@
+1. Selector chọn phần tử trong CSS
+-  Có nhiều phần tử <p> nhưng chỉ phần tử nào có class là thongtin mới áp dụng CSS :
+p.thongtin {
+    background: lightskyblue;
+    text-align: center;
+}
+
+- Áp dụng cho thẻ p có class là thongtin bạn cũng muốn áp dụng cho thẻ <div> có class là infomation :
+p.thongtin, div.infomation {
+
+}
+
+- Để chọn tất cả (mọi) phần tử HTML dùng ký hiệu sao * :
+* {
+
+}
+
+- Chọn theo tên thẻ phần tử HTML div, span, p, strong, a, img ... :
+a {
+
+}
+
+- Chọn theo class và id của phần tử HTML :
+.gioithieu {
+
+}
+
+/* Phần tử có id là username */
+#username {
+
+}
+
+- Chọn theo thuộc tính phần tử HTML :
+Một phần tử HTML khi viết nó có các thuộc tính ngoài thuộc tính id và class (hai thuộc này cách chọn đã nói ở trên), 
+có các thuộc tính thuộc về đặc tính phần tử như img có thuộc tính src, a có thuộc tính href, target ... 
+có các thuộc tính tên bất kỳ do bạn thêm vào như mydata, abc ...
+Trong CSS hoàn toàn có thể chọn ra phần tử HTML căn cứ theo thuộc tính đó có hay không, hoặc thuộc tính đó có giá trị là gì, giả sử thuộc tính là attrName :
+
++ Chọn phần tử có thuộc tính attrName (không cần quan tâm giá trị thuộc tính) :
+[attrName] {
+    font-weight: bold;
+}
+
++ Chọn phần tử có thuộc tính attrName chỉ có một giá trị (chính xác) :
+[type="email"] {
+    font-weight: bold;
+}
+
++ Chọn phần tử có thuộc tính attrName và trong các giá trị của nó có một là value (một số thuộc tính có thể viết nhiều giá trị cách nhau bởi space như class="class1 class2") 
+[attrName~=value] {
+
+}
+
++ Chọn phần tử có thuộc tính attrName và trong chuỗi giá trị có chuỗi con value
+[attrName*=value] {
+
+}
+
++ Chọn phần tử có thuộc tính attrName và giá trị có tiền tố là value.
+/* Chọn các phần có thuộc tình href bắt đầu bằng https://abc.com */
+[href^="https://abc.com"] {
+    font-weight: bold;
+}
+
++ Chọn phần tử có thuộc tính attrName và giá trị có hậu tố là value.
+[attrName$=value] {
+
+}
+
+- Kết hợp các selector :
++ Chọn phần tử con :
+/* chọn phần tử a có class là linkout, a phải là con của p, p đó phải là con của
+    phần từ có class là .cardinfo */
+.cardinfo > p > a .linkout {
+    ...
+}
+
++ Chọn phần tử cùng cha phía sau :
+Dấu cộng + để kết hợp 2 selector nếu phần các phần tử thứ (2) nằm ngay sau phần tử thứ nhất (1), đồng thời (1) và (2) cùng cha thì các phần từ (2) được chọn.
+/* chọn các phần tử span nằm ngay sau strong, cùng cha với strong */
+strong + span {
+    color: red;
+}
+
++ Chọn tất cả phần tử cùng cha phía sau :
+Sử dụng dấu ~ để kết hợp 2 selector nếu phần các phần tử thứ (2) nằm sau phần tử thứ nhất (1), đồng thời (1) và (2) cùng cha thì các phần từ (2) được chọn.
+strong ~ span {
+    color: red;
+}
+
+-> selector1 + selector2 chọn phần tử select2 liền ngay phía sau, còn selector1 ~ selector2 chọn tất cả các phần tử select2 phía sau.
+
++ Chọn các phần tử con, cháu ... (hậu duệ) : selector2 bên trong selector1
+selector1 selector2 {
+    ...
+}
+
+2. Thuộc tính text-transform trong CSS
+text-transform: none | capitalize | uppercase | lowercase | full-width;
+none : Tắt các tác dụng chuyển đổi
+capitalize : Mỗi chữ đầu tiên của từ được chuyển thành in hoa
+uppercase : Tất cả các chữ chuyển thành in hoa
+lowercase : Tất cả các chữ chuyển thành in thường
+
+3. Đổ bóng text-shadow trong CSS
+text-shadow: x y br color;
+x giá trị chiều dài đầu tiên, là khoảng cách theo chiều ngang (bóng chữ dịch ngang)
+y giá trị chiều dài thứ hai, là khoảng cách theo chiều đứng
+br bán kính mờ (tô mờ đường biên), tham số này tuỳ chọn, nếu thiếu thì bán kính mờ bằng 0, nút chữ bóng mờ sắc nét nhất.
+
+4. Thuộc tính text-decoration và text-indent CSS
+- text-decoration dạng viết tổng hợp của 
++ text-decoration-line : thiết lập có đường kẻ qua chữ, nó có thể nhận các giá trị
+    none : hủy kẻ qua chữ
+    underline: gạch chân, gạch dưới css
+    overline: gạch trên đầu chữ
+    line-through: gạch qua chữ
++ text-decoration-color : Đặt màu đường trang trí mà loại đường thì thiết lập ở text-decoration-line, nó nhận giá trị là các mã màu CSS
++ text-decoration-style : thuộc tính thiết lập kiểu đường trang trí, nhận các giá trị 
+    solid : đường liền
+    double: đường đôi
+    dotted: đường chấm chấm
+    dashed: đường gạch gạch
+    wavy: lượn sóng
+
+Bằng cách dùng text-decoration bạn có thể viết gộp ba thuộc tính trên cùng một dòng, với cú pháp dạng:
+text-decoration: line color style;
+
+- text-indent : chỉ ra khoảng thụt đầu dòng (chiều ngang) của văn bản. 
+text-indent: 100px; 
+
+4. Căn lề text-align và vertical-align trong CSS
+- Thuộc tính text-align để căn chỉnh vị trí của chữ hoặc các phần tử dạng inline theo chiều ngang trong phần tử HTML chứa dạng block 
+Mặc định là căn lề trái, tuy nhiên bạn có thể chỉ ra các giá trị:
+    left hoặc start: căn lề trái
+    right hoặc end: căn lề phải
+    center: căn giữa
+    justify: dãn đều chữ
+Chú ý: text-align chỉ áp dụng cho phần tử dạng khối block như <p> <div> <p> <h1> <table> ... và các phần tử bên trong nếu phần tử đó là dạng inline như <span> <a> <img> ... 
+Tham khảo thêm: phần tử html dạng block và inline. Cũng lưu ý nếu bên phần tử chứa có phần tử dạng block, phần tử này không có thuộc tính text-align riêng, thì nó sẽ kế thừa từ phần tử cha thuộc tính này.
+
+- Thuộc tính vertical-align dùng để căn chỉnh theo chiều đứng của phần các phần tử dạng inline, inline-block đứng cạnh nhau trong một hàng trên xuống (đường). 
+phần tử <td> (ô bảng) với giá trị nhận phổ biến là top, middle, bottom
+    top căn mép trên
+    middle căn giữa
+    bottom căn mép dưới
+    baseline căn theo đường cơ sở
+    sub chữ thụt xuống
+    sup chữ nhô lên
+    10px, 10pt, 10cm lệch lên một giá trị (âm thì xuống)
+
+Thuộc tính vertical-align muốn áp dụng cho các phần tử dạng block thì cần chuyển nó về dạng inline, inline-block. 
+Ví dụ như trong thẻ div có thể cần thêm các thuộc tính để nó làm việc chính xác: ví dụ: display: inline-table; và display: table-cell;
+
+5. Thuộc tính 
+- Giãn dòng với thuộc tính line-height trong CSS 
+line-height: normal | number | length | percentage | inherit
+
+- Thuộc tính word-spacing thiết lập khoảng cách giữa các từ của văn bản text, hoặc giữa các phần tử HTML, nó nhận giá trị chiều dài hoặc normal.
+word-spacing: normal | length | inherit
+
+- Thuộc tính letter-spacing thiết lập khoảng cách giữa các ký tự trong từ (khoảng cách giữa các ký tự cạnh nhau).
+letter-spacing: normal | length | inherit
+
+- Thuộc tính white-space định dạng khoảng trắng trong CSS
+white-space : 
+
+6. Thuộc tính list-style-type thiết lập kiểu danh sách trong CSS
+Thuộc tính list-style là dạng kết hợp của cả ba thuộc tính list-style-type list-style-image list-style-position. 
+
+list-style: list-style-type list-style-position list-style-image
+
+ul {
+   list-style: square outside none;
+}
+
+7. Định dạng liên kết <a> bằng CSS
+Sử dụng pseudo selector :link, :visited, :active, :hover để để định dạng cách hiện thị các link (thẻ <a>) bằng CSS. 
+    a:link - kiểu bình thường khi link chưa từng được bấm vào (mặc định chữ xanh, có gạch chân)
+    a:visited - kiểu hiện thị khi link đã từng được truy cập
+    a:active - hiện thị khi chuột bấm vào (trước khi nhả)
+    a:hover - hiện thị khi chuột phía trên link
+    a:focus - hiện thị khi đang nhận input (khi tab dịch đến liên kết).
+
+Mặc định các link có dòng kẻ phía dưới dòng text của link. Nếu bạn muốn loại bỏ nó thì dùng CSS cho link: text-decoration: none;
+
+8. Các đơn vị px em rem mm đo độ dài trong CSS
+Đơn vị kích thước tuyệt đối trong CSS :
+    cm	centimet (dài bằng 1/100 m)
+    mm	milimét (dài bằng 1/1000 m)
+    in	Inche: 1in = 2.54cm = 96px
+    px	Điểm ảnh (10px là 10 điểm ảnh màn hình)
+    pt	Điểm (point), đây là đơn vị phổ biến dùng biểu diễn kích thước font chữ (72pt = 1inch = 25.4mm) hay 1pt = (1/72)in
+
+Đơn vị kích thước tương đối trong CSS :
+em	Bằng cỡ font của phần tử cha. Có nghĩa phần tử cha có cỡ (font-size) là 14px, thì 1em là 14px - nếu cỡ font phần tử cha là 10pt thì 2em là 20px.
+rem	Bằng cỡ font của phần tử gốc - root, trong CSS để thiết lập các thuộc tính của root thì dùng ký hiệu :root, rồi định nghĩa các thuộc tính giống class:
+:root {
+    font-size: 16px;
+    color: #333;
+}
+lh	Bằng chiều cao dòng phần tử cha
+vw	Bằng 1% chiều rộng cửa sổ
+vh	Bằng 1% chiều cao cửa sổ
+
+9. Thuộc tính box-sizing
+box-sizing: border-box;
+khi thiết lập thuộc tính width và height của phần tử CSS có nghĩa là thiết lập chiều rộng và cao cho vùng nội dung
+
+10.Đường viền border CSS
+border: size style color;
+style : giá trị : none, hidden, dotted, dashed, solid, double, groove, ridge, inset, outset, hay dùng kiểu dotted - đường nét chấm chấm, dashed đường nét đứt, solid đường nét liền
+
+11. Thuộc tính border-radius trong CSS
+border-radius: [radius value] [radius value]? [radius value]? [radius value]?;
++ dấu ? là tùy chọn (có thể không có)
+
+VD: border-radius: 10px 20px 30px 40px;
+Bán kính bo tròn góc theo tứ tự là các góc: trên trái (10px), trên phải (20px), dưới phải (30px), dưới trái (40px)
+
+border-radius: 10px;
+Bán kính bo tròn cả 4 góc đều bằng nhau (10px)
+
+12. Thuộc tính margin trong CSS
+margin: 15px; 
+margin: 5px 10px 15px 20px; //  top, right, bottom, left
+Giá trị bằng auto thường được dùng để căn chỉnh phần tử nằm giữa phần tử chứa (khi margin-left và margin-right có giá trị auto).
+
+13. Kích thước rộng cao phần tử HTML trong CSS
+-  width, height, min-width, min-height, max-width, max-height
+Nếu box-sizing có giá trị border-box:
+Thì thuộc tính width và height là tổng chiều rộng và tổng cao của phần tử (gồm content, padding, border, margin).
+
+Nếu box-sizing có giá trị content-box:
+Thì thuộc tính width và height là chiều rộng và cao của riêng phần content (không gồm padding, border, margin).
+
+14. Thuộc tính display trong CSS
+display : inline, inline-block, block, list-item ,none .
+
++ inline : có thể thiết lập có padding, margin nhưng không thiết lập được width và height (dù có thiết lập thì cũng không tác dụng gì). 
+Cũng chú ý, padding và margin nếu thiết lập nó sẽ đẩy các phần tử khác giãn ra theo chiều ngang và không tác dụng đẩy các phần tử theo chiều đứng.
+
++ inline-block : giống dạng inline, tuy nhiên cho phép thiết lập chiều rộng và cao phần content, nó đẩy giãn các phần tử ngang, dọc phù hợp với kích thước của nó
+
++ block : không đứng cùng hàng với phần tử khác, nó ngắt dòng để tạo dòng mới và chiều ngang mở rộng tối đa có thể (tối đa theo kích thước phần tử chứa). 
+Phần tử block có thể thiết lập chiều rộng, cao cho nó. 
+Hãy chú ý nguyên tắc: phần tử block có thể chứa phần tử block khác, chứa phần tử inline, block-inline. 
+Còn phần tử inline thì không nên chứa block (có một số ngoại lệ như phần tử <a>). Phần tử mặc định đã là block như: <p> <ul> <h1> ...
+
++ none : Phần tử sẽ bị ẩn đi, bị loại bỏ hoàn toàn khỏi hiện thị của trang, trình duyệt không dựng nội dung phần tử - mà sẽ có nó như không có. 
+Thuộc tính này hữu ích khi sử dụng với Javascript hoặc viết CSS responsive (ẩn/hiện tùy thuộc vào kích cỡ màn hình).
+
++ list-item : Cho biết sẽ tạo ra phần tử dạng danh sách (tương tự phần tử <li> trong HTML).
+VD :<p class="list-exam">
+    <span class="item-exam">Phần tử 1</span>
+    <span class="item-exam">Phần tử 2</span>
+    <span class="item-exam">Phần tử 3</span>
+</p>
+
+15. Thuộc tính visibility trong CSS
+- Phần tử bị ẩn hidden nhưng không gian chiếm chỗ của nó vẫn hiệu lực.
+visibility: visible | hidden | collapse | inherit
+
++ visible : Đây là giá trị mặc định, các phần tử khởi đầu sẽ là hiện thị trong trang
+
++ hidden : Không hiện thị phần tử (phần tử là trong suốt) nhưng không loại bỏ phần tử khỏi luồng dàn phần tử của trang. 
+Không gian chiếm chỗ bởi phẩn tử vẫn để dành cho nó như là nó đang hiện thị.
+Note : Nếu ẩn phần tử bằng display: none; thì phần tử đó bị loại khỏi luồng dàn trang phần tử (phần tử như là không có - do vậy nó không hề chiếm chỗ trong trang).
+
++ collapse : Nếu visibility có giá trị collapse thì phần tử bị ẩn, nhưng ứng sử có khác nhau tùy vào loại phần tử
+Với các hàng, cột trong bảng <table> thì nó ẩn phần tử - và không gian chiếm chỗ bị thu hồi (giống display: none).
+Sử dụng cho các mục của FlexBox , thì nó ẩn phần tử - và không gian chiếm chỗ bị thu hồi
+Các trường hợp khác ứng xử giống giá trị hidden
+
+    CÓ THỂ DÙNG 1 TỪ background CHO TẤT CẢ CÁC THUỘC TÍNH VỀ background
+
+15. Màu nền background-color anh nền background-image với CSS 
+background-color : color ;
+
+background-image: image | none ;
++ none : thiết lập không có ảnh nền cho phần tử
++ image: là ảnh làm nền, thường dùng hàm url(địa-chỉ-url-ảnh) hoặc hàm linear-gradient hay hàm radial-gradient
+
+background-repeat : valuex valuey;
+Trong đó: valuex và valuey là kiểu lặp lại theo chiều x và y có thể nhận
+repeat - lặp lại (ảnh có thể bị cắt tại biên của box)
+space - lặp lại - dàn ảnh có khoảng cách sao cho ảnh không bị cắt tại biên
+round - lặp lại - ảnh có thể bị thu phóng để không bị cắt tại biên
+no-repeat - không lặp lại
+
+background-attachment : fixed nền không cuộn theo phần tử (cố định với biên trang), scroll trôi theo phần tử (nền cố định với biên phần tử), local nền cuộn theo content của phần tử.
+
+16. Thiết lập nền background-size background-clip CSS
+- background-size: width height; điều chỉnh kích thước của các ảnh làm nền
+
++ background-size: 100px auto;
+auto: Nếu nhận một giá trị auto, còn giá trị kia chỉ rõ. Thì chiều ảnh có giá trị auto tự động tính toán theo tỷ lệ ban đầu của ảnh. Ví dụ: Chiều rộng thu về 100px, chiều cao điều chỉnh sao cho đúng tỷ lệ ảnh ban đầu
+
++ background-size: contain;
+Trường hợp viết cú pháp như trên, ảnh sẽ thu phóng sao toàn bộ ảnh đặt vừa lọt trong vào khu vực nền của phần tử.
+
++ background-size: cover;
+Ảnh nền sẽ thu/phóng sao cho phủ kín hết toàn bộ nền.
+
+- background-position: px py; thiết lập vị trí của ảnh nền trong hệ tọa độ của phần tử.
+Trong đó px py là tọa độ góc thứ nhất nhất của ảnh nó có thể nhận các giá trị: top, left, bottom, right, center, chiều dài, phần trăm
+
+- background-clip : chỉ ra vùng vẽ của nền
+border-box mặc định, nền vẽ ngoài biên viền.
+padding-box nền vẽ cả ở vùng padding (không viền)
+content-box nền chỉ vẽ ở vùng nội dung phần tử
+
+- background-origin : thiết lập gốc xác định ảnh nền
+Nhận các giá trị: padding-box, border-box, content-box
+
+17. overflow
+- Thuộc tính overflow trong CSS
+Thuộc tính overflow để điều khiển khi nội dung phần tử HTML vượt quá kích thước box, có thể ẩn đi nội dung vượt quá hoặc cuộn nội dung. 
+Thay đổi ứng sử khi tràn nội dung theo chiều ngang dùng thuộc tính overflow-x, chiều đứng overflow-y
+
+overflow: visible | hidden | scroll | auto | inherit;
+
++ visible : Mặc định. Khi nội dung bị tràn, nó không bị cắt xén, nó vẫn được trình duyệt render (dựng, vẽ) vượt ra khỏi phạm vi box (có thể dẫn tới nó nằm đề nên các phần tử khác).
++ hidden : Cho biết những nội dung bị tràn vượt khỏi box sẽ bị cắt bỏ (không xuất hiện thanh cuộn scroll).
++ auto : Khi thiết lập overflow có giá trị auto thi ứng sử tùy thuộc vào loại trình duyệt, nhưng hầu hết sẽ xuất hiện thanh cuộn để cuộn nội dung bị tràn (nếu vượt chiều đứng xuất hiện thanh cuộn đứng, vượt chiều ngang xuất hiện thanh cuộn ngang hoặc cả hai khi vượt kích thước cả ngang cả dọc).
++ croll : Tương tự như nhận giá trị auto, tuy nhiên phần tử luôn để dành chỗ để xuất hiện thanh scroll (kể cả khi nội dung chưa bị tràn).
++ inherit : Thuộc tính overflow kế thừa từ phần tử chứa nó.
+
+- Thuộc tính overflow-x và overflow-y trong CSS :
+Trong trường hợp bạn muốn thiết lập riêng rẽ ứng sử ra sao khi tràn theo chiều trang thì dùng thuộc tính overflow-x còn theo chiều đứng là overflow-y
+overflow-x: visible | hidden | scroll | auto | inherit;
+overflow-y: visible | hidden | scroll | auto | inherit;
+Các giá trị visible, hidden, scroll, auto ý nghĩa của nó như phần trên.
+
+18. Thuộc tính text-overflow trong CSS
+Sử dụng text-overflow để thiết lập ứng sử khi dòng chữ dài vượt qua kích thước rộng của phần tử chứa như thiết lập cắt bỏ nội dung tràn, thiết lập cho thêm dâu ba chấm ...
+Thuộc tính text-overflow để thiết lập khi dòng text dài vượt quá chiều rộng phần tử do :
+(Thiết lập thuộc tính white-space có giá trị nowrap và thiết lập tràn overflow là hidden)
+
+text-overflow: clip | ellipsis ;
+
++ clip : Mặc định, khi nó nội dung dòng text bị tràn sẽ bị cắt bỏ không hiện thị.
++ ellipsis : nội dung tràn bị ẩn và tự thêm vào dấu ba chấm ...
+
+VD :
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+
+19. Thuộc tính float trong CSS
+Thuộc tính này sẽ đẩy phần tử trôi về trái hoặc phải của phẩn tử chứa.
+float: left | right | none | inherit;
+
++ left: phần tử được trôi về phía bên trái. Luồng nội dung thông thường sẽ giữ ở bên phải, bắt đầu ở phần đỉnh của phần tử. Luồng nội dung xung quanh box thay đổi tùy thuộc vào giá trị của thuộc tính clear .
++ left: phần tử được trôi về phía bên phải
++ none: phần tử không bị đẩy về phía nào, vị trí của nó theo luồng dựng thông thường.
++ inherit: giá trị float kế thừa từ phần tử cha.
+
+Khi một phần tử là float (right hoặc left), thì chiều cao phần tử chứa nó thu gọn sao cho vừa các nội dung còn lại (không float),
+chiều cao phần tử float không tác động gì trong tính toán chiều cao phần tử chứa. 
+
+- Kỹ thuật với clear để loại bỏ ảnh hưởng float đến chiều cao :
+.clearfix {
+    clear: both;
+}
+ Đưa vào ngang hàng với phần tử float nó sẽ cho lớp cha bao hết lớp con float lại
+
+- Kỹ thuật với :after để loại bỏ ảnh hưởng float đến chiều cao
+Kỹ thuật này là đưa thuộc tính clear vào chính thành phần của phần tử chứa(Phần tử cha), đó là pseudo :after, 
+lúc đó bạn không phải chèn thêm phần tử vào phần tử chứa, mà bản thân phần tử chứa sẽ tự sinh ra ở cuối thành phần :after có thuộc tính clear.
+.clearafter:after {
+    content: ".";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+20. Thuộc tính clear trong CSS
+Thuộc tính được sử dụng để xóa bỏ ảnh hướng của float trên cạnh trái, cạnh phải hoặc cả hai của box phần tử,
+clear: none | left | right | both | inherit
+none giá trị mặc định, phần tử giữ ảnh hưởng của float
+left bỏ đi ảnh hưởng của float ở biên trái, phần từ phía bên trái sẽ bị dịch xuống dưới
+right bỏ đi ảnh hưởng của float ở biên phải
+both bỏ đi ảnh hưởng của float ở cả hai biên (phần tử phía sau dịch xuống dưới)
+
+21. Vị trí phần tử position CSS
+position: static | relative | absolute | sticky |  fixed
+
++ position : relative
+    .pos_relative {
+        position: relative;
+        left: 50px;  /* cạnh trái lệch 50 */
+        top:  -60px; /* cạnh trên lệch lên 60px */
+    }
+
++ position : absolute
+Vị trí phần tử và có thể là kích thước phần tử nữa hoàn được xác định bởi các thuộc tính top, left, right, bottom so với phần tử cha (hoặc tổ tiên gần nhất) có thuộc tính postion là relative. 
+Nếu ngược hết DOM không có phần tử tổ tiên nào có postion relative thì vị trí là tương ứng với cửa sổ trình duyệt.
+
++ position : fixed
+Ý nghĩa tương tự như khi nhận absolute - phần tử cũng bị tách khỏi luồng dàn phần tử thông thường của trình duyệt, 
+tuy nhiên vị trí xác định liên hệ với viewport (cửa sổ nhìn hiện tại của trình duyệt, chứ không phải phần tử chứa), 
+điều này làm cho vị trí phần tử luôn cố định dù bạn cuộn trình duyệt.
+
++ position : sticky
+Trường hợp này là lai giữa relative và fixed. 
+Ví dụ, một giá trị cố định là 50px, nếu vị trí trong viewport (top) trên 50px thì nó ứng sử như relative, nếu nhỏ hơn thì nó sẽ giữ cố định là 50px.
+
+22. Thuộc tính z-index
+Thuộc tính z-order là xếp thứ tự phần tử theo trục z. Một phần tử có giá trị z-order cao hơn thì nó sẽ nằm trên (đè lên) phần tử có z-order thấp hơn.
+z-index: auto | int
+
+23. Định dạng hiện thị bảng table bằng CSS
+table-layout: auto | fixed | inherit
+
+24. Thuộc tính cursor
+cursor: cursor-value;
+cursor: url("https://cdn-icons-png.flaticon.com/128/3119/3119214.png"), auto;
+
+25. CSS3 Giới thiệu một số tính năng
+CSS3 là chuẩn mới nhất cho CSS, nó tương thích với chuẩn CSS cũ, hầu hết các trình duyệt đều hỗ trợ các tính năng mới trong CSS3.
+CSS Vendor : Tiền tố CSS vendor là một cách viết CSS cho một loại trình duyệt cụ thể mà nó hỗ trợ các tính năng mới CSS đang trong quá trình kiểm tra, thử nghiệm.
+Ví dụ tiền tố cho trình duyệt Safari và Chrome là -webkit
+Thuộc tính mới border-radius đã được hỗ trợ trong Chrome, Safari, Mozilla đi kèm với nó là tiền tố trình duyệt.
+
+Ví dụ để sử dụng border-radius thì viết CSS với tiền tố như sau:
+ -webkit-border-radius: 24px;
+
+Sử dụng tiền tố trước các thuộc tính mới nhằm đảm bảo nó làm việc trên các trình duyệt không được hỗ trợ. 
+Như vậy có thể bạn phải định nghĩa nhiều thuộc tính để trang web làm việc như nhau trên nhiều trình duyệt khác nhau.
+
+Danh sách tiền tố Browser
+-moz- (Firefox)
+-o- (Opera)
+-ms- (Internet Explorer)
+-webkit- (Safari, Chrome)
+Bạn cần liên tục cập nhật các thông tin về trình duyệt, khi một trình duyệt hỗ trợ theo đúng chuẩn một thuộc tính nào đó thì bạn có thể loại bỏ tiền tố viết riêng cho trình duyệt đó.
+
+26. Tô bóng box với thuộc tính box-shadow CSS3
+box-shadow: none;   /* không tô bóng box */
+box-shadow: offset-x offset-y blur-radius? spread-radius? color?;
+box-shadow: inset offset-x offset-y blur-radius? spread-radius? color?;
+
+Trong đó tham số có dấu ? là tùy chọn, có thể không thiết lập. Ý nghĩa của các tham số:
+offset-x: khoảng dịch đổ bóng chiều x
+offset-y: khoảng dịch đổ bóng chiều y
+blur-radius: bán kính mờ
+spread-radius: bán kính mở rộng
+color: màu đổ bóng
+inset: bóng sẽ tô trong box
+
+27. Màu sắc có hiệu ứng trong suốt rgba hsla CSS3
+- rgba(red, green, blue, alpha)
+Giá trị tham số alpha nhận giá trị từ 0.0 (trong suốt hoàn toàn) đên 1.0 (không có hiệu ứng trong suốt).
+VD :color: rgba(156, 39, 176, 0.57);
+
+- Màu HSL tạo ra bằng CSS với cú pháp hsl(hue, saturation, lightness), trong đó:
+Hue là độ của màu trong vòng tròn màu có giá trị từ 0 đến 360. Nhứ 0 (màu đỏ), 240 (xanh), 120 (xanh lá cây)
+Saturation giá trị theo phần trăm, là cường độ màu
+lightness độ sáng của màu theo phần trăm 0 (tối) và 100 là sáng trắng
+VD : color: hsl(291, 50%, 35%);
+
+- Màu hsla(hue, saturation, lightness, alpha) 
+
+28. Lựa chọn theo pseudo class trong CSS
+Một pseudo-classe thêm vào selector bằng cách viết dấu hai chấm : sau đó là tên (từ khóa) trạng thái.

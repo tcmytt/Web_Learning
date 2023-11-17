@@ -1,0 +1,345 @@
+HTML5
+
+1. Giới thiệu HTML5 và mô hình nội dung
+- HTML5 hỗ trợ Web Form 2.0 tạo ra các form mạnh mẽ hơn :
+Hỗ trợ điều khiển chọn ngày tháng, màu sắc, chọn số
+Hỗ trợ kiểu input mới như email, search, URL
+Ngoài phương thức get, post hỗ trợ thêm phương thức put và delete
+
+- HTML5 tích hợp trong nó giao diện lập trình API, có các loại API như :
+Kéo và thả trong HTML
+Phát Audio, Video
+Ứng dụng Web Offline
+Các hàm truy cập lịch sử duyệt web
+Lưu trữ dữ liệu nội bộ
+Các hàm về vị trí (địa lý)
+Gửi thông điệp Web
+
+Cấu trúc :
+- Metadata
+Nội dung của nó là thiết lập cách hiện thị và ứng sử của trang. Những loại phần tử này tìm thấy ở phần đầu (head) của trang. Các phần tử đó là:
+<base>, <link>, <meta>, <noscript>, <script>, <style>, <title>
+
+- Nhúng dữ liệu
+Nội dung đa dạng được nhúng vào trong trang web. Các phần tử thuộc loại nhúng dữ liệu như:
+<audio>, <video>, <canvas>, <iframe>, <img>, <math>, <object>, <svg>
+
+- Interactive - phần tử tương tác
+Các phần tử sử dụng để người dùng tương tác với trang:
+<a>, <audio>, <video>, <button>, <details>, <embed>, <iframe>, <img>, <input>, <label>, <object>, <select>, <textarea>
+
+- Phần tử heading
+Các phần tử trình bày tiêu đề nội dung:
+<h1>, <h2>, <h3>, <h4>, <h5>, <h6>, <hgroup>
+
+- Phrasing
+Các phần tử dạng inline, các phần tử này thông dụng trong HTML4:
+<img>, <span>, <strong>, <label>, <br />, <small>, <sub> ...
+
+- Luồng nội dung
+Chứa các phần tử HTML5 trình bày theo quy tắc để tạo luồng nội dụng của trang.
+
+- Phần đoạn - Section trong HTML5
+Trình bày một phạm vi nội dung heading, điều hướng, chân trang ...:
+<article>, <aside>, <nav>, <section>
+
+2. Thẻ header, nav, header trong HTML5
+- Thẻ <header> : Phần tử <header> thích hợp nằm trong thẻ <body>
+   <body>
+      <header>
+        <h1> Phần tiêu đề quan trọng </h1>
+        <h3> Tiêu đề ít quan trọng</h3>
+      </header>
+   </body>
+
+- Thẻ <footer> : Thông thường <footer> sử dụng ám chỉ đền phần chân trang
+<footer>…</footer>
+
+- Thẻ <nav> : Thẻ này trình bày một phân đoạn của trang nó chứa các liên kết để điều hướng đến các trang của website.
+<nav>
+   <ul>
+      <li><a href="#">Trang chủ</a></li>
+      <li><a href="#">Dịch vụ</a></li>
+      <li><a href="#">Giới thiệu</a></li>
+   </ul>
+</nav>
+
+3. Thẻ article, section và aside trong HTML5
+- Thẻ <article> : article là phần tử để bao bọc nội dung độc lập, nó có thể là một bài post của diễn đàn, một bài viết của trang, một bài báo, một bình luận ... hoặc bất kỳ một nội dung độc lập nào.
+<article> 
+   <h1>Tiêu đề bài viết</h1> 
+   <p>Các nội dung bài viết</p>
+</article>
+Phần tử <article> có thể chứa các <article> khác. Các <article> bên trong trình bày các nội dung liên quan đến <article> bên ngoài.
+
+- Thẻ <section> : Thẻ <section> dùng để phân chia một cách logic một trang, một article.
+<article>
+   <h1>Chào mừng</h1>
+   <section>
+      <h1>Tiêu đề</h1>
+      <p>Nội dung, hình ảnh ...</p>
+   </section>
+</article>
+
+- Thẻ <aside> : <aside> được hiểu như nội dung thứ cấp của phần nội dung chính của trang. 
+article>
+   <h1> Quà tặng cho mọi người </h1>
+   <p> Trang web giúp bạn chọn và mua quà tặng </p>
+   <aside>
+      <p> Quà tặng được chuyển đến khách hàng trong khoảng 24h </p>
+   </aside>
+</article>
+
+4. Thẻ audio, video trong HTML5
+- Thẻ <audio> : Với HTML5 sử dụng thẻ <audio> để phát file âm thanh. 
+Hiện tại có 3 định dạng file âm thanh hỗ trợ trong HTML5: mp3, wav, ogg. Có hai cách để sử dụng thẻ <audio> :
+C1 : sử dụng thuộc tính src để chỉ ra file âm thanh
+<audio src="audio.mp3" controls>
+   Trình duyệt không hỗ trợ phát âm thanh
+</audio>
+
+C2 : sử dụng phần tử <source> bên trong <audio>, cách này chỉ ra được nhiều file âm thanh
+<audio controls>
+   <source src="audio.mp3" type="audio/mpeg">
+   <source src="audio.ogg" type="audio/ogg">
+   Trình duyệt không hỗ trợ phát âm thanh
+</audio>
+
+Thuộc tính : controls , autoplay, loop  
+<audio controls autoplay loop>
+
+- Thẻ <video> :  Cách sử dụng <video> khá giống với <audio>
+Hiện tại có 3 định dạng file video hỗ trợ trong HTML5: mp4, WebM, ogg
+<video controls>
+   <source src="video.mp4" type="video/mp4">
+   <source src="video.ogg" type="video/ogg">
+   Trình duyệt của bạn không hỗ trợ video
+</video>
+
+5. Tạo progress bar trong HTML5
+Sử dụng thẻ progress để tạo thanh biểu diễn trang thái hoàn thành của tiến trình xử lý progress bar trong HTML5
+<progress> có 3 thuộc tính:
+- value: chỉ ra giá trị đã hoàn thành
+- max: giá trị lớn nhất của progress bar
+- min: giá trị nhỏ nhất
+
+<progress min="0" max="100" value="35">
+</progress>
+
+6. Web Storage trong HTML5
+Với HTML5 web storage, trang web có thể lưu trữ dữ liệu tại máy khách (trình duyệt máy khách). 
+Trước HTML5, chúng ta phải sử dụng hàm JavaScript về cookies để làm điều này.
+
+- Một số lợi ích của Web Storage :
+An toàn hơn cookie
+Nhanh hơn
+Lưu dữ liệu lớn hơn
+Dữ liệu này không gửi lên server mỗi lần trình duyệt có truy vấn mới
+
+- Phân loại Web Storage : Có hai loại Web Storage HTML5 mà bạn có thể sử dụng :
++ sessionStorage() : Các dữ liệu hủy khi đóng trình duyệt
++ localStorage() : Dữ liệu lưu trữ lâu dài kể cả khi đóng trình duyệt
+Để sử dụng các API này bạn phải sử dụng đến JavaScript
+
+- Cú pháp để truy cập sessionStorage và localStorage tương tự nhau. Dữ liệu bao giờ cũng được lưu trữ theo cặp key/value. 
+Sau đây là mã JavaScript thực hiện với localStorage với sessionStorage thì tương tự chỉ cần thay tên:
++ Lưu giá trị
+localStorage.setItem("key1", "value1");
++ Lấy giá trị
+//Lấy và In ra giá trị - nếu key1 không tồn tại nó trả về null
+alert(localStorage.getItem("key1")); 
++ Xóa một giá trị đã lưu
+localStorage.removeItem("key1");
++ Xóa tất cả
+localStorage.clear();
+
+7. Geolocation API - Định vị vị trí trong HTML5
+- Sử dụng API về Geolocation để định vị vị trí, lấy bản đồ vị trí khách truy cập
++ Cú pháp sử dụng hàm định vị
+navigator.geolocation.getCurrentPosition(success, error);
+Trong đó:
+success : là một hàm callback do bạn định nghĩa, hàm này sẽ nhận được giá trị về đố tượng Possition để định vị khi hàm getCurrentPosition gọi thành công
+error : là một hàm callback do bạn định nghĩa, hàm này sẽ nhận được đối tượng PositionError nếu như hàm getCurrentPosition có lỗi.
++ Ví dụ :
+<div id="toado"></div>
+<script>
+    function errorgeo(err) {
+        var errcode = err.code;
+        var message = err.message;
+        var boxhtml = document.getElementById("toado");
+        boxhtml.innerHTML = "Mã lỗi: " + errcode + "<br>" + "Nội dung lỗi: " + message;
+
+    }
+
+    function showcoor(pos) {
+        var coord = pos.coords;
+        var long = coord.longitude;
+        var lat  = coord.latitude;
+        var boxhtml = document.getElementById("toado");
+        boxhtml.innerHTML = "Kinh độ: " + long + "<br>" + "Vĩ độ: " + lat;
+
+    }
+
+    navigator.geolocation.getCurrentPosition(showcoor, errorgeo);
+</script>
+
+- Lấy ảnh bản đồ từ maps.googleapis.com :
+Ví dụ đã có kinh độ lat và vĩ độ long bạn có thể lấy địa ảnh bằng cách URL:
+https://maps.googleapis.com/maps/api/staticmap?center=lat,long&zoom=12&size=400x400
+
+var urlmap = "https://maps.googleapis.com/maps/api/staticmap?center="+lat+","+long+"&zoom=12&size=400x400&markers=color:red%7Clabel:C%7C"+lat+","+long;
+
+8. Kéo và thả trong HTML5
+Tính năng kéo thả có thể áp dụng cho mọi phần tử HTML, mục đích để dịch chuyển phần tử tử vị trí này sang vị trí khác hay để thu thập dữ liệu.
+Phần tử nào muốn có khả năng kéo (drag) đơn giản thêm vào phần tử đó thuộc tính: draggable="true"
+Các hàm API về kéo và thả trong HTML5 dựa trên các hàm về sự kiện
+
+- Kéo cái gì - Drag :
+Khi một phần tử được kéo, nó sẽ gọi hàm được chỉ ra trong thuộc tính ondragstart="function_name(event)",
+dữ liệu sự kiện event trong tham số hàm có chứa dữ liệu phần tử được kéo và gọi phương thức event.dataTransfer.setData() để lưu lại
+
+- Thả vào đâu (drop) : Khi dữ liệu được thả vào một phần tử nào đó, thì sự kiện drop sẽ phát sinh.
+Mặc định thì dữ liệu hay phần tử này không có phép thả lên phần tử khác. 
+Nên muốn cho phép thả vào một phần tử thì cần gọi phương thức event.preventDefault() thiết lập tại thuộc tính ondragover.
+
+-Xử lý thả phần tử (drop) :
+Khi dữ liệu thả vào một phần tử, sự kiện thả sẽ diễn ra và nó sẽ gọi hàm thiết lập trong thuộc tính ondrop.
+
+- Kết hợp :
+<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+</script>
+
+<div id="box"
+     ondrop="drop(event)"
+     ondragover="allowDrop(event)"
+     style="border:1px solid black; width:200px; height:200px">
+</div>
+
+<hr/>
+
+<div draggable="true" ondragstart="drag(event)" id="divdrag">
+    <img  src="https://www.google.com.vn/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" draggable="false"/>
+    <p>Logo Google</p>
+</div>
+
+9. Ảnh SVG trong HTML5
+SVG là viết tắt của từ (Scalable Vector Graphics), nó được vẽ bằng cách sử dụng ngôn ngữ đánh dấu kiểu như HTML.
+SVG nó là một loại ảnh vector, không dựa trên cơ sở pixel ảnh nên chất lượng ảnh không thay đổi khi phóng to hay thu nhỏ.
+- Chèn ảnh SVG vào trang : image.svg thì ảnh được chèn vào trang bằng cách sử dụng thẻ img
+
+- Tạo ảnh SVG : Các ảnh SVG được tạo ra bằng cách bắt đầu sử dụng thẻ <svg>, cú pháp có dạng:
+<svg width="1000" height="1000">
+    ....các thẻ vẽ, thiết lập ở đây
+</svg>
+
+- Vẽ các hình trong SVG :
+VD Vẽ hình tròn SVG :
+<svg width="180" height="180">
+    <circle cx="80" cy="80" r="50" fill="green" stroke="yellow"/>
+</svg>
+
+cx vị trí tâm, tính từ mép trái của SVG
+cy vị trí tâm, tính từ mép trên
+r bán kính
+fill xác định màu tô
+stroke thêm đường biên
+
+Sử dụng công cụ sau để vẽ nhanh SVG: https://inkscape.org/en/
+
+10. Thẻ <canvas> trong HTML5
+Sử dụng canvas trong HTML5 để vẽ các đối tượng đồ họa như đường thẳng, hình chữ nhật, vẽ chữ
+Phần tử <canvas> chỉ có chức năng chứa các đối tượng đồ họa. Bạn bắt buộc phải sử dụng JavaScript để vẽ.
+VD : <canvas id="canvas1" width="200" height="100">
+</canvas>
+
+Ví dụ sau tạo ra một canvas và sử dụng JavaScript để lấy context(đối tượng bao bọc các lệnh vẽ và thuộc tính của canvas đó)
+<canvas id="canvas1" width="400" height="300"></canvas> 
+
+<script>
+  var can = document.getElementById("canvas1");
+  //Lấy context của canvas1
+  var ctx = can.getContext("2d");
+</script>
+
+11. Form trong HTML5
+Một số thuộc tính mới so với html : 
+- placeholder và autofocus : giúp cho phần tử <input>, <textarea> 
+<form>
+    <label for="email">Địa chỉ Email: </label>
+    <input type="text" name="email" placeholder="email@example.com" autofocus/>
+</form>
+
+- required và autocomplete :
++ Thuộc tính required chỉ ra bắt buộc phải nhập dữ liệu cho phần tử. 
++ Thuộc tính autocomplete thiết lập với giá trị on hoặc off cho biết các phần tử trong form có tự động điền dữ liệu vào hay không. 
+Nếu on thì trình duyệt căn cứ vào những dữ liệu người dùng từng nhập trước đây để gợi ý lựa chọn một trong các dữ liệu đó.
+<form autocomplete="off">
+    <label for="e-mail">Email: </label>
+    <input name="Email" type="text" required />
+    <input type="submit" value="Submit"/>
+</form>
+
+Danh sách các thuộc tính mới cho form trong HTML5 :
+   autofocus tự động kích hoạt phần tử
+   form một phần tử nằm bên ngoài thẻ form vẫn thuộc form nếu thuộc tính này trong phần tử chỉ đến id của form
+   formaction đặt thuộc tính này cho input kiểu submit thì nó chỉ ra địa chỉ form sẽ submit đến.
+   formenctype kiểu mã hóa dữ liệu khi post
+   formmethod đặt trong input kiểu submit giá trị này là get hoặc post
+   formnovalidate
+   formtarget
+   height và width
+   list danh sách dữ liệu lựa chọn
+   min và max
+   multiple
+   pattern (regexp)
+   placeholder
+   required
+   step
+
+Các phần tử form HTML5 mới :
+   color nhập màu sắc
+   date nhập ngày tháng
+   datetime
+   datetime-local
+   email nhập email
+   month điều khiển chọn ngày tháng
+   number số
+   range dải số
+   search hộp tìm kiếm
+   tel nhập số điện thoại
+   time thời gian
+   url nhập địa chỉ url
+   week điều khiển chọn tuần
+
+Ví dụ tạo hộp tìm kiếm có các từ gợi ý :
+<input id="car" type="text" list="colors" />
+<datalist id="colors">
+    <option value="Red">
+    <option value="Green">
+    <option value="Yellow">
+</datalist>
+
+Ví dụ nhập email, địa chỉ web, số điện thoại :
+<form>
+    <input id="email" name="email" type="email" placeholder="example@example.com" />
+    <br />
+    <input id="url" name="url" type="url" placeholder="example.com" />
+    <br />
+    <input id="tel" name="tel" type="tel" placeholder="555.555.1211" />
+    <br>
+    <input type="submit" value="Submit"/>
+
+</form>

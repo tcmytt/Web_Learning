@@ -1,38 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/main.css">
-    <link rel="stylesheet" href="./assets/css/base.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
-</head>
-<body>
-    <div>
-        <h2>DANH SÁCH KHÓA HỌC</h2>
-        <ul id="course-list"><li></li></ul>
-      </div>
-      
-      <form action="">
-        <label for="course-name">Tên khóa học:</label><br>
-        <input size="" type="text" id="course-name" name="course-name" required><br>
-        <label for="course-des">Mô tả khóa học:</label><br>
-        <input type="text" id="course-des" name="course-des" required><br><br>
-        <input type="button" value="Tạo khóa học" id="createBtn">
-        <input type="button" value="Chỉnh sửa hoàn tất" id="confirmEditBtn">
-      </form>
-    <script type="module" src="/main.js"></script>
-    <script>
-      console.log(a)
-{
-    {
-          
-      var a=25;
-    }
-}
-console.log(a)
-    </script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./assets/css/main.css" />
+        <link rel="stylesheet" href="./assets/css/base.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+            integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <title>Document</title>
+    </head>
+    <body>
+        <audio draggable="true" src="audio.mp3" controls>Trình duyệt không hỗ trợ phát âm thanh</audio>
+        
+        <div draggable="true" ondragstart="drag(event)" id="divdrag">
+            <img
+                src="https://www.google.com.vn/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+                draggable="false"
+            />
+            <p>Logo Google</p>
+        </div>
+
+        <div
+            id="box"
+            ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+            style="border: 1px solid black; width: 200px; height: 200px"
+        ></div>
+
+        <script>
+            function allowDrop(ev) {
+                ev.preventDefault();
+            }
+
+            function drag(ev) {
+                ev.dataTransfer.setData('text', ev.target.id);
+            }
+
+            function drop(ev) {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData('text');
+                ev.target.appendChild(document.getElementById(data));
+            }
+        </script>
+    </body>
 </html>
