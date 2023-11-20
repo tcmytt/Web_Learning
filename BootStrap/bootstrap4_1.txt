@@ -1,0 +1,32 @@
+1. Tổng quan Bootstrap 4.1
+Bootstrap - CSS Framework tạo bởi Twitter
+Sử dụng CDN (Content Delivery Network) hoặc bằng cách tải Bootstrap về và tích hợp trực tiếp vào dự án.
+
+Đoạn mã cơ bản tích hợp Bootstrap vào trang (HTML)
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<script src="js/bootstrap.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+CDN
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+2. Xây dựng Layout cơ bản với Bootstrap
+- class xây dựng hàng và cột : 
+breakpoint	sm md lg xl
+.container	Lớp tạo phần tử chứa layout
+.row	Lớp tạo hàng của lưới
+.col	Lớp tạo cột của lưới
+.col-*	* = (1 - 12), lớp tạo cột có độ rộng cụ thể như .col-1, .col-2 ... hiệu lực cho tất cả các breakpoint
+.col-{breakpoint}-*	* = (1 - 12) Lớp tạo cột có độ rộng cụ thể như .col-sm-1, .col-lg-2 ... hiệu lực với breakpoint cụ thể
+.col-{breakpoint}-auto .col-auto	Cột có độ rộng điều chỉnh theo nội dung nó chứa
+.align-items{-breakpoint}-*	Thiết lập thuộc tính align-items của flexbox
+.align-content{-breakpoint}-*	Thiết lập thuộc tính justify-content của flexbox
+.justify-content{-breakpoint}-*	Thiết lập thuộc tính align-content của flexbox
+.align-self{-breakpoint}-*	Thiết lập thuộc tính align-self của flexbox
+
+Trong Bootstrap phần tử gốc cơ bản để xây dựng layout là class container và container-fluid.
+Container chia theo các điểm dừng, đó là các breakpoint : sm, md, lg, xl
+Trong trường hợp sử dụng container-fluid thì hộp layout tạo ra luôn mở rộng tối đa có thể dù trên loại màn hình nào.
+

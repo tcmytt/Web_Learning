@@ -1,0 +1,222 @@
+SASS (Systematically Awesome Style Sheets) là một một ngôn ngữ kịch bản tiền xử lý, từ nó được chuyển đổi ra CSS bằng các công cụ biên dịch khác nhau.
+Khi sử dụng SASS bạn có thể tùy thích chọn viết theo cú pháp SASS hay SCSS
+SCSS có đuôi mở rộng *.scss 
+
+1. Biến
+$red: #833;
+body {
+  color: $red;
+}
+
+2. Comment
+//comment 1 dòng
+/*
+     comment nhiều dòng
+*/
+
+3. Lồng nhau
+ul.nav {
+  list-style: none;
+  li {
+    padding: 10px;
+  }
+}
+
+4. Lồng thuộc tính
+.box {
+    border: {
+        color: black;   //=>border-color:
+        width: 2px;
+        radius:5px;
+    }
+}
+
+5. parent Selector
+.article {
+    padding: 20px;
+    color: antiquewhite;
+    &.title {                  //=>.article.title
+        color: red;
+    }
+
+    .inner & {                 //=>.inner .article
+        color: green;
+    }
+
+    &-middle {                 //=>.article-middle
+        background: #ca2020;
+      }
+
+}
+
+6. pseudo selector
+a {
+  text-decoration: none;
+  &:hover, &:active {
+    text-decoration: underline;
+  }
+}
+
+7. @extend : Kế thừa hết
+.box {
+  border: 1px solid red;
+}
+
+.quote {
+  @extend .box;
+}
+
+Trong css tương đương :
+.box, .quote {
+  border: 1px solid red;
+}
+
+
+8. @extend - placeholder
+// %box không có trong css mà chỉ dùng để kế thừa lại
+%box {
+    border: 1px solid red;
+  }
+
+.quote {
+    @extend %box;
+}
+
+Trong css tương đương :
+.quote {
+  border: 1px solid red;
+}
+
+9. @mixin Dùng với @include
+VD 1 :
+$base-font-size: 16;
+@mixin font-size($size) {
+  font-size: ($size / $base-font-size) + rem;
+}
+
+.title {
+  @include font-size(32);
+}
+
+Trong css tương đương :
+.title {
+  font-size: 2rem; /* 32 / 16 + rem */
+}
+
+VD 2 :
+@mixin center-element {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Sử dụng mixin
+.container {
+  @include center-element;
+}
+
+.button {
+  @include center-element;
+  background-color: blue;
+  color: white;
+}
+
+10 . //@function dùng với @return
+@function px2rem($pxsize) {
+    @return ($pxsize/16)+rem;
+}
+
+p.detail {
+    font-size: px2rem(20);
+}
+
+11. So sánh mixin và function
+Mixin:
+Mixin thường được sử dụng để tái sử dụng một tập hợp các quy tắc CSS. Nó giống như việc copy và paste các khối mã nguồn CSS từ một nơi và chèn chúng vào nơi khác.
+Mixin có thể chứa nhiều thuộc tính và giá trị, không chỉ giới hạn trong việc trả về một giá trị như function.
+Định nghĩa mixin bằng cách sử dụng @mixin.
+Sử dụng mixin bằng cách sử dụng @include.
+
+Function:
+Function thường được sử dụng để tính toán và trả về một giá trị cụ thể. Chúng giúp thực hiện các phép toán, chuyển đổi giá trị, hoặc thực hiện các tác vụ tính toán khác.
+Function thường trả về giá trị duy nhất.
+Định nghĩa function bằng cách sử dụng @function.
+Gọi function bằng cách sử dụng @return.
+
+Lựa Chọn:
+Mixin: Sử dụng khi bạn muốn tái sử dụng một nhóm các quy tắc CSS đầy đủ.
+Function: Sử dụng khi bạn muốn tính toán và trả về một giá trị cụ thể để sử dụng trong quy tắc CSS.
+
+12. @if / @else
+@mixin my-font-type($font: 'base') {
+    @if ($font==bold) {
+        font-family: 'Avenir-Demi';
+    }
+    @else if ($font==italic) {
+        font-family:
+            'Avenir-LightItal';
+    }
+    @else {
+        font-family: 'Avenir-Light';
+    }
+}
+
+.title1 {
+    @include my-font-type('bold');
+    font-weight: bold;
+}
+
+13. @for, @each, list
+
+// SCSS
+//Khai báo 4 biến lưu mã màu
+$home: #F7E900;
+$about: #FF5F09;
+$news: #A0005E;
+$links: #41004B;
+//Tạo biến list (danh sách) với 4 phần tử trên
+$pages: $home, $about, $news, $links;
+
+@for $i from 1 through length($pages) {
+    body.page-#{$i} {
+        background: nth($pages, $i);
+    }
+}
+
+
+@each $item in $pages {
+    body.section-#{ index($pages, $item)} {
+        background: $item;
+    }
+}
+
+Trong css tương đương :
+body.section-1 {
+  background: #F7E900;
+}
+
+body.section-2 {
+  background: #FF5F09;
+}
+
+body.section-3 {
+  background: #A0005E;
+}
+
+body.section-4 {
+  background: #41004B;
+}
+
+14.  # trong scss 
+- Biểu thức Interpolation (String Interpolation): #{} được sử dụng để nhúng giá trị biến hoặc biểu thức vào trong một chuỗi.
+$color: red;
+.button {
+  background-color: #{$color};
+}
+
+
+Hàm List:
+length($list): Độ dài của danh sách.
+nth($list, $n): Lấy phần tử thứ n trong danh sách.
+join($list1, $list2): Gộp hai danh sách.
+index($pages, $item) : Trả về vị trí phần tử item trong list page, bắt đầu từ 1

@@ -465,3 +465,510 @@ VD : color: hsl(291, 50%, 35%);
 
 28. Lựa chọn theo pseudo class trong CSS
 Một pseudo-classe thêm vào selector bằng cách viết dấu hai chấm : sau đó là tên (từ khóa) trạng thái.
+để cho biết mã CSS sẽ áp dụng vào phần tử khi phần tử ở trạng thái nào đó của phần tử HTML (đang focus nhập dữ liệu, bị vô hiệu, đang có chuột ở trên ...). 
+
+:active	
+a:active { ... }
+Chọn khi phần tử active (giai đoạn thẻ a từ nhấn chuột đến trước nhả chuột)
+
+:hover	
+a:hover { ... }
+Chọn phần tử a mà chuột ở phía trên
+
+:focus	
+input:focus { ... }
+Chọn phần tử đang là focus (đang nhận nhập liệu từ người dùng).
+
+:visited	
+a:visited { ... }
+Chọn các thẻ a và đã từng truy cập (có trong lịch sử truy cập của trình duyệt).
+
+:checked	
+input[type="checkbox"]:checked
+{
+    ...
+}
+Điều khiển Radio (<input type="radio">), CheckBox (<input type="checkbox">) như đã biết (xem thẻ HTML <input>) người dùng có thể chuyển trạng thái của nó (chọn/không chọn). Khi người dùng chọn thì nó ở trạng thái checked
+
+:enabled	
+input[type="submit"]:enabled
+{
+    color: green;
+}
+Chọn các phần tử trạng thái enabled (có thể nhận tương tác của người dùng), chủ yếu áp dụng các phần tử control trong FORM
+
+:disabled	
+textarea:disabled { ... }
+Chọn khi phần tử bị vô hiệu. Các phần tử khi bị vô hiệu không tiếp nhận tương tác của người dùng thì nó ở trạng thái disabled, đặc biệt là các phần tử control như <input>, <textarea>, <button>, <select>
+
+:empty	
+p:empty { ... }
+chọn các phần tử <p> không chứa phần tử con nào, không có text
+
+:link	
+a:link { ... } 
+Chọn phần tử có link truy cập được (thẻ a có thuộc tinh href, nếu không có href sẽ không được chọn)
+
+:only-child	
+p:only-child { ... }
+Chọn phần tử (ví dụ <p>) là phần tử con duy nhất của phần tử cha
+
+:first-child	
+p:first-child { ... }
+Chọn các phần tử (ví dụ <p>) là phần tử con đầu tiên trong phần tử cha của nó.
+
+:first-of-type	
+p:first-of-type { ... }
+Chọn phần tử (ví dụ <p>) mà nó là phần tử đầu tiên (trong danh sách các phần tử cùng loại, cùng cha - không cần phải là con đầu tiên của cha)
+
+:last-child	
+p:last-child { ... }
+Chọn phần tử (ví dụ <p>) là phần tử cuối cùng trong phần tử cha của nó
+
+:last-of-type	
+p:last-of-type { ... }
+Chọn phần tử <p> là phần tử cuối cùng trong phần tử cha
+
+:not(selector)	
+:not(p) { ... }
+Phủ định của selector, chọn các phần tử không xác định được bởi selector.
+
+:nth-child(n)	
+p:nth-child(2) { ... }
+n = số nguyên cụ thể: Chọn phần tử theo thứ tự của nó trong phần tử chứa. (Chọn ra mọi phần tử <p> là phần tử thứ 2 trong phần tử cha)
+
+n = even : Chọn các phần tử có thứ tự chẵn
+
+n = odd : Chọn các phần tử có thứ tự lẻ
+
+n = an+b : a, b là số nguyên (ví dụ 2n+1), lúc này n sẽ chạy từ 0 (0, 1, 2 ...) và công thức an + b có giá trị bao nhiêu thì lấy ra phần tử có chỉ số thứ tự từng đó trong phần tử cha. Ví dụ, bạn muốn lấy ra các phần tử (1,4,7, ... cách nhau 3) thì viết :nth-child(3n+1)
+
+:nth-last-child(n)	
+p:nth-last-child(2) { ... }
+Chọn phần tử theo thứ tự các tập các phần tử cùng loại của nó trong phần tử chứa. Áp dụng đúng công thức n giống :nth-child(n)
+
+29. Lựa chọn theo pseudo-element trong CSS
+Để thêm Pseudo Element dùng ký hiệu hai dấu hai chấm :: sau đó là tên (từ khoá). Một số từ khoá Pseudo Element là:
+
+::first-line - chọn dòng text đầu tiên của phần tử
+::first-letter - chọn ký tự đầu tiên trong phần tử
+::selection - chọn thành phần đang được người dùng chọn (::highlight)
+::before - chèn thêm nội dung vào trước phần tử
+::after - chèn thêm nội dung vào sau phần tử
+::placeholder - chọn placeholder của control
+
+::before và ::after được dùng để lựa chọn, thêm vào phía trước và phía sau một phần tử. 
+Thường sử dụng thuộc tính content để thêm nội dung.
+.exam2::before {
+    display: inline-block;
+    height: 30px;
+    content: url("https://cdn4.iconfinder.com/data/icons/famous-character-vol-2-flat/48/Avatar_Famous_Characters-20-128.png");
+}
+.exam2::after {
+    content: 'Thêm sau phần tử';
+    background: green;
+    color: whitesmoke;
+    display: inline-block;
+    padding: 3px;
+}
+
+30. Thuộc tính word-wrap CSS3
+word-wrap: normal | break-word;
+normal không thay đổi gì
+Khi sử dụng word-wrap: break-word, trình duyệt sẽ ngắt từ dài quá sao cho vừa phần tử chứa.
+
+31. Tạo màu opacity:
+
+Vì là tạo ra đối tượng xếp vào loại image, nên có thể thiết lập nó là giá trị cho các thuộc tính cần dùng đến image như: 
+background-image, list-style-image, border-image, cursor, content trong ::after và ::before
+
+- Linear Gradient :
+linear-gradient(angle/direction, color1, color2, ...)
+
+background-image: linear-gradient(red, blue);             / * Hướng mặc định trên xuống dưới */
+background-image: linear-gradient(30deg, red, blue);       / * Hướng mặc định trên xuống dưới */
+background-image: linear-gradient(90deg, red, blue);   
+background-image: linear-gradient(to top, red, blue);       / *Hướng lên */
+
+Hàm repeating-linear-gradient : nó cố gắng lặp lại nhiều lần hàm linear-gradient
+background-image: repeating-linear-gradient(to right, red 0px, blue 40px, red 80px); 
+
+32. opacity
+Khi một phần tử thiết lập có độc đục opacity giá trị khác 1, 
+thì tất cả ccs phần tử con của nó có cùng độ đục opacity như vậy, không có cách nào thiết lập độ đục khác đi cho phần tử con.
+
+33. Thuộc tính transform và các hàm biến hình box phần tử trong CSS
+Sử dụng thuộc tính transform để thực hiện biến đổi box phần tử như dịch chuyển, xoay phần tử, thu phóng phần tử, đẩy nghiêng phần tử với các hàm tương ứng như translate, rotate, scale, skew
+
+- Thuộc tính transform :  biến đổi phần tử trong hệ tọa độ hai hoặc ba chiều.
+transform: none | transform-list
+Trong đó transform-list là danh sách một hoặc nhiều hàm chuyển đổi liệt kê phía dưới.
+
+- Thuộc tính transform-origin thay đổi gốc tọa độ phần tử
+transform-origin: top center;  /* gốc ở giữa cạnh trên */
+transform-origin: 100% 30px;   /* gốc ở cạnh phải, cách cạnh trên 30px */
+transform-origin: 30px 60px;   /* cách gốc cũ 30px 60px */
+transform-origin: center;      /* gốc ở giữa phần tử */
+
+- Hàm rotate có thể làm giá trị cho thuộc tính transform
+transform: rotate(angle);
+/* angle: góc xoay (10deg, 20deg, -45deg ...) - quanh quanh gốc phần tử */
+VD: 
+// Gốc ở giữa xoay 45 độ
+transform: rotate(45deg); 
+// Gốc đổi lên left top xoay 45 độ
+transform-origin: left top;
+transform: rotate(45deg); 
+
+- Hàm rotateX, rotateY, rotateZ xoay box quanh các trục tương ứng là X, Y, Z. 
+transform: rotateX(angle);
+transform: rotateY(angle);
+transform: rotateZ(angle);
+
+- Hàm rotate3d 
+transform: rotate3d(x,y,z,angle);
+transform: rotate3d(x,0,0,45deg); /* tương đương quanh quanh trục x 45 độ */
+
+- Hàm translate, translateX, translateY, translateZ, translate3d 
+Các hàm translate dùng để dịch chuyển phần tử theo các trục.
+transform: translate(x, y? );         /* dịch phần tử khoảng x theo chiều trục X, y theo chiều trục Y*/
+transform: translateX(x);             /* dịch phần tử khoảng x theo chiều trục X */
+transform: translateY(y);             /* dịch phần tử khoảng y theo chiều trục Y */
+transform: translateZ(z);             /* dịch phần tử khoảng z theo chiều trục Z */
+transform: translate3d(x, y, z);      /* dịch phần tử khoảng z theo chiều trục Z */
+
+- Hàm skew, skewX, skewY : Xoay cạnh
+transform: skew(angleX, angleY);         /* cạnh trái và cạnh phải xoay một góc angleX*/
+                                         /* cạnh trên và dưới xoay góc angleY */
+transform: skewX(angleX);                /* cạnh trái và cạnh phải xoay một góc angleX*/
+transform: skewY(angleY);                /* cạnh trên và dưới xoay góc angleY */
+
+- Hàm scale, scaleX, scaleY : Phóng to, thu nhỏ
+transform: scale(numberX, numberY);         /* Thu phóng chiều X với tỷ lệ numberX */
+                                            /* Thu phóng chiều Y với tỷ lệ numberY */
+transform: scaleX(numberX);                 /* Thu phóng chiều X với tỷ lệ numberX */
+transform: scaleY(numberY);                 /* Thu phóng chiều Y với tỷ lệ numberY */
+
+34. Thuộc tính transition
+- Thuộc tính transition-property để liệt kê các thuộc tính CSS có thể xảy ra biến đổi liên tục (biến hình) khi thay đổi giá trị 
+transition-property: none | all | property1, property2 ...;
+
+- transition-duration để ấn định thời gian diễn ra hiệu ứng
+transition-duration: time(s);
+
+VD :
+.trans3 {
+    transition-property: transform, height, width;
+    transition-duration: 2s;
+}
+
+.trans3:hover {   
+    height: 300px;  
+    width: 300px;  
+    transform: translateX(200px) rotate(45deg);
+}
+
+- Thuộc tính transition-timing-function chỉ ra tốc độ thay đổi khi chuyển đổi
+ease bắt đầu chậm, rồi tăng dần (mặc định)
+ease-in chậm, tăng dần, dừng đột ngột
+ease-out chậm dần đều
+ease-in-out giống ease nhưng mịn hơn
+linear thay đổi đều đều
+
+- Sử dụng Javascript thay đổi giá trị
+<button onclick="changewidth()">Đổi chiều rộng</button>
+<div class="trans5">
+    Hiệu ứng biến hình
+</div>
+
+function changeheight() {
+    var e = document.getElementsByClassName('trans5')[0];
+    if (e.style.height != '40px')
+    {
+        e.style.height = "40px";
+        e.textContent = 'h=40px';
+    }
+    else 
+    {
+        e.style.height = "150px";
+        e.textContent = 'h=150px';
+    }
+        
+  }  
+
+- Thuộc tính transition là cách viết ngắn gọn gộp lại của các thuộc tính transition-property, transition-duration, transition-timing-function, transition-delay.
+transition: width 1s ease-in-out, background-color 2s ease, font-size 3s linear;
+
+35. Thuộc tính animation hiệu ứng động với quy tắc keyframes trong CSS
+Quy tắc @keyframes và thuộc tính animation-name, animation-duration, animation-iteration-count
+
+Quy tắc @keyframes là định nghĩa chu trình hiệu ứng động.
+Để khai báo tạo ra một @keyframes, ví dụ tạo ra @keyframes có tên hieu-ung-abc viết cú pháp như sau:
+@keyframes hieu-ung-abc {
+    from{  // Hoặc 0%
+
+    }
+    to{   // Hoặc 100%
+
+    }
+}
+
+animation-duration: time;                     /* thời gian như 1s, 2s ... */
+animation-iteration-count: infinite | number; /* number = số lần lặp, infinite = vô tận */
+animation-name: none | keyframe-name;
+
+VD :
+.my-element {
+    animation-name: hieu-ung-abc;   /* thiết lập quy tắc hiệu ứng động cho phần tử */
+    animation-duration: 3s;         /* thời gian diễn ra 1 chu trính hiệu ứng */
+    animation-iteration-count: 1;   /* số lần (số chu trình diễn ra) */
+}
+
+@keyframes kf1 {
+    from {  /* thời điểm ban đầu của chu trình */
+        font-size: 10px;
+        color: red;
+    }
+    to {  /* thời điểm cuối của chu trình */
+        font-size: 30px;
+        color: green;
+    }
+}
+
+@keyframes kf2 {
+    0% {  
+        /* thời điểm ban đầu của chu trình */
+        font-size: 10px;
+        color: red;
+    }
+    
+    50% {  
+        /* thời điểm giữa chu trình */
+        font-size: 30px;
+        color: green;
+    }
+    
+    to {        
+        /* thời điểm cuối của chu trình, có thêm hiệu ứng thay đổi độ dày viền */
+        font-size: 40px;   
+        border-width: 10px;
+    }
+}
+
+- Thuộc tính animation-direction chỉ định một hiệu ứng động diễn ra thuận hay ngược chu trình
+animation-direction: normal | reverse | alternate | alternate-reverse
+normal: chạy từ đầu tới cuối chu trình, đến cuối nếu lặp lại nó sẽ nhảy về đầu chu trình và tiếp tục thực hiện
+reverse: chu trình biến đối bị ngược, từ to về from.
+alternate: chạy từ đầu đến cuối - nếu lặp lại thì sẽ không nhảy về đầu mà thực hiện từ cuối về đầu.
+alternate-reverse: Chạy từ cuối về đầu, nếu lặp lại thì thực hiện từ đầu về cuối ...
+
+- Thuộc tính animation-fill-mode dùng để xác định giá trị mà phần tử sẽ giữ lại sau khi hoàn thành một chuỗi hoạt ảnh.
+none: Phần tử sẽ không giữ lại bất kỳ giá trị nào sau khi hoàn thành hoạt ảnh. Nghĩa là, phần tử sẽ trở lại trạng thái ban đầu ngay sau khi hoàn thành chuỗi hoạt ảnh.
+forwards: Phần tử sẽ giữ lại giá trị cuối cùng của hoạt ảnh sau khi nó hoàn thành. 
+backwards: Phần tử sẽ áp dụng các giá trị của khối khai báo CSS trước khi hoạt ảnh bắt đầu thực hiện. Nó sẽ áp dụng trạng thái ban đầu của hoạt ảnh ngay từ khi nó bắt đầu.
+both: Kết hợp cả forwards và backwards. Phần tử sẽ giữ lại giá trị cuối cùng của hoạt ảnh sau khi hoàn thành và áp dụng giá trị trước khi hoạt ảnh bắt đầu.
+
+- Thuộc tính animation-timing-function để thiết lập hàm thời gian, xác định tốc độ biến đổi trong một chu trình
+animation-timing-function: timing-function;
+ease: tốc độ biến đối tương ứng hàm cubic-bezier(0.25, 0.1, 0.25, 1) (xem Đường cubic-bezier)
+linear: tốc độ biến đối đều, tương đương cubic-bezier(0, 0, 1, 1)
+ease-in: tương đương cubic-bezier(0.42, 0, 1, 1), ban đầu chậm sau nhanh lên, sau khi nhanh giữ nguyên đến cuối
+ease-out: tương đương cubic-bezier(0, 0, 0.58, 1), ban đầu nhanh sau chậm, sau khi chậm giữ nguyên đến cuối
+ease-in-out: tương đương cubic-bezier(0.42, 0, 0.58, 1), ban đầu chậm, nhanh ở giữa, sau đó chậm cho đến cuối
+cubic-bezier tự thiết lập hàm cubic-bezier(x1,y1, x2, y2) (xem Đường cubic-bezier)
+
+- Thuộc tính animation-play-state
+animation-play-state: running | paused
+
+- Thuộc tính animation là cách viết ngắn gọn gộp các thuộc tính animation-* 
+animation: [animation-name] [animation-duration] [animation-timing-function]
+           [animation-delay] [animation-iteration-count]
+           [animation-direction] [animation-fill-mode] [animation-play-state];
+
+/*
+.exam3 {
+    animation-name: kf2;
+    animation-duration:  2s;
+    animation-timing-function: ease-in;
+    animation-iteration-count:infinite;
+    animation-direction: alternate;
+} 
+*/ 
+.exam3 {
+    animation: kf2 2s ease-in infinite alternate;
+    height: 80px;
+} 
+
+36. Sử dụng thuộc tính filter trong CSS
+Bằng cách sử dụng filter trên các phần tử - (chủ yếu sử dụng với phần tử ảnh) - giúp chúng ta biến đổi màu sắc và một số hiệu ứng trước khi phần tử đó được hiện thị.
+filter: các_hàm_filter
+Các hàm filter có thể sử dụng như brightness(), contrast() ... hoặc none để hủy bỏ filter, bạn có thể sử dụng cùng lúc nhiều hàm filter
+
+filter: blur(3px);
+filter: brightness(150%);
+filter:contrast(200%);
+filter: drop-shadow(5px 10px 3px gray);
+filter: grayscale(100%);
+
+37. Quy tắc @font-face nạp font mới trong CSS
+Nên chọn các font: .ttf (true type font), .otf (OpenType), woff (Web Open Font Format) vì được hỗ trợ từ hầu hết các trình duyệt như Chrome, FireFox, IE ...
+@font-face {
+  font-family: firstfont;                           /* đặt tên font */
+  src: url(myfont.woff);                            /* tải font chữ */
+}
+
+VD : 
+@font-face {
+    font-family: fontvidu;
+    src: url("https://cdnjs.cloudflare.com/ajax/libs/hack-font/3.3.0/web/fonts/hack-regular.woff2")
+}
+.apdungfont {
+    font-family: fontvidu;
+    font-size: 20px;
+}
+// Áp dụng font
+<p class="apdungfont">Đây là font chữ fontvidu</p>
+
+Hoặc 
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+.fontds {
+    font-family: 'Dancing Script';
+    font-size: 50px;
+}
+
+38. Sử dụng flexbox bố cục trang trong CSS
+display: flex; hoặc display: inline-flex;
+https://xuanthulab.net/su-dung-flexbox-bo-cuc-trang-trong-css.html
+
+39. Sử dụng Grid bố cục trang trong CSS
+https://xuanthulab.net/su-dung-grid-bo-cuc-trang-trong-css.html
+Lưới trong CSS - CSS Grid - là bố hệ thống bố cục hai chiều được sử dụng để xây dựng giao diện website (Trước đây đã biết FlexBox là bố cục một chiều)
+grid-template-columns, grid-template-rows, grid-column-start, grid-column-end, grid-row-start, grid-row-end, grid-row-gap, grid-column-gap
+
+/* kích hoạt grid phần tử chứa */
+display: grid | inline-grid;
+
+.gridcontainer1 {
+    display: grid;                              /* kích hoạt grid container              */
+    grid-template-columns: 100px 120px 140px;   /* có ba cột với độ rộng theo tham số    */
+    grid-template-rows:    50px  100px 50px;    /* có ba dòng với chiều cao theo tham số */
+    
+    background: #e91e633d;
+}
+.item1 {
+    /* phần tử con từ đường lưới đứng 2 đến 4 (chiếm cột 2 đến 3) */
+    grid-column-start: 2;
+    grid-column-end: 4;
+    /* phần tử con đường ngang 2 đến 3 (chiếm dòng 2) */
+    grid-row-start: 2;
+    grid-row-end: 3;
+    
+    background: #ff5722d1;
+}
+
+- Vùng lưới: thuộc tính grid-template-areas và grid-area
+ .gridarea-container {
+    display: grid;  
+    grid-template-columns: 100px 120px 140px; /* ba cột   */
+    grid-template-rows:    50px  100px 50px;  /* ba hàng */
+    grid-template-areas: "vung1 vung2 vung2"
+                            "...   vung2 vung2"
+                            "vung3 vung4 vung4"; 
+/*
+        Lưới trên có ba cột, ba hàng:
+        - Các giá trị viết trong chuỗi grid-template-areas, mỗi chuỗi tương
+            ứng cho mỗi hàng, trong chuỗi chứa tên vùng, viết như dưới thì:
+        - vung1: chiếm ô thuộc dòng 1, cột 1
+        - vung2: chiếm ô2 và ô ba dòng 1 và chiếm ô 2 và ô 3 của dòng 2
+        - vung3: chiếm ô1 của dòng 3
+        - vung4: chiếm ô 2 và 3 của dòng 3
+        - Nếu môt ô nào đó không đưa vào vùng thì dùng ký hiệu ...
+                                        
+*/                             
+    background: #e91e633d;
+}
+.item-vung1 {
+    grid-area: vung1;
+    background: rgba(54,196,87,0.82);
+}
+.item-vung2 {
+    grid-area: vung2;
+    background: #ff5722d1;
+}
+.item-vung3 {
+    grid-area: vung3;
+    background: rgba(255,34,192,0.82);
+}
+.item-vung4 {
+    grid-area: vung4;
+    background: rgba(34,163,255,0.82);
+}
+ 
+</style>
+
+<div class="gridarea-container">
+    <div class="item-vung1">Vung1</div>
+    <div class="item-vung4">Dung4</div>
+    <div class="item-vung3">Dung3</div>
+    <div class="item-vung2">Vung2</div>
+</div>
+
+- Làn lưới và ô lưới thuộc tính grid-row-gap, grid-column-gap 
+.gridcontainer2 {
+    display: grid;                               
+    grid-template-columns: 100px 120px 140px;   
+    grid-template-rows:    50px  100px 50px; 
+        
+    /* khoảng cách giữa các làn (cột cách nhau 10px dòng 20px)*/  
+    grid-row-gap: 20px; 
+    grid-column-gap: 10px;
+    
+    background: #e91e633d;
+}
+
+- Đặt tên đường lưới
+.gridcontainer3 {
+    display: grid;                               
+    grid-template-columns: [A]  100px [B]  120px [C] 140px;   
+    grid-template-rows:    [R1] 50px  [R2] 100px [R3] 50px;  
+    
+    background: #e91e633d;
+}
+
+.item5 {
+    grid-column-start: B;
+    grid-column-end: C;        
+    grid-row-start: R2;
+    grid-row-end: R3;
+    
+    background: #ff5722d1;
+}
+
+40. Quy tắc @media trong CSS với thiết kế responsive
+Quy tắc @media cho phép bạn viết một tập hợp các quy tắc CSS nó chỉ có hiệu lực tùy thuộc vào thông số cụ thể của cửa sổ, màn hình ...
+Cú pháp:
+@media media-types [and media-query-conditions]? {
+    /* các đoạn mã CSS */
+}'
+
+media-types : Tham số media-types là loại màn hình, nó có thể nhận nhiều giá trị cách nhau bởi dấu phảy ,. Các giá trị như:
+all : tất cả các loại thiết bị hiện thị
+print : khi ở chế độ xem trước in (print preview)
+screen : màn hình màu máy tính
+
+//Không viết như này được : @media screen and (min-width: 400px and max-width: 700px) 
+@media screen and (min-width: 400px) and (max-width: 700px)
+{
+    /* Các CSS khi màn hình từ 400px đến 700px */
+}
+
+Chiều rộng của thiết bị với các truy vấn device-width, min-device-width và max-device-width
+Chiều cao của thiết bị với các truy vấn device-height, min-device-height và max-device-height
+
+Hướng màn hình với truy vấn orientation
+orientation:portrait : màn hình xoay đứng
+orientation:landscape : màn hình xoay ngang
+@media all and (orientation:landscape)
+{
+    /* Các CSS khi màn hình xoay ngang */
+}
