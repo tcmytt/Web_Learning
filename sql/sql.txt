@@ -1,0 +1,12 @@
+1. SQL
+SQL (Structured Query Language - Ngôn ngữ truy vấn mang tính cấu trúc) là chuẩn ngôn ngữ dành cho các hệ quản trị dữ liệu quan hệ RDBMS (Relational Database Management System).
+CRUDCRUD, đó là viết tắt của - Create, Read, Update, Delete. 
+
+2.Cơ sở dữ liệu Database
+Database <- Bảng <- Hàng(Record),Cột(Trường dữ liệu)
+- Khóa chính Primary Key : 
+ + Là duy nhất cho mỗi cột, dòng khác nhau thì giá trị này khác nhau
+ + Không được nhận giá trị rỗng NULL
+ + Mỗi bảng chí có một trường được thiết lập là khóa chính
+
+3. sqlLite
