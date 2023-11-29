@@ -1,6 +1,11 @@
-1. SQL
+1. SQL, comment
 SQL (Structured Query Language - Ngôn ngữ truy vấn mang tính cấu trúc) là chuẩn ngôn ngữ dành cho các hệ quản trị dữ liệu quan hệ RDBMS (Relational Database Management System).
 CRUDCRUD, đó là viết tắt của - Create, Read, Update, Delete. 
+-- Đây là một chú thích trên một dòng
+/*
+   Đây là một chú thích
+   trên nhiều dòng
+*/
 
 2.Cơ sở dữ liệu Database
 Database <- Bảng <- Hàng(Record),Cột(Trường dữ liệu)
@@ -9,4 +14,490 @@ Database <- Bảng <- Hàng(Record),Cột(Trường dữ liệu)
  + Không được nhận giá trị rỗng NULL
  + Mỗi bảng chí có một trường được thiết lập là khóa chính
 
-3. sqlLite
+3. sqlLite, sql 
+Từ khóa câu lệnh SQL không phân biệt chữ hoa chữ thường
+SELECT tương đương với select, Select ...
+
+
+4. SELECT cơ bản và quy tắc chính SQL
+select column_list
+from table_name
+
+- column_list : là tên các cột như các cột cần lấy dữ liệu, cách nhau bởi dấu phảy như col1, col2, col3 hoặc tất cả các cột của bảng với ký hiệu *
+- table_name là tên bảng cần lấy thông tin.
+Khi làm việc với nhiều bảng trong một truy vấn, bạn phải đưa ra tên đầy đủ của cột theo cú pháp tên-bảng.tên-cột ví dụ: Customer.CustomerID
+
+select KhachhangID, HoTen, Diachi from Khachhang
+Select * from Khachhang
+
+5. DISTINCT loại bỏ kết quả trùng nhau trong SQL
+chỉ trả về các dòng khác nhau khi đó sẽ sử dụng đến DISTINCT.
+VD: SELECT DISTINCT column_name1, column_name2
+FROM table_name;
+
+Lấy  HoTen, QuocGia từ Khachhang mà QuocGia là duy nhất không trùng
+SELECT HoTen, QuocGia
+FROM Khachhang
+GROUP BY QuocGia
+HAVING COUNT(*) = 1;
+
+6. LIMIT giới hạn kết quả trong SQL
+Sử dụng LIMIT để giới hạn kết quả trả về, lấy một số dòng đầu tiên hoặc tập hợp nhỏ liên tục của kết quả trong SQL hỗ trợ trong MySQL, SQLite ...
+SELECT column list
+FROM table_name
+LIMIT số-dòng-bắt-đầu-lấy,số-dòng-cần-lấy;
+
+SELECT * FROM Khachhang LIMIT 1,3; // Lấy 3 dòng bắt đầu từ dòng thứ 2 (Do đánh số từ 0)
+SELECT * FROM Khachhang LIMIT 3; // Không có số-dòng-bắt-đầu-lấy thì lấy từ đầu
+
+
+Với SQL Server, MS Access thì dùng khóa TOP
+SELECT TOP 3 * FROM Khachhang
+
+Với Oracle thì dùng ROWNUM trong mệnh đề WHERE
+SELECT * FROM Khachhang WHERE ROWNUM <= 3;
+
+7. ORDER BY sắp xếp kết quả tăng giảm trong SQL
+- tăng dần ASC, giảm dần DESC
+Mặc định ORDER BY sắp xếp tăng dần ASC
+
+SELECT * FROM Khachhang
+ORDER BY Hoten
+LIMIT 14, 9
+
+- Sắp xếp theo Quocgia trước rồi tới KhachhangID
+SELECT * FROM Khachhang
+ORDER BY Quocgia DESC, KhachhangID ASC
+LIMIT 12,10
+
+8. Mệnh đề WHERE lọc dữ liệu trong SQL
+SELECT column_list
+FROM table_name
+WHERE condition;
+
+SELECT * FROM Khachhang
+WHERE KhachhangID = 10
+
+- Các toán tử logic dùng với WHERE
+=	               Bằng	                                CustomerID = 10
+!=	               Khác	                                CustomerID != 10
+<>                 Khác                                 CustomerID <>> 10 
+>	               Lơn hơn	                            CustomerID > 10
+<	               Nhỏ hơn	                            CustomerID < 10
+>=	               Lơn hơn hoặc bằng	                CustomerID >= 10
+<=	               Nhỏ hơn hoặc bằng	                CustomerID <= 10
+BETWEEN AND	       Giá trị nằm trong một khoảng	        CustomerID BETWEEN 5 AND 10
+
+SELECT * FROM Khachhang
+WHERE Country = 'Việt Nam'
+LIMIT 2
+
+9.Toán tử Logic SQL 
+AND :
+Price <=40 AND Price >=35
+
+OR :
+Price <=5 OR Price >=100
+
+NOT :
+(NOT Price > 8)
+
+IN : so sánh giá trị với một tập hợp các giá trị được liệt kê. 
+SELECT * FROM Khachhang
+WHERE Thanhpho IN ('Bình Dương', 'Bạc Liêu', 'Hải Dương')
+Price NOT IN (21.35,9.2,100)
+
+LIKE : được sử dụng để so sánh một chuỗi với một mẫu chuỗi.
+SELECT * FROM TableName WHERE ColumnName LIKE 'pattern';
+
+IS NULL / IS NOT NULL: kiểm tra giá trị của một cột có phải là NULL hay không.
+SELECT * FROM TableName WHERE ColumnName IS NULL;
+SELECT * FROM TableName WHERE ColumnName IS NOT NULL;
+
+SELECT * FROM TableName WHERE ColumnName <> 'abc';
+
+10. Nối chuỗi CONCAT tùy biến tên cột với AS và toán tử số học SQL
+- Hàm CONCAT được sử dụng để nối các chuỗi, số thành một chuỗi mới, hàm này có trong MySQL, SQLServer ...
+
+CONCAT(string1, string2, ...., string_n)
+SELECT CONCAT(TenLienLac ,',' ,QuocGia) FROM Customers;
+
+Riêng với SQLite việc thực hiện nối chuỗi như trên lại dùng toán tử ||, câu lệnh ví dụ trên viết cho SQLite sẽ là:
+SELECT TenLienLac || ',' ||  QuocGia FROM Khachhang
+
+- Từ khóa AS trong SQL:
+SELECT CONCAT(Hoten ,',' ,Quocgia) AS newcol FROM Khachhang;
+
+Ví dụ SQLite tùy biến kết quả biểu thức thành cột newcol
+SELECT Hoten || ',' ||  Quocgia AS HotenQuocgia FROM Khachhang;
+
+- Toán tử số học trong SQL cộng +, trừ -, nhân *, chia /
+select TenSanpham, Gia As GiaCu, Gia + 5000 AS GiaMoi
+FROM Sanpham
+
+11. Một số hàm trong SQL
+UPPER chuyển chuỗi thành chữ HOA
+LOWER chuyển chuỗi thành chữ thường
+SQRT căn bậc 2 của một số (SQLite không hỗ trợ)
+AVG giá trị trung bình của cột
+SUM giá trị tổng của cột
+ABS trị tuyệt đối
+MIN / MAX giá trị nhỏ nhất, lớn nhất
+COUNT đếm số dòng
+
+// Nên dùng lower khi so sánh bỏ qua hoa thường vì UTF-8 nhiều khi upper sẽ lỗi
+SELECT upper(HoTen) AS Name FROM Khachhang
+
+SELECT avg(Gia) AS GiaTB FROM Sanpham
+
+SELECT count(SanphamID) AS Soluong FROM Sanpham
+WHERE Gia > 150000
+
+SELECT min(Gia) AS MinPrice FROM Sanpham
+
+Select SUM(Soluong) from DonhangChiTiet
+
+12. Truy vấn lồng nhau Subquery trong SQL
+-   
+SELECT SanphamID, TenSanpham, Gia FROM Sanpham
+WHERE Gia > (SELECT avg(Gia) AS GiaTB FROM Sanpham)
+ORDER BY Gia
+
+13. Toán tử LIKE trong SQL
+SELECT * FROM Khachhang
+WHERE HoTen LIKE 'm%'
+
+Mẫu pattern dùng các ký hiệu _ đại diện ký tự, ký hiệu % để đại diện cho có hoặc không một hay nhiều ký tự.
+
+LIKE : được sử dụng để so sánh một chuỗi với một mẫu chuỗi.
+SELECT * FROM TableName WHERE ColumnName LIKE 'pattern';
+
++ Like giống =
+SELECT * FROM TableName WHERE ColumnName LIKE 'abc';
+
++ % đại diện cho một dãy bất kỳ ký tự (bao gồm cả không có ký tự).
+SELECT * FROM TableName WHERE ColumnName LIKE 'a%';    
+SELECT * FROM TableName WHERE ColumnName LIKE '%abc';
+SELECT * FROM TableName WHERE ColumnName LIKE '%abc%';
+
++ So sánh không phân biệt chữ hoa và chữ thường
+SELECT * FROM TableName WHERE LOWER(ColumnName) LIKE 'abc%';
+
++ Bắt đầu bằng 'a', kế đến là một ký tự bất kỳ và sau đó là 'c'.
+SELECT * FROM TableName WHERE ColumnName LIKE 'a_c';
+
++ Kết hợp
+SELECT * FROM Khachhang
+WHERE HoTen NOT LIKE '%thị%'
+
+14. Truy vấn nhiều bảng với JOIN trong SQL
+Sử dụng các loại JOIN như LEFT JOIN, RIGHT JOIN, INNER JOIN, OUTER JOIN trong SQL để lấy dữ liệu kết hợp. 
+
+SELECT Donhang.DonhangID, Khachhang.Hoten, Donhang.Ngaydathang
+FROM Donhang, Khachhang
+WHERE Donhang.KhachhangID=Khachhang.KhachhangID
+
+Điều kiện khớp nối dữ liệu hai bảng: Ở mệnh đề where ở câu truy vấn trên thì đoạn mã Donhang.KhachhangID=Khachhang.KhachhangID dùng để khớp nối bảng.
+
+- Dùng as đặt lại tên 
+SELECT o.DonhangID, c.Hoten, o.Ngaydathang
+FROM Donhang As o, Khachhang AS c
+WHERE o.KhachhangID=c.KhachhangID
+
+- Các kiểu JOIN :
+inner join :
+phép giao hai tập hợp
+left join :
+Mọi bản ghi bảng bên trái được trả về, bản ghi nào phù hợp với bản ghi bên phải thì nó được bổ sung thêm dữ liệu từ bản ghi bảng bên phải (nếu không có thì nhận NULL)
+right join :
+Mọi bản ghi bảng bên phải được trả về, sau bổ sung dữ liệu phù hợp từ bảng bên trái.
+outer join :
+(full join) mọi bản ghi ở bảng trái và bảng phải kết hợp lại
+
+Quy tắc chung viết join ... on : 
+bảng trái là bảng nằm bên trái (phía trước) từ khóa join, bảng phái là bảng sau (bên phải) từ khóa join, trong mệnh đề join thì điều kiện kết hợp vết sau từ khóa on
+
+- INNER JOIN :
+SELECT Donhang.DonhangID, Khachhang.Hoten, Donhang.Ngaydathang
+FROM Donhang INNER JOIN Khachhang
+ON Donhang.KhachhangID = Khachhang.KhachhangID
+
+SELECT Donhang.DonhangID, Khachhang.HoTen, Shippers.Hoten AS TenShipper
+FROM (Donhang INNER JOIN Khachhang ON Donhang.KhachhangID = Khachhang.KhachhangID)
+INNER JOIN Shippers ON Donhang.ShipperID = Shippers.ShipperID
+
+SELECT t.DonhangID, t.HoTen, s.Hoten AS TenShipper
+FROM (Donhang INNER JOIN Khachhang ON Donhang.KhachhangID = Khachhang.KhachhangID) as t
+INNER JOIN Shippers as s ON t.ShipperID = S.ShipperID
+
+
+- LEFT JOIN :
+SELECT Khachhang.Hoten, Donhang.DonhangID
+FROM Khachhang LEFT JOIN Donhang ON Khachhang.KhachhangID = Donhang.KhachhangID
+ORDER BY Khachhang.Hoten
+
+Nếu bạn muốn dữ liệu của bảng trái , mà không có dòng nào được kết hợp với bảng phải hãy thêm mệnh đề Where và điều kiện dữ liệu bảng phải tương đương NULL (IS NULL)
+Truy vấn trên cơ bản trả về dữ liệu là danh sách Khachhang không có đơn hàng nào :
+SELECT Khachhang.Hoten, Donhang.DonhangID
+FROM Khachhang LEFT JOIN Donhang ON Khachhang.KhachhangID = Donhang.KhachhangID
+WHERE Donhang.KhachhangID IS NULL
+ORDER BY Khachhang.Hoten
+
+- RIGHT JOIN : Giống với LEFT JOIN theo chiều ngược lại (SQLite không hỗ trợ RIGHT bạn có thể đảo thứ tự bảng để sử dụng LEFT).
+SELECT Donhang.OrderID, NhanVien.Ten, NhanVien.Ho
+FROM Donhang RIGHT JOIN NhanVien ON Donhang.NhanvienID = NhanVien.NhanvienID
+ORDER BY Donhang.DonhangID
+
+- FULL OUTER JOIN : SQLite không hỗ trợ (có thể thay thế bằng LEFT JOIN kết hợp với UNION)
+SELECT Khachhang.HoTen, Donhang.DonhangID
+FROM Khachhang
+FULL OUTER JOIN Donhang ON Khachhang.KhachhangID=Donhang.KhachhangID
+ORDER BY Khachhang.HoTen
+
+15. Kết hợp dữ liệu với UNION trong SQL
+UNION kết hợp lại nhưng loại bỏ trùng nhau
+UNION ALL kết hợp lại nhưng không loại bỏ trùng nhau
+
+SELECT Thanhpho, 'Customers' as FromTable FROM Khachhang
+UNION
+SELECT Thanhpho,  'Suppliers' as FromTable FROM Cungcap
+ORDER BY Thanhpho
+
+SELECT Thanhpho, 'Customers' as FromTable FROM Khachhang
+UNION ALL
+SELECT Thanhpho,  'Suppliers' as FromTable FROM Cungcap
+ORDER BY Thanhpho
+
+SELECT Thanhpho, 'Customers' as FromTable FROM Khachhang WHERE Quocgia='Việt Nam'
+UNION
+SELECT Thanhpho,  'Suppliers' as FromTable  FROM Cungcap WHERE Quocgia='Việt Nam'
+ORDER BY Thanhpho
+
+16. INSERT INTO
+INSERT INTO table_name (column1, column2, column3, ...,columnN)
+VALUES
+    (Avalue1, Avalue2, Avalue3,...AvalueN),
+    (Bvalue1, Bvalue2, Bvalue3,...BvalueN),
+    ... ;
+
+INSERT INTO Khachhang
+    (Hoten, TenLienLac, Diachi, Thanhpho, Mabuudien, Quocgia)
+VALUES
+    ('XuanThuLab', 'MR XTL', 'Ba Đình, Hà Nội', 'Hà Nội', '1000000', 'Việt Nam');
+
+//Nhiều cột trong bảng được thiết lập cấu hình để tự gán giá trị mặc định nếu không có truyền giá trị thiết lập cho nó khi thực hiện thêm dòng dữ liệu
+INSERT INTO Khachhang (Hoten, TenLienLac)
+VALUES ('Đào Nguyên An', 'MR An');
+
+17. UPDATE cập nhật dữ liệu SQL
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
+WHERE nhằm xác định rõ các dòng nào sẽ được cập nhật thiếu WHERE toàn bộ các dòng dữ liệu sẽ cập nhật theo giá trị mới đưa vào!
+
+UPDATE Khachhang
+SET HoTen = 'Nguyên Văn B', Thanhpho= 'Hạ Long'
+WHERE KhachhangID = 1
+
+Tất các các dòng có Quocgia là Ý sẽ được cập nhật HoTen là 'Xuân Thu'
+UPDATE Khachhang
+SET HoTen='Xuân Thu'
+WHERE Quocgia='Ý'
+
+18. Mệnh đề DELETE xóa dữ liệu(Không xoá bảng)
+- Mệnh đề delete from xóa dữ liệu trong bảng sql chứ không xóa cấu trúc bảng
+Xoá các dòng trong Bảng
+
+delete from TABLE_NAME
+where CONDITION;
+
+- Các dòng dữ liệu khi xóa là không thể phục hồi, nên viết và thi hành câu lệnh delete thật cẩn trọng.
+Nếu thiếu mệnh đề WHERE tất cả các dòng trong bảng bị xóa.
+
+-- Xóa dòng có HoTen là 'Hoàng Đức Anh'
+delete from Khachhang where HoTen='Hoàng Đức Anh';
+
+-- Xóa toàn bộ dữ liệu của bảng (xóa dữ liệu, còn bảng vẫn tồn tại, nếu xóa bảng khỏi DB thực hiện lệnh drop table)
+delete from table_name;
+delete * from table_name;
+
+- MS SQLSERVER, MYSQL còn có mệnh đề TRUNCATE TABLE_NAME để xóa tất cả các dòng của bảng nhưng đồng thời khởi tạo lại transaction log.
+- Mệnh đề DELETE TABLE trong MySQL
+Trong MySQL lệnh DELETE TABLE còn có thêm một số mở rộng, hãy xét vài trường hợp sau
+Có thể chỉ định số dòng sẽ xóa bằng cách thêm mệnh đề LIMIT, trường hợp này cũng có thể thêm mệnh đề ORDER BY để xếp các dòng trước khi xóa
+# xóa number_row dòng đầu tiên
+delete from table_name [where condition] limit number_row;
+
+# xóa number_row dòng có sắp xếp đầu tiên
+delete from table_name [where condition]
+order by col1, col2 ...
+limit number_row;
+
+- Mệnh đề DELETE TABLE trong SQL Server
+# xóa number_row dòng đầu tiên
+delete top(number_row) from table_name [where condition];
+
+19. Tạo bảng với CREATE TABLE 
+CREATE TABLE table_name
+(
+    column_name1 data_type1(size),
+    column_name2 data_type2(size),
+    column_name3 data_type3(size),
+    ....
+    columnN data_typeN(size)
+)
+
+VD :
+CREATE TABLE Persons (
+    PersonID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255)
+);
+
+- Kiểu dữ liệu SQLite :
+NULL	Không có thông tin gì
+INTEGER	Các số nguyên, có thể có 1, 2,3, 4, 8 byte.
+REAL	Các số thực 8 byte
+TEXT	Dữ liệu chuỗi
+BLOB	Dữ liệu nhị phân
+
+- Các kiểu dữ liệu trong chuẩn SQL được sử dụng thì SQLite tự động sử dụng Storage Classe tương ứng :
+Kiểu dữ liệu	                                                                                                Storage Class
+INT INTEGER TINYINT SMALLINT MEDIUMINT BIGINT UNSIGNED BIG INT INT2 INT8	                                    INTEGER
+CHARACTER(20) VARCHAR(255) VARYING CHARACTER(255) NCHAR(55) NATIVE CHARACTER(70) NVARCHAR(100) TEXT CLOB	    TEXT
+BLOB	                                                                                                        BLOB
+REAL DOUBLE DOUBLE PRECISION FLOAT	                                                                            REAL
+NUMERIC DECIMAL(10,5) BOOLEAN DATE DATETIME	                                                                    NUMERIC (INTEGER và REAL)
+
+- Khóa chính Primary Key trong SQL , khoá chính không được null
+Để thiết lập khóa chính khi tạo bảng sử dụng thêm: PRIMARY KEY(tên-cột) Dùng cho SQLite, MySQL.
+
+CREATE TABLE Persons (
+    PersonID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255),
+    PRIMARY KEY(PersonID)
+);
+
+Nếu muốn thiết lập cột PersonID không được gán NULL thì cho thêm NOT NULL, giá trị cột tự gán tăng dần thì thêm AUTO_INCREMENT
+PersonID int NOT NULL AUTO_INCREMENT
+
+Khoá chính sql sever thêm PRIMARY KEY 
+CREATE TABLE Persons (
+    PersonID int NOT NULL PRIMARY KEY,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255)
+);
+
+PersonID int IDENTITY(1,1) PRIMARY KEY;
+
+IDENTITY(seed, increment) : seed là giá trị ban đầu, increment là giá trị tăng lên 
+
+20. Kiểu dữ liệu trong MySQL (https://xuanthulab.net/kieu-du-lieu-trong-mysql.html)
+Kiểu dạng số như int, double, float, decimal, kiểu dữ liệu ngày tháng trong MySQL như datetime, chuỗi như varchar, text ...
+
+Không có NVARCHAR
+
+21. Kiểu dữ liệu trong SQL Server (https://xuanthulab.net/kieu-du-lieu-trong-sql-server.html)
+Số chính xác
+Số gần đúng
+Ngày tháng
+Chuỗi ký tự
+Chuỗi ký tự Unicode
+Chuỗi nhị phân
+Một số loại khác
+
+
+NVARCHAR(n) : n là số ký tự | Là Chuỗi ký tự Unicode 1 ký tự 2byte
+INT FLOAT .
+
+22. Ràng buộc
+Các ràng buộc trong SQL gọi là constraint, nó chỉ ra quy tắc mà dũ liệu của cột phải tuân theo.
+Khi tạo bảng SQL, bạn có thể sử dụng các ràng buộc như:
+
+NOT NULL : đảm bảo dữ liệu cột luôn khác NULL
+UNIQUE : không cho pháp dữ liệu cột này giống nhau ở các hàng khác nhau.
+PRIMARY KEY : dữ liệu trong nó là sử kết hợp giữa NOT NULL và UNIQUE, ràng buộc này giúp tạo chỉ mục (index) để tìm kiếm trong bảng nhanh hơn
+CHECK : ràng buộc này đảm bảo dữ liệu đã được kiểm theo một điều kiện bạn đặt ra khi chèn dữ liệu.
+DEFAULT : ràng buộc thiết lập giá trị mặc định cho cột, nếu chèn hàng mà không truyền giá trị cho cột này nó tự nhận giá trị mặc định
+INDEX : ràng buộc tạo chỉ mục cho bảng, mục đích để truy vấn dữ liệu nhanh hơn.
+
+Ví dụ sử dụng các ràng buộc Contraint, trên CSDL SQLite :
+CREATE TABLE khachhangmoi (
+    ID        INTEGER       PRIMARY KEY AUTOINCREMENT,
+    HoTen     VARCHAR (255) NOT NULL,
+    Tuoi      INT,
+    CMD       VARCHAR (12)  NOT NULL,
+    Tinhthanh VARCHAR (255) DEFAULT 'HANOI',
+    CHECK (Tuoi >= 18),
+    UNIQUE(CMD)
+)
+
+MySQL : AUTO_INCREMENT được sử dụng thay cho AUTOINCREMENT
+CREATE TABLE khachhang (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    HoTen VARCHAR(255) NOT NULL,
+    Tuoi INT,
+    CMD VARCHAR(12) NOT NULL,
+    Tinhthanh VARCHAR(255) DEFAULT 'HANOI',
+    CHECK (Tuoi >= 18),
+    UNIQUE(CMD)
+)
+
+23. Thay đổi cấu trúc bảng với ALTER TABLE trong SQL
+Với ALTER TABLE nó cho phép bạn thay đổi cấu trúc bảng đang có bằng cách thêm cột mới, xóa cột, chỉnh sửa thông tin các cột (tên cột, thay đổi dữ liệu cột SQL).
+
+- Thêm một cột vào bảng ADD COLUMN
+ALTER TABLE tên_bảng
+ADD tên_cột kiểu_dữ_liệu_cột
+
+ALTER TABLE Persons
+ADD COLUMN DateOfBirth year
+
+- Xóa đi một cột trong bảng DROP COLUMN
+ALTER TABLE tên_bảng
+DROP COLUMN tên_cột
+
+ALTER TABLE Persons
+DROP COLUMN DateOfBirth
+
+- Đổi kiểu dữ liệu một cột :
++ Đổi kiểu dữ liệu cột MySQL :
+ALTER TABLE table_name
+MODIFY COLUMN column_name datatype
+
++ Đổi kiểu dữ liệu cột SQL Server / Access :
+ALTER TABLE table_name
+ALTER COLUMN column_name datatype
+
+- Đổi tên một cột :
++ Đổi tên cột trong MySQL :
+ALTER TABLE
+    tablename
+CHANGE
+    oldcolumn
+    newcolumn datatype
+
++ Đổi tên cột trong SQL Server :
+Trong SQL Server bạn phải thực hiện truy vấn chạy thủ tục sp_rename, cú pháp như sau
+EXEC sp_rename 'tên-bảng.tên-cột-cũ', 'tên-cột-mới', 'COLUMN';
+
++ Đổi tên cột trong SQLite(Không thể) :
+Tạo ra bảng mới, cấu trúc như bảng cũ nhưng thêm cột mới, sau đó insert toàn bộ dữ liệu bảng cũ vào bảng mới, xóa đi bảng cũ, đổi tên bảng mới trở lại tên bảng cũ.
+
+CREATE TABLE team(Name TEXT, Coach TEXT, City TEXT)
+ALTER TABLE team RENAME TO team_orig
+CREATE TABLE team(Name TEXT, Coach TEXT, Location TEXT)
+INSERT INTO team(Name, Coach, Location) SELECT Name, Coach, City FROM team_orig
+DROP TABLE team_orig
+
+24. DROP TABLE xóa bảng khỏi DB SQL
+DROP TABLE table_name;
+

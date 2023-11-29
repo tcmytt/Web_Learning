@@ -1,6 +1,6 @@
 <?php
     // Đường dẫn lưu trữ file dữ liệu
-    $dbpath = '../sql/sqlite/db.sqlite';
+    $dbpath = '../LearningSql/sqlite/db.sqlite';
     //Kết nối (PHP có extension sqlite)
     $db = new SQLite3($dbpath);
 
