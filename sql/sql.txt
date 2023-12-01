@@ -501,3 +501,25 @@ DROP TABLE team_orig
 24. DROP TABLE xóa bảng khỏi DB SQL
 DROP TABLE table_name;
 
+25. Thủ tục lưu trữ Stored Procedure (PROCEDURE)
+- Giống hàm 
+
+- Trong sql server :
+CREATE PROCEDURE GetEmployeeByID
+    @EmployeeID INT
+AS
+BEGIN
+    SELECT * FROM Employees WHERE EmployeeID = @EmployeeID;
+END;
+
+EXEC GetEmployeeByID @EmployeeID = 1;
+
+- Trong mySql :
+DELIMITER //
+CREATE PROCEDURE GetEmployeeByID(IN p_EmployeeID INT)
+BEGIN
+    SELECT * FROM Employees WHERE EmployeeID = p_EmployeeID;
+END //
+DELIMITER ;
+
+CALL GetEmployeeByID(1);
