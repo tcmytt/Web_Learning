@@ -523,3 +523,28 @@ END //
 DELIMITER ;
 
 CALL GetEmployeeByID(1);
+
+26. DECLARE Dùng tạo biến (SET để cập nhập giá trị)
+- Trong sql sever :
+DECLARE @TenNguoiDung NVARCHAR(50);
+DECLARE @Tuoi INT = 25;
+
+DECLARE @TenNguoiDung NVARCHAR(50);
+SET @TenNguoiDung = 'John Doe';
+
+SELECT * FROM NguoiDung WHERE TenNguoiDung = @TenNguoiDung;
+
+- Trong mySql :
+DECLARE ten_bien kieu_du_lieu [DEFAULT gia_tri_khoi_tao];
+
+DECLARE tenNguoiDung VARCHAR(50);
+DECLARE tuoi INT DEFAULT 25;
+
+BEGIN
+    DECLARE tenNguoiDung VARCHAR(50);
+    SET tenNguoiDung = 'John Doe';
+
+    SELECT * FROM NguoiDung WHERE TenNguoiDung = tenNguoiDung;
+END;
+
+Đối với MySQL, bạn cần sử dụng DELIMITER để xác định dấu phân cách lệnh thay vì dấu chấm phẩy (;) mặc định.
