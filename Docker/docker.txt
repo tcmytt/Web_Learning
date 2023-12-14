@@ -1,0 +1,169 @@
+1. Docker
+Docker là một dự án nguồn mở nó cho phép tự động hóa việc triển khai các ứng dụng bên trong các Container (Linux), cung như cung cấp chức năng đóng gói các thành phần cần để chạy ứng dụng vào Container. 
+Docker cung cấp công cụ CLI (Command Line Interface) để quản lý vòng đời của các container. Sử dụng Docker là cách nhanh chóng để phát triển, triển khai, bảo trì các ứng dụng.
+
+Docker có sự khác biệt so với máy ảo, máy ảo là một hệ thống đầy đủ với tất cả các phần mềm, hệ điều hành. 
+Các Docker Container thì cung cấp cho ứng dụng một môi trường cách ly và được cấu hình tối thiểu để ứng dụng hoạt động được. 
+Với Container nhân và các thành phần của hệ điều hành được chia sẻ.
+
+Một số lệnh Docker
+docker --version : kiểm tra phiên bản docker
+docker info : Thông tin hệ thống docker
+docker images -a : Liệt kê các image
+docker pull nameimage:tag : Tải về một image từ hub.docker.com
+docker ps : Liệt kê các container đang chạy
+docker ps -a : Liệt kê các container
+docker container ls -a : Liệt kê các container
+
+2. Giới thiệu về Docker làm quen với Docker tạo container
+- Cài đặt Docker : Cài Docker trên Windows 10 : Đảm bảo hệ thống là Windows 10 Pro
+https://docs.docker.com/desktop/install/windows-install/
+Đối với Windows phải kích hoạt chế độ Hyper-V virtualization (Ở chế độ này bạn không dùng được VirtualBox nữa).
++ Dùng lệnh PowerShell : Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
++ Thông qua giao diện : Windows features on of off -> Tích vào Hyper-V
+Trên macOS/Linux mở termial để gõ lệnh, trên Windows thì nên dùng PS (PowerShell) để chạy các lệnh Docker.
+
+- image và container trong Docker :
+image là một gói phần mềm trong đó chứa những thứ cần như thư viện, các file cấu hình, biến môi trường để chạy mội ứng dụng nào đó. 
+Khi một phiên bản của image chạy, phiên bản chạy đó gọi là container - (vậy muốn có container phải có image). 
+Bước đầu, để có image nào đó bạn tải về từ https://hub.docker.com/search?q=&type=image, tại đó có đủ các loại phù hợp với công việc của bạn!
+
++ docker images -a : Liệt kê ra các image bạn đang có
+Repository tên image trên kho chứa, ví dụ hệ điều hành CentOS có tên trên hub.docker.com là centos (xem centos)
+TAG là phiên bản image, với giá trị latest có nghĩa là bản cuối. Muốn tải về bản khác latest vào mục TAGS trên hub.docker.com tìm bản phù hợp.
+IMAGE ID một chuỗi định danh duy nhất (tên) của image trên hệ thống của bạn.
+
++ Liệt kê các image ubuntu : docker search ubuntu 
++ Để tải về một image nào đó, dùng lệnh : docker pull ubuntu(docker pull ubuntu:lastest) ;  docker pull ubuntu:16.04 ; 
++ Để Xoá image : docker image rm ubuntu:16.04(Hoặc IMAGE ID )
+
+Các phần cần tên đều có thể dùng ID thay thế và ID thì không cần ghi đầy đủ nếu nó unique .
++ Chạy(Khởi tạo) container từ image : docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+VD: docker run -i -t ubuntu ( docker run -it ubuntu );
+i là duy trì mở stdin để nhập lệnh, -t là kết nối với terminal
++ Khởi tạo có tên : docker run -it --name "TÊN" -h "HOSTNAME" ubuntu 
++ Kiểm tra có các container nào đang chạy: docker ps
++ Liệt kê tất cả các container: docker container ls --all ( docker ps -a )
++ Cho chạy lại container: docker start [Container ID] 
++ Vào container lại : docker attach [Container ID] 
++ Dừng container: docker stop [Container ID]
++ exit để thoát hẳn dòng lệnh container
++ ctrl P+Q để thoát dòng lệnh container mà vẫn giữ nó chạy
++ Xoá : docker rm [Container ID] hoặc nếu nó đang chạy vẫn muốn xoá : docker rm -f [Container ID]     (-f là forced xoá)
+
+3. Cập nhật Image lưu Image ra file và nạp Image từ file trong Docker
++ Nếu muốn đứng từ ngoài mà vẫn chạy được lệnh bên trong container dùng lệnh
+docker exec [Container ID(NAME)] [Lệnh] 
+VD : docker exec U1 ls 
+docker exec -it U1 bash (Tương đương : docker attach U1); 
+
++ Chuyển container thành image để dùng sau này (Tạo 1 image mới)
+docker commit [Container ID(NAME)] [Tên Đặt]:Tag 
+VD : docker commit U1 ubuntu-vim:version1
+
++ Lưu image ra file dùng khi build hệ thống 
+docker save --output filename.tar [Image ID(NAME)]
+VD: docker save --output myimage.tar 77
+
++ Nạp image từ file .tar đã nén ở trên  
+docker load -i file.tar
+VD: docker load -i myimage.tar 
+
++ Phục hồi lại chưa có tên và tag(Phiên bản) :
+
+Đặt tên phiên bản : docker tag [ImageID] [TÊN]:[TagName]
+VD: docker tag 87 ubuntu-vim:version2
+Lệnh này đặt khác tên cùng id thì là copy image mới
+
+4. Chia sẻ dữ liệu giữa Docker Host và Container
++ Chia sẻ giữa host và container :  docker run -it -v path_in_host:path_in_container ubuntu
+docker run -it -v /home/sitesdata:/home/data ubuntu
+
++ Chia sẻ dữ liệu giữa các Container :
+Container_first đã có mount thư mục Host vào (hoặc đã được chia sẻ tử Container khác) 
+Bạn đã tạo ra một Container nhận thư mục chia sẻ như container có ID hoặc tên là container_first tạo trước đó.
+VD: 
+docker run -it --volumes-from container_first ubuntu
+docker run -it --name C2 --volumes-from C1 ubuntu
+
+- Chia sẻ dữ liệu trong Docker, tạo và quản lý ổ đĩa bằng docker volume :
++ Tạo ổ đĩa : docker volume create [NAMEDISK]
++ Liệt kê : docker volume ls 
++ Kiểm tra : docker volume inspect [NAMEDISK]
++ Xoá : docker volume rm [NAMEDISK]
++ Mount một ổ đĩa vào container (--mount) : 
+docker volume create firstdisk
+docker run -it --name C3 --mount source=firstdisk,target=/home/firstdisk  ubuntu
++ Nếu muốn ổ đĩa bind dữ liệu đến một thư mục cụ thể của máy HOST thì tạo ổ đĩa với tham số như sau:
+docker volume create --opt device=path_in_host --opt type=none --opt o=bind  volumename
+Sau đó ổ đĩa này gán vào container với tham số -v (không dùng --mount) :
+docker run -it -v mydisk:/home/sites ubuntu
+
+Xóa tất cả các ổ đĩa không được sử dụng bởi container nào:
+docker volume prune
+
+5. Mạng network bridge trong Docker kết nối các container với nhau (máy tính có 65535 cổng)
+IP của Host : 127.0.0.1 , Tạo Container1 : 127.0.0.1 , Tạo Container2 : 127.0.0.2 , ...
+Cổng mặc định của host là 8888. container là 80 
+- image busybox chứa rất nhiều công cụ dựa trên nền tảng linux : docker pull busybox
+VD : docker run -it --rm busybox
+flag --rm ý nghĩa sau khi chạy xong container này sẽ tự xoá luôn
+- Liệt kê network : docker network ls
+- Tra cứu : docker network inspect [Tên network]
+
+- Network tên là bridge mặc định tự động kết nối tất cả các container lại với nhau (dùng --network để thay đổi)
+- Trong container busybox : thư mục var -> Thư mục www chạy httpd : bật chức năng sever lắng nghe trên cổng 80
+- Ánh xạ mạng từ host vào container với tham số -p : docker run -it --name B2 -p 8888:80 busybox 
+Nghĩa là cổng 8888 của host chính là cổng 80 của container ( host ánh xạ : 127.0.0.1:8888 -> chọc vào sever container)
+
+- Tạo mạng bridge : docker network create --driver bridge [Tên Network] 
+- Xoá mạng : docker network rm [Tên Network]
+- Kết nối : docker network connect name-network name-container
+- Tạo container kết nối network do mình tạo :  docker run -it --name B3 --network [Tên Network] busybox
+- Tạo container kết nối network do mình tạo và ánh xạ với cổng host : docker run -it --name B4 --network [Tên Network] -p 9999:80 busybox
+
+- Thêm kết nối network cho container : docker network connect [Tên Mạng] [Tên Container]
+- Kiến thức thêm : wget -O - B4 ( Lấy dữ liệu web trên cổng 80 B4)  ; ping B4 ( Ping xem có kết nối được không )
+
+6. Cài đặt PHP trên Docker
++ Chọn cài đặt php:7.3-fpm (các phiên bản khác tương tự) đây là PHP 7.3 cài đặt sẵn PHP-FPM, mặc định cho phép apache gọi đến PHP thông qua proxy với cổng 9000
+docker pull php:7.3-fpm
++ Tạo mạng VD: docker network create --driver bridge www-net
++ Tạo thư mục chia sẻ giữa máy host và container : c:\mycode\www (có file index.html)
++ Tạo container : docker run -d --name c-php -h php -v c:\mycode\:/home/mycode/ php:7.3-fpm
+    -d : container sau khi tạo chạy luôn ở chế độ nền.
+    -h php đặt tên HOSTNAME của container là php
+    -v "c:\mycode":/home/mycode thư mục trên máy host  "c:\path\mycode\php" được gắn vào container ở đường dẫn /home/phpcode.
+    php:7.3-fpm là image khởi tạo ra container, nếu image này chưa có nó tự động tải về.
+Sau lệnh này, một container đã tạo container có tên đặt là c-php từ image php:7.3-fpm
++ Vào php : docker exec -it c-php bash
+cd /home/mycode/www
++ Chạy test.php : php test.php
+
+- cài các Extension cho PHP :
++ opcache : tăng hiệu suất
+docker-php-ext-configure opcache --enable-opcache \
+    && docker-php-ext-install opcache
++ mysqli :
+docker-php-ext-configure opcache --enable-mysqli \
+    && docker-php-ext-install mysqli
++ pdo_mysql - extension để kết nối PHP đến MySQL với thư viện PDO :
+docker-php-ext-configure opcache --enable-pdo_mysql \
+    && docker-php-ext-install pdo_mysql
+
+- File php.ini mà PHP nạp nằm ở /usr/local/etc/php, để có file ini này gõ lệnh:
+cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
+
+Để có trình soạn thảo text nano gõ lệnh:
+apt-get update && apt-get install nano
+
+Nếu cần chỉnh sửa thiết lập nào đó, vào ini chỉnh sủa, gõ lệnh:
+nano /usr/local/etc/php/php.ini
+
+Khi cài đặt extension, thay đổi thiết lập để hiệu lực hãy khởi động lại container này bằng lệnh:
+docker restart c-php
+
+7. Cài đặt APACHE HTTPD trên Docker
+docker pull httpd
+
+Tiếp tục ở : https://xuanthulab.net/mang-network-bridge-trong-docker-ket-noi-cac-container-voi-nhau.html
