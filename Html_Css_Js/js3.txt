@@ -1,0 +1,514 @@
+1.Giới thiệu về JavaScript
+Hàm document.write() có thể sử dụng để xuất văn bản text thuần túy, mã HTML hoặc cả hai. Ví dụ định dạng văn bản viết ra bằng thẻ HTML <h1>
+document.write("<h1>Hello World!</h1>");
+
+<script type="text/javascript">
+    alert("Đây là một thông báo!");
+</script>
+Trong ví dụ trên thẻ <script> có thuộc tính type="text/javascript", đây là theo chuẩn cũ, từ HTML5 trở đi thì không cần dùng đến.
+
+<script src="demo.js"></script>
+
+2. Alert, Prompt và Confirm trong JavaScript
+JavaScript cung cấp sẵn ba hộp thoại popup là : Alert, Prompt, Confirm
+
+- Hộp thoại Alert :
+Khi hộp thoại hiện thị người dùng bấm vào nút OK để đóng lại.
+alert("Hello\nHow are you?");
+
+- Hộp thoại Prompt :
+Nếu nhấn OK trả về giá trị nhập vào, nếu Cancel trả về giá trị null
+var user = prompt("Nhập tên của bạn");
+alert(user);
+
+- Hộp thoại Confirm :
+Khi hộp thoại hiện thị nếu người dùng nhấn vào OK thì trả về true, nhấn vào Cancel sẽ trả về false
+var result = confirm("Bạn có muốn rời trang?");
+if (result == true) {
+  alert("Cám ơn đã truy cập!");
+}
+else {
+  alert("Cảm ơn đã ở lại!");
+}
+
+3. Đối tượng
+C1 :
+var person = {
+    name:       "John",
+    age:        31,
+    favColor:   "green",
+    height:     183,
+    set ageInfo(age) {                              //Định nghĩa setter
+        console.log('setter - ' + age);
+        this.age = age;
+    },
+
+    get ageInfo() {                                 //Định nghĩa getter
+        console.log('getter');
+        return "Thông tin tuổi: " + this.age;
+    }
+};
+
+C2 :
+function person(name, age, color) {         // Hàm khởi tạo
+  this.name = name;                         // this tham khảo đến đối tượng cần tạo
+  this.age = age;
+  this.favColor = color;
+  this.changeName = function (name) {
+    this.name = name;
+  }
+}
+
+var p1 = new person("John", 42, "green");   // tạo đối tượng
+var p2 = new person("Amy", 21, "red");      // tạo đối tượng
+
+document.write(p1.age);                     // Outputs 42
+document.write(p2.name);                    // Outputs "Amy"
+
+- Tạo Setter/Getter trong hàm tạo :
+//Một đối tượng đã có tên ob, thêm cho nó setter, getter có tên namepro
+Object.defineProperty(ob, 'namepro', {
+    set: function(x) {
+        //code setter ở đây
+       },
+    get: function() {
+            //code getter ở đây
+       }
+
+});
+
+4. Hàm setInterval clearInterval trong JavaScript
+Hàm setInterval() sẽ gọi một hàm khác (hoặc một đoạn code) cứ sau một khoảng thời gian ấn định. Hàm này trả về ID của quá trình gọi này. 
+Giá trị ID được dùng để ngắt quá trình gọi lặp lại này bằng hàm clearInterval(ID)
+
+var intervalID = setInterval(func, delay);
+func là hàm sẽ được gọi sau mỗi khoảng thời gian delay (tính theo đơn vị mili giây)
+
+<script>
+    var i = 0;
+
+    var id = setInterval(myAlert, 3000); //Cứ 3s gọi hàm myAlert một lần
+
+    function myAlert() {
+        i++;
+        alert("Hi " + i);
+        if (i == 5)
+            clearInterval(id);          //Ngắt lặp lại sau 5 lần
+    }
+</script>
+
+5. Đối tượng Math trong JavaScript
+Đối tượng Math luôn có sẵn để sử dụng ngay mà không cần tạo mới.
+
+document.write(Math.PI);
+//In ra 3.141592653589793
+
+var n = prompt("Nhập một số", "");
+var answer = Math.sqrt(n);
+alert("Căn bậc 2 của " + n + " là " + answer);
+
+6. Đối tượng Date trong JavaScript
+Đối tượng Date , để làm việc với ngày tháng, nó chứa các phương thức để lấy ngày, giờ, ...
+
+var d = new Date(); // Thời gian hiện tại
+
+//Fri Jan 02 1970 00:00:00
+var d1 = new Date(86400000);
+
+//Fri Jan 02 2015 10:42:00
+var d2 = new Date("January 2, 2015 10:42:00");
+
+//Sat Jun 11 1988 11:42:00
+var d3 = new Date(88,5,11,11,42,0,0);
+
+
+Các phương thức của Date
+Phương thức	Mô tả
+getDate()	Lấy ngày của tháng (1 - 31)
+getDay()	Ngày tuần (0-6)
+getFullYear()	Lấy năm bốn số (yyyy)
+getHours()	Lấy giờ (0-23)
+getMilliseconds()	Mili giây(0-999)
+getMinutes()	Lấy phút (0-59)
+getMonth()	Lấy tháng (0-11)
+getSeconds()	Lấy giây (0-59)
+getTime()	Lấy thời gian Unix
+
+Vị dụ đồng hồ thời gian hiện tại :
+function printTime() {
+  var d = new Date();
+  var hours = d.getHours();
+  var mins = d.getMinutes();
+  var secs = d.getSeconds();
+  document.body.innerHTML = hours+":"+mins+":"+secs;
+}
+setInterval(printTime, 1000);
+
+7. Khái niệm cơ bản Dom
+<script>
+    //tìm 1 phần tử theo id của nó - trả về HTMLElement hoặc null nếu không thấy
+    document.getElementById(id)
+
+    //tìm các phần tử theo class - trả về HTMLCollection
+    var arr =  document.getElementsByClassName("demo");
+    //truy cập phần tử thứ 2 tìm được
+    arr[1].innerHTML = "Hi";
+
+    //tìm các phần tử theo tên thẻ - trả về HTMLCollection
+    var arr = document.getElementsByTagName("p");
+    for (var x = 0; x < arr.length; x++) {
+      arr[x].innerHTML = "Hello World!";
+    }
+</script>
+
+- Phần tử trong DOM - HTMLElement :
+element.childNodes : trả về mảng các phần tử con của nó
+element.firstChild : phần tử con đầu tiên
+element.lastChild : phần tử con cuối cùng
+element.hasChildNodes : trả về true nếu có phần tử con, ngược lại là false
+element.nextSibling : phần tử cùng cấp tiếp theo
+element.previousSibling : phần tử cùng cấp trước
+element.parentNode : trả về nút cha
+
+8. Cập nhật thuộc tính phần tử Dom - JavaScript
+- Thay đổi thuộc tính phần tử trong DOM :
+VD1 : <img id="myimg" src="orange.png" alt="" />
+<script>
+    var el = document.getElementById("myimg");
+    el.src = "apple.png";
+</script>
+
+VD2 : <a href="http://www.example.com">Some link</a>
+<script>
+    var el = document.getElementsByTagName("a");
+    el[0].href = "https://xuanthulab.net";
+</script>
+
+- Đổi style phần tử (CSS) : 
+Cần chuyển tên dạng CSS thành dạng tên camelCase ví dụ: trong CSS thuộc tính background-color thì trong JavaScript thuộc tính này là backgroundColor
+
+VD2 : <div id="demo" style="width:200px">Nội dung Ví dụ</div>
+<script>
+  var x = document.getElementById("demo");
+  x.style.color = "6600FF";
+  x.style.width = "100px";
+</script>
+
+9. Tạo mới thêm xóa phần tử Dom - JavaScript
+- Tạo phần tử :
+document.createElement(tag_name)	tạo ra phần tử có thẻ tag_name như a, p, div ...
+element.cloneNode()	Tạo ra một phần tử bằng cách nhân bản phần tử chỉ ra (element)
+document.createTextNode(text)	tạo phần tử tử văn bản text HTML
+
+var node     = document.createTextNode("Tạo ra một phần tử");
+
+ var linknode = document.createElement("a");
+     linknode.href="https://xuanthulab.net/";
+     linknode.innerText="xuanthulab.net";
+
+- Cách để gắn phần tử tạo ra từ JavaScript vào DOM HTML : New rồi đến Old
+element.appendChild(newNode)	Thêm phần tử newNode vào phần tử element nó trở thành phần tử con sau cùng của element
+element.insertBefore(newNode, node2)	Chèn phần tử newNode nằm phía trước node2
+element.replaceChild(newNode, oldNode)	Thay thế phần tử oldNode bằng phần tử newNode, element là nút cha
+
+- Loại bỏ phần tử :
+Để loại bỏ phần tử HTML, bạn chọn phần tử cha rồi sử dụng phương thức removeChild(node)
+<div id="demo">
+  <p id="p1">This is a paragraph.</p>
+  <p id="p2">This is another paragraph.</p>
+</div>
+
+<script>
+    var parent = document.getElementById("demo");
+    var child = document.getElementById("p1");
+    parent.removeChild(child);
+
+    // child.parentNode.removeChild(child);
+</script>
+
+Bạn có thể sử dụng thủ thuật lấy thuộc tính parentNode để bỏ qua bước tìm phần tử cha trong DOM: child.parentNode.removeChild(child);
+
+- Thay thế phần tử : 
+<div id="demo">
+    <p id="p1">This is a paragraph.</p>
+    <p id="p2">This is another paragraph.</p>
+</div>
+
+<script>
+    var p = document.createElement("p");
+    p.innerText = 'Đây là đoạn văn mới tạo ra';
+
+    var parent = document.getElementById("demo");
+    var child = document.getElementById("p1");
+    parent.replaceChild(p, child);
+</script>
+
+10. Sự chuyển động Dom - JavaScript 
+<html>
+    <head>
+        
+    <style>
+        #container {
+        width: 200px;
+        height: 200px;
+        background: green;
+        position: relative;
+        }
+        #box {
+        width: 50px;
+        height: 50px;
+        background: red;
+        position: absolute;
+        }
+    </style>
+    
+    </head>
+    <body>
+        <div id="container">
+            <div id="box"> </div>
+        </div>
+        <script>
+            var tanggiam = 1;
+            var pos = 0;
+            var box = document.getElementById("box");
+            var t = setInterval(move, 10);
+        
+            function move() {
+                if ((pos > 150) || (pos <0)) {
+                    tanggiam = (-tanggiam);
+                }
+        
+                pos += tanggiam;
+                box.style.left = pos+"px";
+        
+            }
+        </script>
+    </body>
+</html>
+<script>
+    var tanggiam = 1;
+    var pos = 0;
+    var box = document.getElementById("box");
+    var t = setInterval(move, 10);
+
+    function move() {
+        if ((pos > 150) || (pos <0)) {
+            tanggiam = (-tanggiam);
+        }
+
+        pos += tanggiam;
+        box.style.left = pos+"px";
+
+    }
+</script>
+
+11. Sự kiện trong Dom - JavaScript
+<button onclick="show()">Click Me</button>
+<script>
+    function show() {
+        alert("Hi there");
+    }
+</script>
+
+- Sự kiện hay dùng :
+onclick	xảy ra khi bấm chuột vào phần tử
+onload	xảy ra khi phần tử được tải
+onunload	xảy ra khi trang un load (phần tử body)
+onchange	xảy ra khi thay đổi nội dung phần tử trong form như khi chọn select, khi người dùng bấm radio, áp dụng cho các phần tử (input, select, textarea)
+onmouseover	xảy ra khi chuột di chuyển trên phần tử, hoặc phần tử con của phần tử
+onmouseout	khi chuột di chuyển ra khỏi phần tử
+onmousedown	xảy ra khi bấm chuột trên phần tử
+onmouseup	xảy ra khi nhả bấm chuột trên phần tử
+onblur	xảy ra phi phần tử mất focus
+onfocus	xảy ra khi phần tử nhận focus (phần tử đang kích hoạt nhận dữ liệu)
+
+- Bắt sự kiện trên phần tử DOM - HTMLElement :
+<button id="demoClickEvent">Bấm - Xem thời gian hiện tại?</button>
+<script>
+    var htmlelement_nutbam = document.getElementById("demoClickEvent");
+    htmlelement_nutbam.onclick = function () {
+        htmlelement_nutbam.innerText = Date();
+    }
+</script>
+
++ onload, onunload : onload và unload xảy ra khi người dùng mở trang và rời trang.
+<body onload="doSomething()">
+Tương tự window.onload có thể được dụng để bắt dự kiện khi trang được tải.
+window.onload = function() {
+   //mã 
+}
+
++ onchange
+onchange dùng phổ biến trong hộp nhập dữ liệu văn bản. Sự kiện xảy ra khi nội dung textbox thay đổi và mất focus
+<input type="text" id="name" onchange="change()">
+<script>
+    function change() {
+         var x = document.getElementById("name");
+         x.value= x.value.toUpperCase();
+    }
+</script>
+
+- Lắng nghe sự kiện trên DOM với addEventListener :
+Phương thức addEventListener() sẽ gắn thêm hàm (Listener) vào một phần tử để lắng nghe sự kiện của phần tử mà không loại bỏ các hàm sự kiện đã gắn trước. 
+Điều này giúp cho một sự kiện xảy ra có thể gọi nhiều hàm Listener gắn với sự kiện đó.
+
+element.addEventListener(event, listener, useCapture);
+
++ event: tên sự kiện ví dụ "click", "mousedown", "load", "change", "mouseover", "blur" ...
+Chú ý không có tiền tố on ví dụ sử dụng "click" chứ không phải onclick như phần trên.
++ listener: tham số thứ 2 là hàm do bạn định nghĩa, muốn thi hành khi sự kiện xảy ra. 
+Hàm này có một tham số là đối tượng EventTarget nhận được, khai báo hàm này có dạng:
+(event) { .... }
++ useCapture: tham số thứ 3 là giá trị true, false đây là một tùy chọn sẽ giải thích sau
+
+// Có phần tử element
+element.addEventListener("click", myFunction);      // Gọi myFunction khi có sự kiện click
+element.addEventListener("mouseover", myFunction);  // Gọi myFunction khi có sự kiện mouseover
+function myFunction(event) {
+  alert("Hello World!");
+}
+
+- removeEventListener : element.removeEventListener(name_event, listener);
+<button id="demo">Start</button>
+<script>
+    var btn = document.getElementById("demo");
+    btn.addEventListener("click", myListener);
+    
+    function myListener(e) {
+      alert(Math.random());
+      // Loại bỏ myListener trên sự kiện click của phần tử btn
+      btn.removeEventListener("click", myListener);
+    }
+</script>
+
+- Kiểu lan truyền sự kiện : tham số useCapture
+Có hai kiểu lan truyền sự kiện gọi với tên: bubbling và capturing (VD cả cha và con cùng có sự kiện click)
+capturing (tham số useCapture = true) - sự kiện đi từ trên xuống dưới của DOM
+bubbling (tham số useCapture = false mặc định) - sự kiện truyền từ dưới lên trên trong cây DOM
+
+//Capturing - gốc đến ngọn
+elem1.addEventListener("click", myFunction, true); 
+//Bubbling - từ ngọn đến gốc
+elem2.addEventListener("click", myFunction, false);
+Bạn có thể dừng việc lan truyền sự kiện khi một phần tử nào đó đã nhận được, băng cách sử dụng stopPropagation (xem ở dưới)
+
+- Listener khi bắt các sự kiện :
+Event có nhiều phương thức, có một số mà bạn tham khao luôn ở đây như:
+preventDefault()	Ngăn cản ứng xử thông thường xảy ra trên phần tử. Ví dụ bạn bấm vào link, gọi phương thực này sẽ ngăn trình duyệt chuyển đến trang chỉ ra bởi link đó.
+function myListener(event) {
+    event.preventDefault();
+    //Các code khác ...
+}
+stopPropagation()	Dừng lan truyền sự kiện, ví dụ nếu một sự kiến có nhiều sự kiện đang lắng nghe, bạn muốn sau khi Listener của bạn bắt được thì các Lister khác không còn nhận được nữa thì gọi phương thức này.
+
+- Tạo và phát sự kiện Event :
+<script>
+    //Tạo ra Listener ngồi nghe sự kiện eventxinchao
+    document.addEventListener("eventxinchao", function (e) {
+        alert('Bắt được sự kiện eventxinchao, dữ liệu là: ' + e.dulieu);
+    });
+    
+    
+    //Mỗi khi hàm này được gọi document sẽ phát đi sự kiện eventxinchao
+    function guiEventXinchao() {
+        var myevent = document.createEvent('Event');        // Tạo ra một đối tượng Event       
+        myevent.initEvent('eventxinchao', true, true);      // Tạo ra một đối tượng Event
+        myevent.dulieu = "Xin chào, tôi là XUANTHULAB";     // Tạo ra một đối tượng Event
+        document.dispatchEvent(myevent);                    // Cho document phát đi sự kiện
+    }
+
+</script>
+
+<button onclick="guiEventXinchao();">Cho document gửi Event có tên eventxinchao</button>
+
+12. Form Validation kiểm tra dữ liệu Dom - JavaScript
+Trong HTML5 có một số thuộc tính validation từ thuộc tính của phần tử, như thuộc tính required, min, max ... ... hoặc input với thuộc tính type là url, email ... 
+Tuy nhiên để validate bạn cần dùng đến JavaScript, chặn lại việc submit để kiểm tra dữ liệu bắt sự kiện onsubmit của form.
+Ví dụ sau mỗi khi form submit nó sẽ gọi hàm validate(), nếu hàm trả về true thì form sẽ thực hiện submit, còn nếu trả về false sẽ không submit
+
+<form onsubmit="return validate()" method="post">
+      Nhập số: <input type="text" name="num1" id="num1" />
+      <br />
+      Lặp lại: <input type="text" name="num2" id="num2" />
+      <br />
+      <input type="submit" value="Submit" />
+</form> 
+
+<script>
+    function validate() {
+      var n1 = document.getElementById("num1");
+      var n2 = document.getElementById("num2");
+      if(n1.value != "" && n2.value != "") {
+        if(n1.value == n2.value) {
+          return true;
+        }
+      }
+      alert("Dư liệu không được để trống, không được giống nhau");
+      return false;
+    }
+</script>
+
+13. Lớp trong Javascript
+//Khai báo một lớp có tên Product
+class Product {
+    //Hàm khởi tạo
+    constructor(name, price) {
+        this.name = name;
+        this.price = price;
+        this.infomation = `${name} - ${price}`;
+    }
+    //Khai báo một phương thức
+    checkStore(storeid) {
+        console.log(this.name + ' in store ' + storeid);
+    }
+    //Hàm getter
+    get info() {
+        return this.infomation;
+    }
+    //Hàm setter
+    set info(i) {
+        this.infomation = i;
+    }
+    //Phương thức tĩnh
+    static convertMoney(m) {
+        console.log(m);
+        return  m + ' đồng';
+    }
+}
+
+//Tạo một đối tượng từ lớp bằng new
+let sanpham = new Product('Iphone', 1000);
+//truy cập thuộc tính đối tượng sanpham.name
+console.log(sanpham.name);
+//gọi một phương thức của đối tượng
+sanpham.checkStore(100);
+//Gọi setter
+sanpham.info = 'Thông tin sản phẩm ...';
+//Gọi getter
+console.log(sanpham.info);
+//Gọi một hàm tĩnh
+Product.convertMoney(100000);
+
+Lớp khai báo với từ khóa class, bắt buộc có hàm khởi tạo constructor, hàm này được gọi khi khởi tạo đối tượng lớp new Product('Iphone', 1000)
+Các phương thức (checkStore) khai báo trong lớp giống như khai báo hàm nhưng bỏ đi khóa function
+Ở trước phương thức có từ khóa get thì nó gọi làm phương thức getter, nó được gọi như cách truy cập thông tin thuộc tính
+Ở trước phương thức có từ khóa set thì nó là setter, nó được gọi khi bị gán (=)
+Phương thức tĩnh có keyword static, được gọi qua tên lớp (nó không thể tham khảo đến đối tượng lớp qua this)
+
+- Tính kế thừa của lớp :
+class Computer extends Product {
+    constructor(name, price, store) {
+        super(name, price);
+        this.store = store;
+    }
+
+    set info(i) {
+        //super.info(i) - nếu muốn thi hành phương thức của lớp cha
+        this.infomation = name + ':'+i;
+    }
+
+    totalInStore() {
+        console.log('totalInStore');
+    }
+}
+

@@ -1,0 +1,575 @@
+1. Giới thiệu về jQuery, cú pháp cơ bản và tích hợp
+jQuery là một thư viện JavaScript nhỏ gọn, chạy nhanh. jQuery giải quyết các vấn đề tương tác với HTML, bắt sự kiện, hiệu ứng động ... trở lên rất đơn giản.
+
+Các tính năng chính jQuery cung cấp gồm:
+Tương tác với HTML/DOM
+Tương tác với CSS
+Bắt và xử lý sự kiện HTML
+Các hiệu ứng và chuyển động trong HTML
+AJAX (Asynchronous JavaScript and XML)
+JSON parsing
+Các tiện ích xây dựng sẵn
+
+- Cài đặt - tích hợp jQuery vào Website :
+Sử dụng thẻ <script> ở phần <head> của HTML
+<html>
+    <head>
+        <script src="file-jquery.js"></script>
+        Hoặc <script src="jquery-3.7.1.min.js"></script>
+    </head>
+    <body>
+        ....
+    </body>
+</html>
+
+CDN Google : <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+CDN Microsoft : <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js"> </script>
+
+- Đảm bảo các mã sử dụng jQuery do bạn viết chỉ chạy sau khi toàn bộ trang HTML được tải đầy đủ.
+$(document).ready(function() {
+   // Mã JavaScript / jQuery ở đây
+});
+Hoặc viết gọn lại
+$(function() {
+   // Mã JavaScript / jQuery ở đây
+});
+
+Ký tự $ được dùng để truy cập jQuery.
+
+- Ví dụ :
+Ví dụ sau sử dụng jQuery để khi trang tải xong thì tìm phần tử HTML có id là start, thay nội dung trong nó bằng chữ : GO! 
+ <script>
+    $(function() {
+        $("#start").html("Go!");
+    });
+</script>
+
+Viết kiểu này thì trong js phải đảm bảo html tải xong mới chạy jQuery
+<head>
+  <title>Page Title</title>
+  <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+  <script src="yourjs.js"></script> 
+</head>
+
+- Cú pháp jQuery :
+$("selector").action()
+
++ $ là ký hiệu cho biết bạn truy cập jQuery
++ (selector) phần tìm phần tử HTML, theo cách chọn phần tử như đã biết trong CSS (xem thêm chọn phần tử HTML). 
+Ví dụ chọn tất cả các phần tử p là $('p'), ví dụ chọn phần tử có id là examp là $('#examp'), ví dụ chọn các phần tử có class là examclass là $('.examclass')
++ action() là các hành động trên phần tử đã chọn, là các hàm mà jQuery cung cập, bạn sẽ học dần các hàm này
+
+2. Selector - Chọn phần tử trong jQuery
+Selector tìm kiếm và lựa chọn phần tử dựa trên id, class, thẻ, thuộc tính phần tử, giá trị phần tử và cả nội dung trong phần tử.
+- VD
+$(document).ready(
+    function () {
+        //Chọn các phần tử button và gán sự kiện click cho nó
+        $("button").click(function () {
+            //Chọn các phần tử p và thi hành ẩn các phần tử đó
+            $("p").hide();
+        });
+    }
+);
+
+- Selector cơ bản :
+*	                  $("*")	                Chọn tất cả các phần tử
+#id	                $("#lastname")	        Chọn phần tử có id="lastname"
+.class	            $(".intro")	            Chọn phần tử có class="intro"
+.class,.class	      $(".intro,.demo")	      chọn phần tử có class là "intro" hoặc "demo"
+element	            $("p")	                Chọn các phần tử thẻ <p>
+el1,el2,el3	        $("h1,div,p")	          Chọn tất cả các phần tử thẻ <h1> <div> và <p>
+
+- Selector nâng cao
+:first	       $("p:first")	    Chọn phần tử <p> đầu tiên trong luồng HTML
+:last	        $("p:last")	      Chọn phần tử <p> cuối cùng
+:even	        $("tr:even")	    Chọn các phần tử <tr> ở vị trí chẵn
+:odd	        $("tr:odd")	      Chọn các phần tử <tr> ở vị trí lẻ
+ 
+:first-child	          $("p:first-child")	          Chọn tất cả phần tử <p> với điều kiện nó là phần tử con đầu tiên trong phần tử cha chứa nó
+:first-of-type	        $("p:first-of-type")        	Chọn các phần tử <p> với điều kiện nó là phần tử <p> đầu tiên gặp trong các phần tử con mà phần tử cha chứa
+:last-child	            $("p:last-child")           	Chọn các phần tử <p> với điều kiện nó là phần tử cuối cùng trong phần tử cha chứa nó.
+:last-of-type	          $("p:last-of-type")         	Chọn các phần tử <p> với điều kiện nó là phần tử <p> sau cùng thấy trong phần tử cha
+:nth-child(n)	          $("p:nth-child(2)")         	Tất cả các phần tử <p> là phần tử con thứ 2
+:nth-last-child(n)	    $("p:nth-last-child(2)")	    Tất cả phần tử <p> là phần tứ con thứ 2 đếm từ dưới lên.
+:nth-of-type(n)	        $("p:nth-of-type(2)")	        Tất cả phần <p> là, nó là phần tử thứ 2 dạng <p> trong các phần tử con
+:nth-last-of-type(n)	  $("p:nth-last-of-type(2)")	  Tất cả các phần tử <p>, nó là phần tử thứ 2 dạng <p> đếm từ dưới lên.
+parent < child	        $("div > p")	                Tất cả phần tử <p> là phần tử con trực tiếp của phần tử <div>
+parent descendant	      $("div p")	                  Tất cả phần tử <p> là phần tử con, cháu ... của <div>
+element + next	        $("div + p")                 	Chọn phần tử <p> mà nó là phần tử tiếp theo của một phần tử <div>
+element ~ siblings	    $("div ~ p")	                Các phần tử <p> có cấp ngang hàng với một phần tử <div>
+
+Selector jQuery chọn phần tử danh sách
+:eq(index)	$("ul li:eq(3)")	Phần tử thứ 4 trong một danh sách
+:gt(no)	$("ul li:gt(3)")	Các phần tử có chỉ số lớn hơn 3
+:lt(no)	$("ul li:lt(3)")	Các phần tử trong danh sách có chỉ số nhỏ hơn 3
+:not(selector)	$("input:not(:empty)")	Các phần tử <input> không rỗng
+
+Selector jQuery theo trạng thái
+:header	$(":header")	Tất cả các phần tử <h1>, <h2> ...
+:animated	$(":animated")	Các phần tử động
+:focus	$(":focus")	Phần tử đang giữ focus
+:contains(text)	$(":contains('Hello')")	Các phần tử có chứa chữ "Hello"
+:has(selector)	$("div:has(p)")	Các phần tử <div> trong nó có chứa một phần tử <p>
+:empty	$(":empty")	Tất cả các phần tử rỗng
+:parent	$(":parent")	Các phần tử là cha của một phần tử khác
+:hidden	$("p:hidden")	Tất cả các phần tử <p> đang ẩn
+:visible	$("table:visible")	Tất cả các <table> đang hiện thị
+
+Selector jQuery theo thuộc tính phần tử
+[attribute]	$("[href]")	Các phần tử có thuộc tính href
+[attribute=value]	$("[href='default.htm']")	Các phần tử có thuộc tính href và giá trị thuộc tính là "default.htm"
+[attribute!=value]	$("[href!='default.htm']")	Các phần tử có thuộc tính href nhưng giá trị khác "default.htm"
+[attribute$=value]	$("[href$='.jpg']")	Các phần tử có thuộc tính href và giá trị có phần cuối bằng ".jpg"
+[attribute|=value]	$("[title|='Tomorrow']")	Các phần tử có title bằng 'Tomorrow' hoặc bắt đầu bởi 'Tomorrow'
+[attribute^=value]	$("[title^='Tom']")	Các phần tử có title với giá trị bắt đầu bằng "Tom"
+[attribute~=value]	$("[title~='hello']")	Các phần tử có title, và giá trị có chứa "hello"
+[attribute*=value]	$("[title*='hello']")	Các phần tử có title và giá trị chứa "hello"
+
+Selector jQuery trong FORM
+:input	$(":input")	Tất cả các phần tử input
+:text	$(":text")	Tất cả các phần tử có type="text"
+:password	$(":password")	Tất cả phần tử có type="password"
+:radio	$(":radio")	Tất cả phần tử có type="radio"
+:checkbox	$(":checkbox")	Tất cả phần tử có type="checkbox"
+:submit	$(":submit")	Tất cả phần tử có type="submit"
+:reset	$(":reset")	Tất cả phần tử cótype="reset"
+:button	$(":button")	Tất cả phần tử có type="button"
+:image	$(":image")	Tất cả phần tử có type="image"
+:file	$(":file")	Tất cả phần tử có type="file"
+:enabled	$(":enabled")	Tất cả các phần tử input là enable
+:disabled	$(":disabled")	Các phần tử input bị vô hiệu
+:selected	$(":selected")	Các phần tử input là selected
+:checked	$(":checked")	Các phần tử input là checked
+
+3. Làm việc với thuộc tính phần tử HTML bằng jQuery
+- Phương thức attr() sử dụng để lấy giá trị thuộc tính và gán giá trị thuộc tính :
+attr(attr_name) : lấy giá trị của thuộc tính có tên attr_name
+attr(attr_name, attr_val) : gián giá trị attr_val vào thuộc tính attr_name
+
+HTML 
+<a id="exam" href="https://xuanthulab.net/">
+   Bấm vào đây
+</a> 
+
+- Lấy giá trị cho thuộc tính :
+JavaScript
+$(function() {
+  var val = $("a#exam").attr("href");
+  alert(val);
+});
+// Hiện thị thông báo : https://xuanthulab.net/
+
+- Gán giá trị cho thuộc tính :
+$(function() {
+    $("a#exam").attr("href", "https://www.google.com.vn/");
+});
+
+- Kiểm tra một thuộc tính tồn tại với jQuery :
+Cách 1 :
+var attr = $("selector").attr('name');
+if (typeof attr !== typeof undefined && attr !== false) {
+  // Có thuộc tính name
+}
+else {
+  // không có thuộc tính name
+}
+
+Cách 2 - Sử dụng hàm JavaScript :
+if ($("selector")[0].hasAttribute('name')) {
+    // có thuộc tính name
+}
+else {
+  // không có thuộc tính name
+}
+
+- Loại bỏ thuộc tính HTML :
+Thuộc tính của phần tử HTML có thể xóa bỏ khỏi phần tử bằng phương thức removeAttr(attr_name)
+
+JavaScript
+//xóa bỏ thuộc tính border khỏi phần tử table
+$("table").removeAttr("border");
+
+//xóa bỏ thuộc tính class khỏi phần tử div
+$("div").removeAttr("class");
+
+//xóa bỏ thuộc tính title khỏi phần tử a
+$("a").removeAttr("title");
+
+4. Đọc và gán giá trị cho phần tử HTML bằng jQuery
+- Lấy nội dung phần tử :
+html() được dùng để lấy nội dung phần tử được chọn, nó lấy cả nội dung HTML markup.
+text() nếu muốn chỉ lấy nội dung text không HTML markup thì dùng phương thức 
+
+<p class="example1"><strong>Bấm vào đây</strong> <i>để lấy nội dung</i></p>
+// html : <strong>Bấm vào đây</strong> <i>để lấy nội dung</i>
+// text : Bấm vào đây để lấy nội dung
+
+<script>
+    //Bắt sự kiện click cho phần tử có class .example1
+    $(".example1").click(function () {
+
+        //lấy phần tử bấm chuột - chính là  $(".example1")
+        var ele_example1 = $(this);
+
+        //lấy nội dung
+        var htmlmarkup =  ele_example1.html();
+        var htmlcontent = ele_example1.text();
+
+        alert("HTML Markup:\n" + htmlmarkup);
+        alert("HTML Content:\n" + htmlcontent);
+
+    });
+</script>
+
+- Gán nội dung cho phần tử :
+Phương thức html(), text() là đọc và trả về nội dung phần tử, có tham số thì trở thành thiết lập gán giá trị tham số cho phần tử.
+<script>
+    $(".example2").click(function () {
+        var ele_example2 = $(this);
+         var htmlmarkup =  ele_example2.html();
+         ele_example2.html(htmlmarkup + htmlmarkup);
+    });
+</script>
+
+- Đọc và gán giá trị phần tử val() :
+Khi phương thức không có tham số là đọc, khi có tham số thì là gán giá trị tham số vào giá trị phần tử.
+<script>
+    //Hàm đọc và hiện thị thông tin
+    function displayVals() {
+        var singleValues =   $( "#single" ).val();
+        var multipleValues = $( "#multiple" ).val() || [];
+
+        $( "p#info1" ).html( "<b>Single:</b> " + singleValues +
+            " <b>Multiple:</b> " + multipleValues.join( ", " ) );
+    }
+    //Bắt sự kiện thi thay đổi giá trị
+    $( "#single, #multiple" ).change( displayVals );
+    displayVals();
+</script>
+
+Ví dụ đọc giá trị của input kiểu text :
+<input id="inputtext" type="text" value="Nhập giá trị">
+<p id="giatriinputtext"></p>
+
+<script>
+    //Hàm đọc giá trị và hiện thị thông tin
+    function textthaydoi() {
+        var value = $( this ).val();
+        $( "p#giatriinputtext" ).text( value );
+    }
+
+    //Bắt sự kiện keyup của textbox
+    $( "#inputtext" ).keyup(textthaydoi);
+
+    //Cho #inputext phát sinh một sự kiện keyup ban đầu
+    $( "#inputtext" ).keyup();
+
+</script>
+
+5. Chèn thêm nội dung vào HTML với jQuery
+- Các phương thức html(), text() là ghi đè ta cần các phương thức ghi thêm như append(), prepend(), after(), before().
+Nội dung chèn có thể là HTML Markup, Text hoặc tạo ra một phần tử DOM mới bằng jQuery, 
+Ví dụ tạo phần tử <p> mới sau đó thiết lập nội dung text cho nó là 'Hello World' :
+var newelement = $("<p></p>").text("Hello World");
+
+append() chèn nội dùng vào phần cuối phần tử con phần tử được chọn
+prepend() chèn nội dùng vào phần đầu phần tử con phần tử được chọn
+after() chèn nội dùng vào phía sau phần tử chọn cùng cấp
+before() chèn nội dùng vào phía trước phần tử chọn cùng cấp
+
+<div id="phantudiv">
+    <p class="phantup">Nội dung ban đầu trong phần tử</p>
+</div>
+
+<script>
+    var phantuchon = $("#phantudiv");
+    function append_jquery() {
+        phantuchon.append("<p>Chèn thêm bằng append()</p>");
+    }
+    function prepend_jquery() {
+        phantuchon.prepend("<p>Chèn thêm bằng prepend()</p>");
+    }
+    function after_jquery() {
+        phantuchon.after("<p>Chèn thêm bằng after()</p>");
+    }
+    function before_jquery() {
+        phantuchon.before("<p>Chèn thêm bằng before()</p>");
+    }
+</script>
+
+6. jQuery và CSS class
+addClass thêm class vào phần tử
+removeClass xóa đi class trong phần tử
+hasClass kiểm tra xem phần tử có một CSS class hay không
+toggleClass thêm class nếu nó đang có trong phần tử, nếu không thì xóa class
+
+$("div").addClass("header") : thêm class có tên header vào các phần tử div. Cũng có thể thêm nhiều class như $("div").addClass("class1 class2 class3")
+
+<p id="inforhtml"></p>
+<div class="pclass">Đoạn văn trong phần tử</div>
+<div>
+    <button onclick="addClass()">.addClass</button>
+    <button onclick="removeClass()">.removeClass</button>
+    <button onclick="toggleClass()">.toggleClass</button>
+    <button onclick="hasClass()">.hasClass</button>
+</div>
+
+<script>
+    function addClass() {
+        $("div.pclass").addClass("classexam1");
+        showhtml();
+    }
+    function removeClass() {
+        $("div.pclass").removeClass("classexam1");
+        showhtml();
+    }
+    function toggleClass() {
+        $("div.pclass").toggleClass("classexam1");
+        showhtml();
+    }
+    function hasClass() {
+       if ($("div.pclass").hasClass("classexam1"))
+           alert("Phần tử có class: classexam1");
+       else
+           alert("Phần tử không có class: classexam1");
+
+    }
+    function showhtml() {
+        $("#inforhtml").text($("div.pclass")[0].outerHTML);
+    }
+    showhtml();
+</script>
+
+7. jQuery và thuộc tính CSS 
+Phương thức .css() được dùng để lấy giá trị hoặc thiết lập giá trị cho một thuộc tính CSS vào phần tử. 
+
+<p id="vidu1">Ví dụ về CSS (click here)</p>
+<script>
+    $('#vidu1').click(function () {
+        alert($(this).css("background-color"));
+        $(this).css("background-color", "#FF5722");
+
+    });
+</script>
+
+- Thiết lập nhiều thuộc tính css() : .css({"property1":"value1", "property2":"value2" ...});
+<script>
+    $('#vidu2').click(function () {
+        $(this).css({
+            "background-color" :"#FF5722",
+            "font-size": "200%",
+            "color": "whitesmoke"
+            });
+    });
+</script>
+
+- Kích thước phần tử với jQuery : width(), height(), innerWidth(), innerHeight(), outerWidth(), outerHeight()
+
+8. Di chuyển trong DOM với jQuery
+.parent() lấy phần tử cha trực tiếp của phần tử.
+.parents() lấy phần tử các phần tử cha (kể cả không trực tiếp)
+.children() lấy các phần tử con
+.siblings() các phần tử ngang hàng (anh em)
+.next() phần tử ngang hàng tiếp theo
+.nextAll() tất cả các phần tử ngang hàng tiếp theo
+.prev() phần tử ngang hàng trước
+.prevAll() tất cả các phần tử ngang hàng phía trước
+.eq(index) phần tử có thứ tự index trong tập hợp chọn được
+.find() tìm phần tử trong các phần tử con, cháu ...
+
+9. Xóa phần tử khỏi DOM HTML với jQuery
+.empty() : phương thức này loại bỏ tất cả các phần tử con của phần tử chọn được.
+.remove() : loại bỏ các phần tử chọn được.
+.detach() : tương tự như .remove() nhưng toàn bộ dữ liệu jQuery liên kết vẫn được giữ nguyên. Điều này có ích nếu muốn sử dụng lại phần tử đó như sẽ chèn vào vị trí khác.
+
+.appendTo() : chèn phần tử đang chọn vào một phần tử khác chỉ ra trong tham số
+<script>
+    var pvidu1;
+    $("#button1").click(function () {
+        if ( pvidu1 ) {
+            pvidu1.appendTo( "#container1" );
+            pvidu1 = null;
+        } else {
+            pvidu1 = $( "#container1 p" ).detach();
+        }
+    });
+</script>
+
+10. Bắt các sự kiện DOM trong jQuery
+JS thường :
+<button id="demo">Ngày hiện tại</button>
+<script>
+    var x = document.getElementById("demo");
+    x.onclick = function () {
+        alert(Date());
+    }
+</script>
+
+jQuery :
+$("#demo").click(function() {
+    alert(Date());
+});
+
+Danh sách các sự kiện hay dùng :
+Sụ kiện với chuột
+    click xảy ra khi click chuột trên phần tử.
+    dblclick nháy kép chuột.
+    mouseenter chuột đi vào phần tử.
+    mouseleave chuột ra khỏi phần tử.
+    mouseover chuột trên phần tử.
+Sự kiện bới bàn phím
+    keydown phím ấn xuống
+    keyup phím nhả ra
+Sự kiện trên form
+    submit gửi form
+    change giá trị phần tử trong form thay đổi
+    focus nhận focus
+    blur mất focus
+Sự kiện trên Document
+    ready khi DOM đã tải xong hoàn toàn (trang được load và dựng đầy đủ)
+    resize khi cửa sổ Browser thay đổi kích thước
+    scroll khi người dùng cuộn trang, phần tử
+
+- Bắt các sự kiện với on : Cách này có cái hay là có thể bắt một lúc nhiều sự kiện, ví dụ: .on("click, dbclcik", handler)
+$( "p" ).on( "click", function() {
+  alert("clicked");
+});
+
+- Tắt sự kiện với off :
+$("div").off("click");
+
+- Đối tượng Event :
+$( "a" ).click(function(event) {
+  alert(event.pageX);
+  event.preventDefault();
+});
+
+$( "p" ).on( "click", function(doituongsukien) {
+      alert(doituongsukien.pageX);
+});
+
+- Đối tượng Event có một số thuộc tính, phương thức hay dùng như :
+pageX, pageY vị trí chuột khi sự kiện xảy ra
+type kiểu sự kiện, ví dụ "click"
+which nút, phím được bấm
+data dữ liệu được chuyển theo sự kiện
+target phần tử DOM phát sinh sự kiện
+preventDefault() phương thức chặn lại ứng sử mặc định của sự kiện (ví dụ bấm vào link sẽ chuyển trang, thì hàm này sẽ hủy hành động này)
+stopPropagation() ngăn tiếp tục gửi sự kiện (nếu gọi thì sự kiên không còn được gửi tiếp trong hệ thống các đối tượng nhận sự kiện)
+
+- Phát sinh sự kiện phương thức .trigger("eventname");
+$("form").trigger("submit");
+
+- Ví dụ tổng hợp
+<input type="text" placeholder="New item" />
+<button id="add">Thêm việc</button>
+<ol id="mylist"></ol>
+
+<script>
+    $(function() {
+        $("#add").on("click", function() {
+            var val = $("input").val();
+            if(val !== '') {
+                var elem = $("<li></li>").text(val);
+                $(elem).append("<button class='rem'>X</button>");
+                $("#mylist").append(elem);
+                $("input").val("");
+                $(".rem").on("click", function() {
+                    $(this).parent().remove();
+                });
+            }
+        });
+    });
+</script>
+
+11. Hiệu ứng ẩn hiện phần tử HTML DOM với jQuery :
+- Hiệu ứng Hide/Show với show(), hide() toggle() :
+<button id="vidu1">Bấm vào đây
+    <strong id="pvidu1">Sử dụng toggle()</strong>
+</button>
+<script>
+    $("#vidu1").click(function() {
+       $("#pvidu1").toggle();
+    });
+</script>
+
++ 1000 milisecond hoàn thành hiệu ứng
+$("#pvidu2").toggle(1000); 
+
++ Hàm callback gọi khi hoàn thành xong hiệu ứng
+$("#pvidu3").toggle(500, function() {
+    $("#pvidu3").toggle(500);
+});
+
+- Hiệu ứng mờ dần (Chức năng tương tự toggle() nhưng hiệu ứng ảo hơn) : fadeIn(), fadeOut() và fadeToggle()
+$("#vidu4").click(function() {
+    $("#pvidu4").fadeToggle(1000, function() {
+        $("#pvidu4").fadeToggle(1000);
+    });
+});
+
++ fadeTo(speed, opacity) để chạy hiệu ứng thiết lập opacity về giá trị chỉ ra.
+$("div").fadeTo(1500, 0.7);
+
+- Hiệu ứng trượt phần tử :
+slideUp(), slideDown(), slideToggle()
+$("#vidu5").click(function() {
+    $("#pvidu5").slideToggle(1000, function() {
+        //... code in callback
+    });
+});
+
+12. Hiệu ứng động với animate() trong jQuery :
+- Hiệu ứng animate() :
+.animate({property1: value1, property2: value2, ... }, speed);
+Tham số 1 : Các thuộc tính muốn biến đổi và giá trị của nó viết theo cặp theo nguyên tắc JSON
+Tham số 2 : Khoảng thời gian (mili giây) diễn ra hiệu ứng
+Tham số 3 : Chức năng easing 'swing' 'linear',
+Tham số 4 : Là một hàm callback, được gọi sau khi hiệu ứng động hoàn thành.
+
+<div id="example1"></div>
+<button id="button1">Hiệu ứng animate()</button>
+
+<script>
+    $("#button1").click(function () {
+
+        $("#example1").css({"width": "10px",
+            "height": "10px",
+            "background":"orangered"});
+
+        $("#example1").animate(
+            {"width": "100%", "height": "100px"}, 2000);
+    });
+</script>
+
++ Bạn cũng có thể thiết lập hiệu ứng thay đổi từ giá trị hiện tại tới giá trị cộng thêm bằng cách dùng += hoặc -=
+$("div").animate({
+  width: '+=250px',
+  height: '+=250px'
+}, 1000);
+
+- Dừng lập tức hiệu ứng động .stop()
+$("#example2").stop();
+
+13. Thêm hàm vào jQuery (Mở rộng chức năng của jQuery bằng cách thêm phương thức mới (plugin))
+Dùng jQuery.fn.extend :
+<script>
+jQuery.fn.extend({
+  function1: function() {
+    return this.each(function() {
+      // Xử lý các phần tử chọn được
+      // $(this).
+    });
+  },
+  function2: function() {
+    return this.each(function() {
+      // Xử lý các phần tử chọn được  
+      //this.checked = false;
+    });
+  }
+});
+</script>
+
+- Chạy :
+$('p').function1();
