@@ -1,0 +1,339 @@
+1 . Giao thức Secure Shell (SSH)
+SSH là một giao thức mạng được mã hóa bảo mật, nó tạo ra kết nối bảo mật (giữa máy trạm và máy chủ) trên một mạng lưới không bảo mật.
+
+- Giao thức SSH được dùng ở rất nhiều nền tảng từ Linux, macOs, Windows với các mục đích như:
+Đăng nhập vào shell của máy tính từ xa (máy chủ)
+Thi hành lệnh trên máy kết nối
+Thiết lập tự động đăng nhập vào server
+Truyền tải file an toàn
+Gắn một thư mục ở máy từ xa (máy chủ) vào máy client
+
+- Điều kiện và cách thức sử dụng SSH :
+Để sử dụng kết nối SSH, bạn phải có dịch vụ SSH từ máy Remote (từ xa, server),máy Client (local) sử dụng chương trình SSH Client kết nối 
++ Máy chủ dịch vụ SSH là máy tại đó chạy một SSH Server ,Thông qua xác thực tài khoản user/pass hoặc xác thực bằng public/private key
+Nếu muốn cài đặt và cấu hình một máy chủ SSH Server thì có thể sử dụng OpenSSH cho các máy chủ Linux hoặc phiên bản cho Windows tại OpenSSH - Windows
++ SSH Client là các chương trình chạy ở máy trạm (local) có chức năng kết nối đến SSH Server.Có thể kết nối ssh qua win 10 không cần cài thêm
+
+2. Cài đặt dịch vụ SSH trên Server Linux và Windows
+- Cài đặt OpenSSH Server trên Linux : Thường là có sẵn
++ Cài đặt OpenSSH Server trên CentOS/RHEL : yum install openssh openssh-server openssh-clients openssl-libs -y
+
++ Cài đặt OpenSSH Server trên Ubuntu : sudo apt-get install openssh-server openssh-client
+
++ Chạy dịch vụ SSH Server, thiết lập chạy ngay khi khởi động
+systemctl start sshd
+systemctl enable sshd
+
++ Mặc định SSH dùng cổng 22 nên bạn phải mở cổng này nếu có firewall
+firewall-cmd --add-port=22/tcp --permanent
+firewall-cmd --reload
+
++ File cấu hình của OpenSSH Server tại /etc/ssh/sshd_config, bạn có thể mở và chỉnh sửa nó theo nhu cầu (có thể dùng Vim, Nano để soạn thảo). 
+Sau khi sửa Config thì cần khởi động lại SSH Server.
+systemctl restart sshd
+
++ Kiểm tra trạng thái SSH Server
+systemctl status sshd
+
+- Cài đặt OpenSSH Server trên Windows : WIn 10 có sẵn
+
+- Cấu hình dịch vụ OpenSSH Server : (trong các file cấu hình một số thiết lập mặc định để ở chế độ commment - có ký tự # phía trước - nếu bạn thiết lập riêng thì xóa #)
+/etc/ssh/sshd_config trên Linux
+C:\OpenSSH\sshd_config_default trên Windows
+
+1) Đổi cổng mặc định nếu muốn đổi cổng kết nối SSH, ví dụ đổi sang cổng 2233
+Port 1235
+2) Chỉ cho phép một số User kết nối SSH nếu chỉ muốn một số User được chỉ ra được phép kết nối SSH, ví dụ chỉ cho phép user1, user2 thì thêm vào | User là tài khoản của hệ thống (ví dụ root trên Linux, Administrator trên Windows)
+AllowUsers abcuser xtlab
+3) Cấm một số User ngược lại với AllowUsers, muốn cấm User nào, ví dụ user3, user4 thì thêm vào
+DenyUsers abcuser xtlab
+4) Bật chế độ xác thực SSH Key
+PubkeyAuthentication yes
+5) Chỉ ra đường dẫn lưu Public key ví sụ lưu tại .ssh/authorized_keys (tìm hiểu sau)
+AuthorizedKeysFile .ssh/authorized_keys
+6) Tắt xác thực bằng Password nếu muốn tắt chế độ cho phép nhập Password để kết nối SSH thì thêm vào
+PasswordAuthentication no
+Bạn nhớ là chế độ này on mặc định, bạn chỉ nên tắt khi đã có thể kết nối bằng Private Key
+7) Không cho xác thực bằng password rỗng
+PermitEmptyPasswords no
+8) Không cho tài khoản root đăng nhập
+PermitRootLogin no
+
+3. Kết nối SSH đến Server cơ bản với OpenSSH Client
+- Kiểm tra Cài đặt OpenSSH Client :
+ssh -V
+- Sử dụng SSH Client cơ bản : 
+Giả sử tải khoản SSH máy chủ là testuser, có password là yourpassword - máy server là remoteserver (ví dụ 192.168.1.99 hay yourdomain.com).
+ssh username@remoteserver VD: ssh testuser@192.168.1.52
+Sau khi nhập lệnh, do lần đầu kết nối SSH đến IP này, nên ssh có hỏi về ECDSA key fingerprint- gõ yes, nhập password
+Gõ powershell.exe để chuyển sử dụng PowerShell, từ đó thực hiện các tác vụ trên Windows.
+
+- Nếu cổng kết nối khác 22 ví dụ cổng 2222 thì cho vào tham số -p 2222
+ssh -p 2222 username@remoteserver
+
+- File cấu hình SSH Client
+ssh (ssh client) khi chạy, thực hiện các kết nối - nó sẽ tìm file cấu hình tại đường dẫn ~/.ssh/config
+Trên máy macOS, user có tên abc thì ~/.ssh/config có đường dẫn đầy đủ là /Users/abc/.ssh/config, macOS có thể dùng ngày file config /etc/ssh/ssh_config
+Trên Windows, user có tên abc thì ~/.ssh/config có đường dẫn đầy đủ là C:\Users\abc\.ssh\config
+Trên Linux (Ubuntu, CentOS), user có tên abc thì ~/.ssh/config có đường dẫn đầy đủ là /home/abc/.ssh/config
+
+Chú ý: trên Windows, để tạo được thư mục .ssh thì bạn dùng PowerShell (không dùng Cmd), và gõ lệnh mkdir để tạo thư mục
+Như vậy, nếu file config cho user abc trên hệ thống chưa có, thì cần tạo file này, nằm đúng ở đường dẫn như trên.
+mkdir C:\Users\abc\.ssh
+Có thư mục .ssh rồi mới tạo file config trong đó.
+
++ Cấu hình file config
+# Khối thứ nhất
+Host 192.168.1.2
+    Port 2222
+# Khối thứ hai
+Host 192.168.1.3
+    Port 3333
+- > Chạy ssh user@192.168.1.2 thì bay vào cổng 2222
+
+Host ten-rat-dep
+    # User mặc định
+    User testuser
+    # cổng
+    Port 22
+    # host thật
+    HostName 192.168.1.52
+-> ssh ten-rat-dep
+
+Host ten-rat-dep
+    Port 2222
+    HostName 192.168.1.52
+    User testuser
+    PreferredAuthentications publickey
+    IdentityFile "C:\MySSHKey\id_rsa"
+PreferredAuthentications publickey bật chế độ xác thực bằng SSH Key trước
+IdentityFile "path/../file_private_key" vị trí file Private key
+
+4. Lệnh scp copy file và thư mục từ server về máy local và ngược lại
+SCP (secure copy - sao chép an toàn) là lệnh do OpenSSH Client cung cấp, nó cho phép truyền tải file qua lại giữa máy local và remote (server), nó sử dụng giao thức SSH để truyền file. 
+
+- Cú pháp cơ bản như sau :
+scp [OPTION] [user_src@]src_host:]src_file [user@]desk_host:]des_file
+Trong đó :
+[user_src@]src_host:]src_file là file, thư mục nguồn, ví dụ abcuser@192.168.1.55:/home/file1.txt là file /home/file1.txt tại máy abcuser@192.168.1.55, như dấu :, nếu là tại máy local thì không cần chỉ ra user, host tức bỏ đoạn abcuser@192.168.1.55:
+[user@]desk_host:]des_file đường dẫn file, thư mục đích muốn copy - ý nghĩa tương tự như trên
+[OPTIONS] các thiết lập cho thêm vào nếu muốn, như cho thêm tham số -r để đệ quy copy cả thư mục, các file, thư mục con theo đường dẫn.
+
+- download - copy một file từ server về local :
+Ví dụ, file nằm trên server 192.168.1.99 ở đường dẫn /home/data/1.txt, có tài khoản SSH với user là root lưu ở local với đường dẫn là /mycode/1.txt :
+scp root@192.168.1.99:/home/data/1.txt "C:\data\1.txt"
+Ví dụ copy thư mục /home/data từ server về lưu vào /mycode/data01
+scp -r root@192.168.1.99:/home/data /mycode/data01
+
+- upload - copy file (thư mục) từ local lên server :
+Ví dụ, upload file /mycode/3.txt lên server lưu ở /home/data/3.txt
+scp /mycode/3.txt root@192.168.1.99:/home/data/3.txt
+Hoặc Upload cả thư mục /mycode/data/ lên server
+scp -r /mycode/data root@192.168.1.99:/home/data
+
+5. Tạo SSH Key và xác thực kết nối SSH bằng Public/Private key
+Cấu hình sử dụng Public SSH key ở server, và Private SSH Key ở Client để chúng xác thực khi kết nối 
+
+- Cơ chế xác thực bằng SSH Key Để tạo nên xác thực này cần có hai file, một file lưu Private Key và môt lưu Public key
++ Public Key khóa chung, là một file text lưu ở phía Server SSH, dùng khi Client gửi Private Key (file lưu ở Client) lên để xác thực 
+thì kiểm tra phù hợp giữa Private Key và Public Key này. Nếu phù hợp thì cho kết nối.
+
++ Private Key khóa riêng, là một file text bên trong nó chứa mã riêng để xác thực (xác thực là kiểm tra sự phù hợp của Private Key và Public Key). 
+Máy khách kết nối với máy chủ phải chỉ ra file này khi kết nối SSH thay vì nhập mật khẩu. 
+Hãy lưu file Private key cận thận, bất kỳ ai có file này có thể thực hiện kết nối đến máy chủ của bạn
+
+- Tạo SSH Key (Public/Private) :
+ssh-keygen -t rsa
+Đầu tiên nó hỏi nhập thư mục sẽ lưu key sinh ra, hãy nhập thư mục - tên file muốn lưu hoặc nhấn Enter để sử dụng đường dẫn nó gợi ý (~/.ssh/id_rsa, ví dụ trên máy tôi /Users/xuanthulab/.ssh/id_rsa).
+Sau đó nó yêu cầu nhập passphase, nhấn Enter để rỗng. 
+Cuối cùng nó sinh ra hai file key có tên id_rsa và id_rsa.pub ở thư mục đã nhập trên.
+Private Key chứa trong file ~/.ssh/id_rsa, hãy lưu lại cẩn thận, nó được dùng để SSH client (máy local) kết nối đến Server. 
+Public Key chứa trong file ~/.ssh/id_rsa.pub, hãy copy nội dung bên trong file - giữ cận thận, Nó được lưu (dùng) ở máy Server để xác thực khi có Private key gửi đến.
+
+Trên window tương tự lưu tại C:\Users\[...]\.ssh
+
+- Xác thực bằng SSH Key :
+Mở file config của SSH Service ra (/etc/ssh/sshd_config trên Windows C:\ProgramData\sshd_config), hãy đảm bảo nó có dòng cấu hình:
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+
+Ví dụ, nếu user đăng nhập có tên là abc thì Public key phải lưu ở /home/abc/.ssh/authorized_keys (Linux) hay tại C:\Users\abc\.ssh\authorized_keys đối với Windows. 
+Biết được đường dẫn như vậy, bạn cần copy file id_rsa.pub (chứa Public key) sinh ra ở trên vào đúng đường dẫn này (đổi tên id_rsa.pub thành authorized_keys). 
+Hoặc tạo file authorized_keys rồi paste nội dung Public key vào.
+
+Ví dụ, Linux Server có IP 192.168.1.52, user để là xuanthulab, thì file lưu Public Key phải để tại là ở /home/xuanthulab/.ssh/authorized_keys
+Hay có lỗi do chmod Nếu user có tên là abc, thì chmod phù hợp là:
+/home/abc                               700
+/home/abc/.ssh                          700
+/home/abc/.ssh/authorized_keys          600
+
+- Cấu hình Private key cho SSH Client :
+Ví dụ, kết nối đến 192.168.1.52 thì dùng Private key lưu tại /Users/xuanthulab/.ssh/id_rsa, thì file config đó như sau:
+Host 192.168.1.52
+    PreferredAuthentications publickey
+    IdentityFile "/Users/xuanthulab/.ssh/id_rsa"
+
+Khi đó chỉ cần ssh xuanthulab@192.168.1.52
+Cũng lưu ý là Private key được chmod phù hợp (600)
+
+6. Sử dụng Putty kết nối SSH đến Server Linux và Windows
+Ứng dụng miễn phí 
+https://www.putty.org/
+https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+
+7. Sử dụng Rsync đồng bộ thư mục trên Linux và Windows
+Rsync (remote sync) là công cụ đồng bộ file, thư mục của Linux.
+Khi đồng bộ nó giữ nguyên mọi thuộc tính của file, thư mục (từ chủ sở hữu, quyền truy cập file ...). 
+
+Mặc định hầu hết các bản phân phối Linux có sẵn công cụ này, nếu chưa có thì cài vào:
+# TRÊN CENTOS/RED HAT
+# yum install rsync
+
+# TRÊN UBUNTU
+# apt-get install rsync
+
+- Rsync cơ bản
+# rsync -a thư_mục_nguồn thư_mục_đích
+
+- Có thư mục dir1/ trong nó chứa nhiều file, thư mục con. Đồng bộ toàn bộ nội dung thư mục dir1 vào thư mục ở vị trí là dir2 (2 thư mục này cùng nằm trên một hệ thống - 1 máy),:
+# rsync -a dir1/ dir2
+Tham số -a (Archive) cho biết sẽ đồng bộ tất cả các file, thư mục con trong dir1.
+Kiểm tra thông tin dir1, dir2 trước khi thi hành thì thêm thiết lập -n, nếu muốn quá trình đồng bộ hiện thị thông tin thêm -v
+Ví dụ : # rsync -anv dir1/ dir2
+
+- Rsync - Đồng bộ giữa 2 máy Linux :
+# Kết nối ssh bằng Private Key đến máy địa chỉ IP, bằng user root
+# ssh root@IP
+
+Lúc này trên máy remote có thư mục /home/dir1 buốn đồng bộ xuống máy local ở đường dẫn /home/dir1_backup, thì gõ lệnh sau:
+# rsync -anv root@IP:/home/dir1 /home/dir1_backup
+
+Local đồng bộ lên sever 
+# rsync -anv /home/dir1_backup root@IP:/home/dir1
+
+- Rsync - Đồng bộ giữa Linux - macOS
+#macOS to Linux
+rsync --partial -avz path_on_mac root@ip:/path_on_linux
+
+#Linux to macOS
+rsync --partial -avz root@ip:/path_on_linux path_on_mac
+
+- Rsync - Vài thiết lập bổ sung
+-P hiện thị quá trình đồng bộ (Progress)
+-z nén dữ liệu khi truyền tải
+--exclude=thư-mục không đồng bộ thư mục nào đó
+--no-g không đồng bộ thông tin chủ sở hữu (thiết lập giúp tránh lỗi có thể xảy ra giữa kiểu ổ đĩa không có thuộc tính tương ứng, ví dụ FAT)
+--human-readable hiện thị thông tin dễ đọc
+--delete xóa file/thư mực ở máy đích nếu ở nguồn không có
+
+# rsync -aP root@IP:/home/dir1/ /home/backup --exclude=/home/dir1/dir100
+rsync  --human-readable  --partial -avz /path/local remote:/path --delete
+
+- Rsync - Đồng bộ thư mục Windows/Linux :
+Dùng docker :
+docker pull ubuntu
+docker image ls
+docker run -it -v d:/backupdir1/:/home/backup1/ ubuntu
+
+# Cập nhật
+# apt-get update
+# Cài SSH cho Ubuntu
+# apt install openssh-server
+# Cài rsync cho Ubuntu
+# apt-get install rsync
+
+# rsync -aP root@IP:/home/dir1/ /home/backup1
+
+8. Sử dụng FUSE để mount ổ đĩa từ xa (server) vào macOS
+FUSE for macOS là tiện ích có thể giúp cho macOS kết nối đến một thư mục từ xa thông qua giao thức SSH, 
+nó mount thư mục máy server thành một ổ đĩa trong macOS. 
+
+9. Truy cập GitHub qua SSH key 
+Bc 1: Tạo thư mục c:\sshforgithub 
+Cd vào thư mục chạy lệnh 
+cd c:\sshforgithub
+ssh-keygen -t rsa -f id_rsa
+
+Khi nó hỏi Enter passphrase có thể nhấn Enter để trống cái này. 
+Kết thúc lệnh đó thì trong c:\sshforgithub sẽ có SSH Key cho bạn gồm có public key là file id_rsa.pub và private key là file: id_rsa
+
+Bc 2 :Thiết lập SSH public key cho GitHub
+Mở file id_rsa.pub copy toàn bộ nội dung trong file đó vào clipboad
+Trở lại tài khoản GitHub truy cập vào Setting
+Ở màn hình mới, chọn mục có tên SSH and GPG key, sau đó chọn đến mục new SSH Key
+Điền một tiêu đề SSH ở phần Title, còn phần key thì copy và past toàn bộ nội dung file id_rsa.pub vào. 
+Cuối cùng bấn Add SSH Key để hoàn thành
+Vậy là hoàn thành bước thiết lập public SSH key cho GitHub, 
+giờ có thể truy cập tới các Repo của bạn bằng kết nối SSH với file private ksy c:\sshforgithub\id_rsa và user truy cập là tên user bạn đăng ký
+
+Bc 3 : Thiết lập private SSH cho SSH/Git tại máy của bạn
+Mở thư mục C:\Users\gajxinh176 vào thư mục .ssh mở file config cấu hình :
+
+Host GitHub.com - tcmytt
+User git
+Hostname github.com
+Port 22
+PreferredAuthentications publickey
+IdentityFile "C:\sshforgithub\id_rsa"
+
+Địa chỉ SSH của Repo thì theo cấu trúc git@github.com:user_name/repo_name.git, 
+VD : git@github.com:tcmytt/Algorithm.git
+- Thiết lập kết nối Local Repo với Remote Repo GitHub
+$ git remote add origin git@github.com:tcmytt/Algorithm.git
+
+$ git clone git@github.com:tcmytt/Algorithm.git /c/local/Algorithm
+
+Cuối cùng là bạn đã có một Local Repo đã kết nối với Remote Repo Git , giờ có thể dùng git fetch, git pull, git push ...
+
+10. Một số thủ thuật sử dụng SSH
+- Chạy lệnh trên máy Remote :
+Nếu muốn - sau khi kết nối - thi hành ngay một lệnh và ngắt kết nối ngay. Thì gõ lệnh ssh như sau:
+ssh user@myserver "lệnh-cần-chạy ... "
+VD Chạy ngay lệnh cd /var và lệnh ls :
+ssh root@myserver "cd /var && ls"
+
+- Mount (gắn) thư mục máy Remote vào Local với SSHFS :
+Cài đặt SSHFS trên Ubuntu
+apt install sshfs
+Gắn thư mục /home/data/ trên server vào /mydata/ trên local
+sshfs user@remoteserver:/home/data/ /mydata/
+
+11. Sử dụng chương trình sftp - truyền tải file an toàn (Giữa máy trạm máy chủ)
+sFTP (Secure File Transfer Protocol hay SSH File Transfer Protocol), giao thức truyền file an toàn (sử dụng SSH). 
+Máy sever có sẵn sftp-server.Cần FTP Client có hỗ trợ giao thức SFTP để kết nối, duyệt file, tải file, upload giữa máy trạm và server.
+Một số trình FTP Client có thể sử dụng như: FileZilla, WinSCP, Free FTP ... hoặc sử dụng chương trình sftp của OpenSSH
+
+Lệnh sftp - upload / download file : Có sẵn khi cài OpenSSH Client 
+sftp user@remotehost 
+
+ls	Liệt kê file trên Server, giống lệnh ls của Linux
+
+lls	Liệt kê file thư mục hiện tại của máy Local
+
+cd	Chuyển thư mục làm việc trên Server - giống lệnh cd của Linux
+
+lcd	Chuyển thư mục làm việc của máy Local
+
+df [path]	Thông tin file, thư mục (kích thước ...)
+
+pwd	Xem đường dẫn hiện tại của Server, giống pwd Linux
+
+lpwd	Xem đường dẫn hiện tại của máy Local
+
+mkdir	Tạo thư mục, giống mkdir Linux
+
+renname oldpath newpath	Đổi tên file trên Server
+
+rm path	Xóa file, thư mục (đệ quy thêm -r)
+
+get remote [local]	
+Tải file remote (thư mục), về lưu tại thư mục local hiện tại hoặc chỉ ra local. Để tải đệ quy cả thư mục thêm tham số -r
+get -r data
+Lệnh trên tải thư mục data, thư mục con trong data của Server về thư mục hiện tại của máy local (client)
+
+put local [remote]	
+Tải lên local lưu vào thư mục hiện tại của Server, hoặc chỉ ra trong tham số remote Để upload cả thư mục con bên trong, thêm vào -r
+put -r mycode
+Lệnh trên upload thư mục mycode, thư mục con trong mycode của máy Local lên thư mục hiện tại của Server
+
+exit	Thoát

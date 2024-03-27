@@ -1,0 +1,361 @@
+1. Giới thiệu về hệ thống quản lý phiên bản Git cài đặt và thiết lập
+Hệ thống quản lý phiên bản - Version Control System (VCS) là một hệ thống ghi nhận và lưu lại sự thay đổi của các file theo thời gian, 
+từ hệ thống đó một file có thể phục hồi quay về trạng thái (phiên bản) ở một thời điểm trước đó. 
+Có nhiều hệ thống VCS mà bạn có thể chọn sử dụng như: Concurrent Versions System, Subversion, Git, Mercurial
+
+- Cài đặt Git :
+Trên Linux
+sudo apt install git-all
+
+Hiện thị các lệnh Git bằng cách gõ
+git --help
+
+- Cấu hình Git :
+Tên trên hệ thống Git
+git config --global user.name "Tên của Bạn"
+
+Email của bạn trên Git
+git config --global user.email emailcuaban@domain.com
+
+Hiện thị các tham số thiết lập Git
+git config --list
+
+2.Lệnh git init tạo dự án Git mới
+- Tạo db locol
+git init
+
+- Khi bạn cần tạo ra một Repo Git mà nó chỉ có chức năng lưu trữ - không có thư mục làm việc 
+dự án này để lưu trữ như là Remote Repo (Tạo Repo git trên Server), từ đó lấy về Local (lệnh git clone), và để local đẩy dữ liệu Git lên
+git init --bare
+
+3. Lệnh git add lưu thông tin chuẩn bị commit
+git add file1 file2 dir1 dir2 ...
+git add .
+
+4. Lệnh git status xem trạng thái của Repo
+git status
+
+Nếu muốn hiện thị thông tin ngắn gọn hơn thì cho thêm tham số -s
+git status -s
+Lúc này trước các file có sự thay đổi có thể có các ký tự tương ứng với các thông tin gồm:
+' ' = unmodified (không đổi)
+
+M = modified (có sửa đổi)
+
+A = added (file mới thêm)
+
+D = deleted (file bị xóa)
+
+R = renamed (đổi tên file)
+
+C = copied (file copy từ file khác)
+
+U = updated but unmerged (đã cập nhật, nhưng chưa merge)
+
+5. Sử dụng lệnh git commit
+Lệnh git commit thực hiện lưu vào CSDL Git toàn bộ nội dung chứa trong index (vùng staging) và kèm theo nó là một đoạn text thông tin (log) mô tả sự thay đổi của của commit này so với commit trước.
+
+git commit -m "Ghi chú về commit"
+
+- Khi cho tham số -a thì nó tương đương thực hiện lệnh git add để đưa các file đang được giám sát có sự thay đổi vào staging rồi tự động chạy git commit
+git commit -a -m "Ghi chú về commit"
+
+- Thay thế commit cuối bằng tham số --amend
+Nếu commit đã được tạo ra nhưng chưa thực hiện push lên remote (khi có làm việc với Remote Repo - nói ở các phần sau) thì bạn có thể tạo ra commit mới thay thế cho commit cuối cùng đó. 
+git commit --amend -m "Thông tin về commit"
+
+6. Dùng lệnh git reset hủy commit cuối hoặc staging
+Hủy commit cuối bằng lệnh git reset
+- git reset với tham số --soft : thay đổi của commit cuối được chuyển vào vùng staging nhằm để có cơ hội commit lại hoặc sửa đổi
+git reset --soft HEAD~1
+
+- git reset với tham số --hard : nội dung thay đổi của commit cuối không đưa đưa vào staging mà bị hủy luôn. 
+Trường hợp này dùng khi bạn quyết định hủy hoàn toàn commit cuối
+git reset --hard HEAD~1
+
+- Hủy git add :
+git reset
+
+- Hủy đưa một file vào staging :
+git reset -- filename
+
+7. Sử dụng lệnh git log xem lại lịch sử các commit trên git
+- Lệnh git log : Lệnh git log giúp bạn xem lại thông tin lịch sự commit, nhằm giám sát sự thay đổi của dự án từ mới nhất đến cũ nhất
+- Một số thiết lập hay dùng với git log
+Nếu chỉ muốn hiện thị một số commit log, ví dụ hiện thị log của 2 commit cuối thì cho thêm -2 vào lệnh
+git log -2
+
+Nếu muốn hiện thị chi tiết các thay đổi của từng commit thì thêm vào tham số -p
+git log -p -2
+
+Nếu hiện thị thống kế gọn hơn về sự thay đổi thì dùng tham số --stat, hoặc dạng ngắn gọn hơn là --shortstat
+git log --stat -5
+
+Định dạng thông tin chung về commit (mã hash, dòng thông tin) trên một dòng thì dùng tham số --oneline
+git log --oneline
+
+git log --stat -10 --oneline
+
+- Lọc kết quả với git log :
+Lọc theo ngày bạn có thể dùng tham số --after="year-month-day" hoặc --before="year-month-day" hoặc dùng cả hai để chỉ ra khoảng ngày. 
+Ví dụ: hiện thị các log từ ngày 1/1/2019 đến ngày 31/12/2019
+git log --after="2019-1-1" --before="2019-12-31"
+
+8. Lệnh git diff kiểm tra sự thay đổi trên Git
+Lệnh git diff hiện thị thông tin thay đổi giữa thư mục làm việc và vùng index (staging) hoặc với commit cũ, thông tin thay đổi giữa index(staging) và commit, thông tin thay đổi giữa hai nhánh ...
+Kiểm tra sự thay đổi thư mục làm việc
+
+Khi có sự thay đổi của thư mục làm việc mà chưa chỉ mục, thì có thể xem sự thay đổi của nó với commit cuối
+git diff
+
+Kiểm tra sự thay đổi của index (staging) với commit cuối
+git diff --staged
+
+Kiểm tra thay đổi giữa hai commit
+git diff hash-commit1 hash-commit2
+
+Kiểm tra sự thay đổi của hai nhánh
+git diff branch1 branch2
+
+9. Lệnh git clone sao chép về một remote repo
+Lệnh git clone để sao chep, copy một Git Repo (kho chứa dự án Git) về máy đang local
+Lưu ý, khi copy Repo bình thường thì nó tự động tạo ra kết nối đến remote Repo, để có thể Push, kết nối này có tên mặc định origin, kiểm tra bằng:
+git remote -v
+
+- Copy Repo từ thư mục này sang thư mục khác. Trên máy của bạn có một Git Repo ở đường dẫn path-git, bạn có thể copy sang vị trí khác bằng lệnh:
+git clone path-git
+Có thể chỉ rõ thư mục cần copy về thay vì tại thư mục hiện tại
+git clone path-git path-des
+
+- Copy Repo từ server về bằng giao thức ssh
+Vị dụ Server có kết nối ssh: user@host, trên đó lưu một Repo ở đường dẫn /path/to/repo, thì có thể copy về bằng lệnh
+git clone user@host:/path/to/repo.git
+
+Copy Repo bằng giao thức https ví dụ trên GitHub, GitLab thì copy về bằng lệnh:
+git clone url-repo
+
+Mặc định nó sẽ sao chép về nhánh hoạt động, để xem tất cả các nhánh có trên Remote dùng lệnh
+git branch --remote
+Để có thể lấy các nhánh khác nữa bạn cần chạy lệnh git fetch và checkout từng nhánh muốn lấy
+
+10. Lệnh git checkout git switch git restore để chuyển nhánh và phục hồi
+Lệnh git checkout dùng để chuyển nhánh hoặc để phục hồi file trong thư mục làm việc từ một commit trước đây ...
+2 lệnh với chức năng tương ứng là: git switch và git restore
+
+Chuyển nhánh :
+git checkout [tên nhánh]
+
+- Phục hồi file từ phiên bản cũ
+Giả sử có file index.html, muốn phục hồi nó về phiên bản ở commit có mã hash là HASH, thì thực hiện:
+git checkout HASH index.html
+
+Nếu bạn muốn phục hồi nội dung từ index (staging nếu có, nếu không từ commit cuối) thì đơn giản là
+git checkout index.html
+
+Phục hồi nhiều file, ví dụ *.html từ index (staging nếu có, nếu không từ commit cuối)
+git checkout -- *.html
+
+Có thể thực hiện với tất cả các file bằng
+git checkout -- .
+
+Khi bạn trở về hẳn một commit có mã HASH nào đó bằng lệnh:
+git checkout HASH
+
+Nếu có thực hiện các commit trên nhánh này và cần lưu lại thì cuối cùng tạo nhánh mới bằng lệnh
+git switch -c ten-nhanh-moi
+
+- Sử dụng git switch Lệnh này dùng để chuyển nhánh và có thể tạo nhánh mới
+Ví dụ chuyển về nhánh master: git switch master
+
+Tạo nhánh mới, kích hoạt nhánh bắt đầu từ một commit có mã HASH
+git switch -c ten-nhanh HASH
+
+Hoặc tạo nhanh từ commit cuối
+git switch -c ten-nhanh
+
+Chuyển về làm việc tại nhánh tạm thời bắt đầu từ commit có mã HASH
+git switch --detach HASH
+
+- Sử dụng git restore Lệnh git restore để phục hồi các file của thư mục làm việc.
+Để phục hồi tất cả các file dùng lệnh:
+git restore .
+Cách sử dụng giống như git checkout cho trường hợp phục hồi
+
+11. Các lệnh Git cơ bản làm việc với Repository
+- Clone một Remote Repo
+git clone https://github.com/ichte/xtlab.git
+Hoặc là (có sử dụng SSH)
+git clone git@github.com:ichte/xtlab.git
+
+12. Làm việc với nhánh branch tạo nhánh gộp nhánh trong Git
+Trong Git luôn làm việc với các nhánh, mặc định bao giờ cũng có một nhánh chính tên là master
+
+- Xem danh sách các nhánh - branch
+git branch
+* master
+Có một nhánh là master, ký hiệu * cho biết đây là nhánh hiện tại
+
+- Tạo một nhánh alpha mới và Chuyển sang nhánh làm việc mới
+git branch alpha
+git checkout alpha
+Hoặc git checkout -b alpha
+
+Thực hiện commit trên nhánh mới
+git commit -a -m "cm"
+
+- Gộp nhánh Branch Merge (Tạo nhánh B từ nhánh A rồi tiếp tục sửa trên nhánh B không thay đổi gì nhánh A cả)
+Đang đứng ở nhánh B muốn gộp lại với nhánh A gốc , Quay về A rồi merge
+git checkout A              
+git merge B           
+
+- Xoá nhánh không dùng 
+Khi nhánh B đã gộp vào A, nếu không còn nhu cầu làm việc trên nhánh này thì có thể xóa nó đi như sau
+git branch -d B
+
+- Xử lý xung đột khi gộp nhánh (Tạo nhánh B từ nhánh A(C1),đã sửa đổi và commit nhiều ở nhánh A(C2) và nhánh B(C3))
+Nó sẽ lấy gốc gộp nhánh(C1) từ khi tạo nhánh B từ nhánh A, sau đó kiểm tra xung đội so với (C2) và (C3)
+- xử lý xung đột với mergetool : git mergetool
+Muốn giữ nội dung từ local (master) thì gõ :diffg LO, muốn giữ nội dung từ remote (alpha) :diffg RE, sau đó thoát mergetool gõ lệnh :wqa.
+
+-Xóa commit cũ, viết lại lịch sử commit, Nếu cần thay đổi N commit cuối cùng, có là xóa, ghi đè ... thì dùng lệnh
+git rebase -i HEAD~N
+
+Cập nhật lên Remote
+git push origin +master
+
+Remote đã xóa một commit cũ nào đó, muốn local cập nhật theo
+git pull --rebase
+#Hoặc
+git fetch
+git rebase origin/master
+
+13. Lệnh git merge và rebase - gộp và viết lại lịch sử commit
+Để gộp các commit trong nhánh beta vào nhánh master thì chuyển làm việc trên master (Gộp xong thì chia commit theo thời gian)
+git merge beta
+
+- Lệnh git rebase
+Đứng ở master thực hiện lệnh commit sẽ sắp xếp để beta đứng sau master
+git rebase beta
+
+14. Cài đặt Git Server lệnh làm việc với Remote Repository ( Bỏ qua )
+Git Server đơn giản là máy chủ có cài đặt dịch vụ Git, cho phép tạo ra các Repository, ví dụ GitHub chính là một máy chủ Git.
+Để có được Git Server cần làm hai việc :
+
+Bc1 : Cài Git trên máy Server
+Trên Server Linux chạy lệnh
+sudo apt install git-all
+
+Trên Server Linux - CentOs chạy lệnh
+sudo yum install git
+
+Trên Windows Server tải phiên bản Git phù hợp tại Git Download về và chạy bộ cài đặt
+
+Bc2 : Cài đặt SSH cấu hình để user kết nối đến Server được bằng SSH (Có sử dụng SSH Key là tốt nhất).
+- Cài đặt OpenSSH trên Server :
+Vì sẽ cấu hình để có được các Remote Repository được clone và cập nhật (push, pull ...) thông qua giao thức SSH nên cần cài đặt nó. 
+
+15. Lệnh git remote quản lý các liên kết tới remote repo (Bỏ qua)
+Lệnh git remote cho phép bạn tạo, xem và xóa kết nối giữa các Repo
+Khi lấy về một remote repo bằng lệnh git clone, mặc định repo tải về có liên kết với tên origin chứa địa chỉ tham chiếu đến remote repo nó tải về.
+
+- Dùng git remote :
++ Tạo một liên kết Giả sử kho chứa từ xa có địa chỉ url (https hoặc ssh) cần tạo ra liên kết đến nó đặt tên là remote-name thì thực hiện lệnh
+git remote add remote-name url
+
++ Xóa một địa chỉ remote
+git remote rm remote-name
+
++ Đổi tên địa chỉ remote
+git remote rename ten-cu ten-moi
+
++ Xem thông tin về Remote Sử dụng lệnh git remote show, ví dụ xem remote origin:
+git remote show origin
+
+16.Lệnh git push đẩy dữ liệu từ local lên server
+Lệnh git push đẩy các commit mới ở máy trạm (local repo) lên server (remote repo). 
+Một số tham số hay dùng như:
+--all đẩy tất cả các nhánh lên server
+--tags đẩy tất cả các tag lên server
+--delete xóa một nhánh chỉ ra trên server
+-u đẩy và tạo một upstream (luồng upload tương ứng với nhánh của local), hay sử dụng cho lần đầu đẩy lên server
+
+- Sử dụng git push :
++ Đẩy lên server lần đầu tiên : git push -u origin master
++ Đẩy lên server :
+Sau khi có upstream, mỗi lần cần đẩy dữ liệu lên remote của nhánh master, chỉ việc thực hiện lệnh
+git push
+
+Hoặc có thể đẩy một nhánh cụ thể, ví dụ đẩy nhánh beta lên remote có tê origin
+git push origin beta
+
++ Đẩy lên server tất cả các nhánh Đẩy tất cả các nhánh ở local lên server có tên origin:
+git push origin --all
+
++ Xóa một nhánh trên remote
+Ví dụ bạn cần xóa nhánh beta, trên remote có tên origin
+git push origin --delete beta
+
+Bạn có thể kiểm tra các nhánh có trên remote bằng lệnh
+git branch -a
+
++ Ghi đè nhánh với --force
+Bạn có thể ghi đè toàn bộ một nhánh ở remote bởi một nhánh ở master, dùng lệnh này cận thận
+Ví dụ, bạn ghi đè toàn nhánh master ở remote, giống với master của local
+git push --force origin master
+
+17. Lệnh git fetch git pull cập nhật dữ liệu từ remote
+Lệnh git pull và git fetch được dùng để cập nhật dữ liệu mới từ kho chứa ở remote về kho chứa local. 
+Để thực hiện lệnh này tất nhiên bạn phải có kho chứa ở remote và local đã liên kết với nhau
+ 
+Bạn dùng git fetch khi cần lấy dữ liệu từ remote về local mà không ảnh hưởng đến luồng công việc bạn đang thực hiện
+
+- Kho chứa của bạn tên origin, tải về tất cả thông tin của nó từ remote:
+git fetch origin
+Hoặc
+git fetch --all
+
+- Tải thông tin của một nhánh cụ thể, ví dụ master của remote origin
+git fetch origin master
+
+- Git tải về thông tin từ remote và ngay lập tức merge cho nhánh đang làm việc. 
+Lệnh git pull nó tương đương thi hành luôn hai lệnh git fetch và git merge
+Hoặc chỉ rõ remote
+
+git pull origin
+
+18. Làm việc với Tag trong Git
+Có thể dùng lệnh git tag để xem lại danh sách Tag và lệnh git log để xem các Tag đánh dấu vào commit có hash nào
+Tag là một cái tên dùng để đánh dấu một điểm nào đó trong lịch sử quá trình commit khi cho rằng điểm đó là quan trọng, cần chú ý.
+- Liệt kê các Tag : 
+git tag
+Hoặc git tag -l hoặc git tag --list
+
+- Tạo ra một Tag mới đánh dấu vào commit cuối 
+VD Tạo ra một tag có tên beta với dòng chú thích Phien ban thu nghiem
+git tag -a beta -m "Phien ban thu nghiem"
+
+- Tạo ra một Tag mới đánh dấu vào commit cũ
+Nếu muốn đánh dấu vào một điểm bất kỳ trong lịch sử commit, cần lấy mã hash của commit đó (lệnh git log), 
+giả sử commit cũ nào đó có mã hash với các giá trị đầu là 9095f7db3..., tạo ra một Tag đánh dấu cho commit đó như sau:
+git tag -a beta2 -m "Phien ban thu nghiem 2" 9fceb02
+
+- Xem thông tin về commit được gắn tag
+git show tagname
+
+- Cập nhật tag lên Remote  
+Mặc định lệnh git push để cập nhật một dữ liệu code lên Remote nó không có push các tag. 
+git push origin tagname
+Cập nhật tất cả các tag
+git push origin --tags
+
+- Quay về một phiên bản bằng Tag 
+git checkout tagname
+
+-Xóa một tag , Để xóa một tag thì cần thực hiện xóa cả ở Local và ở Remote (nếu đã push tag)
+git push --delete origin tagname
+git tag -d tagname
+
+19. Làm việc với Remote Branch trong Git
+
+
+20. Sử dụng GitHub để làm Remote Repo chứa code dự án

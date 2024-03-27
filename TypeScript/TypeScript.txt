@@ -1,0 +1,244 @@
+1. Tổng quan về ngôn ngữ lập trình TypeScript
+TypeScript được viết trong các file phần mở rộng đặt là .ts, 
+code viết bằng TypeScript sau đó được biên dịch sang JavaScript thông thường để chạy trên trình duyệt! 
+Như vậy, ta dùng TypeScript để viết JavaScript
+
+Giống với scss và css
+
+Công cụ để biên dịch code viết bằng TypeScript là typescript, là là một gói của NodeJs, quản lý bởi npm nên bạn phải cài đặt đầy đủ các thành phần này
+Lên mạng cài NodeJs
+
+npm install -g typescript
+
+Ví dụ có file main.ts muốn biên dịch thành JavaScript main.js thì gõ:
+
+# tsc main.ts
+
+#Biên dịch nhiều file
+# tsc *.ts
+
+#Tự động dịch nếu nội dung file thay đổi
+# tsc main.ts --watch
+
+Ngoài ra có thể tạo một file tsconfig.json để cấu hình tsc cho từng thư mục dự án
+
+2. Một số đặc điểm của TypeScript
+- Khai báo biến với kiểu dữ liệu cụ thể :
+var username: string;
+//Hoặc khởi tạo luôn var username: string = "XTLAB";
+//Hoặc kiểu dữ liệu bất kỳ username: any;
+
+Việc cho khai báo như vậy giúp phát hiện lỗi ngay từ khi code, ví dụ khai báo biến là string lại gán số sẽ có thông báo lỗi khi dịch.
+
+- Khai báo biến mảng với kiểu dữ liệu cụ thể
+var learning: string[];
+learning = ["JavaScript", "PHP", "CSS"];
+//Hoặc var learning: string[] =  ["JavaScript", "PHP", "CSS"];
+var js : string = learning[0];
+
+Cũng có thể dùng ký hiệu {} để tạo mảng có chỉ số phức tạp (đối tượng với thuộc tính) như JS :
+var learning = {first: 'HTML', second: 'CSS'};
+console.log(learning['first']);
+console.log(learning.second);
+
+- Interface - Giao diện lập trình :
+//Khai báo một giao diện
+interface Product {
+    name: string,
+    price: number
+}
+//Hàm nhận tham số có giao diện Product
+function showProduct(product: Product) {
+    console.log(product.name + ':' + product.price);
+}
+
+//Tạo ba đối tượng
+var p1 = {name: 'Iphone', price: 500, os: 'IOS10'};
+var p2 = {name: 'Iphone', price: 'Không biết'};
+var p3 = {name: 'Iphone',  os: 'IOS10'};
+
+showProduct(p1);   //Ok vì p1 có giao diện Product
+
+showProduct(p2);  //Báo Lỗi vì p2 có price kiểu string => khác giao diện Product
+showProduct(p3);  //Báo Lỗi vì p3 không có thuộc tính price => khác giao diện Product
+
+3. Class - Lớp và tính kế thừa lớp
+//Khai báo một lớp có tên Product
+class Product {
+    name: string;
+    price: number;
+    infomation: string;
+    //Hàm khởi tạo
+    constructor(name: string, price: number) {
+        this.name = name;
+        this.price = price;
+        this.infomation = `${name} - ${price}`;
+    }
+
+    //Khai báo một phương thức
+    checkStore(storeid:number) {
+        console.log(this.name + ' in store ' + storeid);
+    }
+
+    //Hàm getter
+    get info() {
+        return this.infomation;
+    }
+
+    //Hàm setter
+    set info(i) {
+        this.infomation = i;
+    }
+
+    //Phương thức tĩnh
+    static convertMoney(m:number) {
+        console.log(m);
+        return  m + ' đồng';
+    }
+}
+
+//SỬ DỤNG LỚP
+
+//Tạo một đối tượng từ lớp bằng new
+let sanpham = new Product('Iphone', 1000);
+
+//truy cập thuộc tính đối tượng sanpham.name
+console.log(sanpham.name);
+
+//gọi một phương thức của đối tượng
+sanpham.checkStore(100);
+
+//Gọi setter
+sanpham.info = 'Thông tin sản phẩm ...';
+
+//Gọi getter
+console.log(sanpham.info);
+
+//Gọi một hàm tĩnh
+Product.convertMoney(100000);
+
+// Kế thừa
+class Computer extends Product {
+    store: number;
+    constructor(name: string, price: number, store: number) {
+        super(name, price);
+        this.store = store;
+    }
+
+    set info(i: string) {
+        //super.info(i) - nếu muốn thi hành phương thức của lớp cha
+        this.infomation = name + ':'+i;
+    }
+
+    totalInStore() {
+        console.log('totalInStore');
+    }
+}
+
+
+//Sử dụng
+let sanpham2 = new Computer('Dell', 2000, 1);
+console.log(sanpham2.name);
+sanpham2.checkStore(200);
+
+sanpham2.info = 'Thông tin sản phẩm ...';
+
+console.log(sanpham2.info);
+sanpham2.totalInStore();
+
+- Generic - trong TypeScript
+Kỹ thuật sử dụng Generic là cách xây dựng các hàm, interface, lớp ... trên một kiểu dữ liệu chung chung tự ký hiệu như kiểu T, kiểu K ..., sau đó khi sử dụng hàm, lớp ... thì mới chỉ rõ kiểu T là gì (number, string ...), kiểu K cụ thể là gì. 
+Generic phổ biến trong nhiều ngôn ngữ lập trình như C#, Java, Generic trong Dart ...
+
+//Khai báo một hàm Generic, kiểu dữ liệu đại diện T nào đó
+//Hàm tạo ra mảng kiểu T
+function getArray<T>(item : T ) : T[] {
+    var ar = new Array<T>();
+    ar.push(item);
+    return ar;
+}
+
+//Tạo ra mảng kiểu String
+var arString = getArray<T>("Phần tử 1");
+arString.push("Phần tử 2");
+arString.push(1); //Lỗi vì chèn vào mảng phần tử số
+
+//Tạo ra mảng kiểu number
+var arNumber = getArray<T>(22);
+
+interface KeyPair<T, U> {
+    key: T;
+    value: U;
+}
+let kv1: KeyPair<number, string> = { key:1, value:"Steve" };
+let kv2: KeyPair<number, number> = { key:1, value:12345 };
+
+class KeyValuePair<T, U> {
+    private  key: T;
+    private  value: U;
+    setKeyValue(key: T, val: U): void {
+        this.key = key;
+        this.val = val;
+    }
+}
+
+- Module và Namespace - trong TypeScript
+Module hóa là cách tổ chức code thành các thành phần (chia thành các file .ts), các thành phần đó khi nào cần sử dụng thì nạp vào.
+Trong một file .ts nào muốn các thành phần của nó có thể sử dụng lại ở file .ts khác thì dùng tới từ khóa export cho các thành phần đó (các thành phần có thể là biến, hằng, lớp, đối tượng ...)
+
+export { name1, name2, …, nameN };
+Khi nào cần dùng đến các thành phần export thì nạp vào bằng từ khóa import :
+import {name1, name2, …, nameN } from './namemodule';
+//namemodule đường dẫn tới file .ts
+
+
+Ví dụ ở file module1.ts khai báo
+var var1:string = 'A';
+function fun1() {
+    console.log('f1');
+}
+class classExample {
+    property1: string
+}
+
+export {var1, fun1, classExample};
+
+Như vậy xuất module có 3 thành phần, lúc này ở file khác, nếu muốn sử dụng 3 thành phần này thì khai báo với import
+
+//Nạp 1 thành phần
+import {classExample} from './module1';
+//Nạp nhiều thành phần thì liệt kê ra
+import {classExample, var1} from './module1';
+Bạn có thể nạp tất cả các thành phần
+import * as M from './module1';
+//Truy cập bằng M.var1, M.classExample ...
+
+- Namespace giống như C#, PHP ... để tránh xung đột về tên. Bạn có thể gộp các lớp, hàm ... vào một Namespace do bạn đặt ví dụ:
+
+namespace Utility {
+    export function log(msg: string) {
+        console.log(msg);
+    }
+    export function error(msg: string) {
+        console.error(msg);
+    }
+    export class ClassExam {
+        name: string;
+    }
+}
+
+// sử dụng: truy cập tới hàm, lớp phải chỉ ra namespace cụ thể
+Utility.log('Call me');
+Utility.error('maybe!');
+var cls : Utility.ClassExam = new Utility.ClassExam();
+
+//Export Namespace
+export {Utility}
+
+Khi sử dụng lại code, có thể import theo Namespace
+import {Utility} from './module1';
+
+
+Ví dụ, nạp module jQuery, cài đặt jQuery
+#npm install @types/jquery --save-dev
+import * as $ from "jquery";
