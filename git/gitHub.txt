@@ -12,10 +12,10 @@ git --help
 
 - Cấu hình Git :
 Tên trên hệ thống Git
-git config --global user.name "Tên của Bạn"
+git config --global user.name NguyenHiep
 
 Email của bạn trên Git
-git config --global user.email emailcuaban@domain.com
+git config --global user.email gajxinh176@gmail.com
 
 Hiện thị các tham số thiết lập Git
 git config --list
